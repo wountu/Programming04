@@ -8,16 +8,19 @@ namespace dae
 {
 	class Font;
 	class Texture2D;
-	class TextObject final : public GameObject
+	class TextObject final
 	{
 	public:
-		void Update() override;
-		void Render() const override;
+		void Initialize(const std::string& text, std::shared_ptr<Font> font);
+		void Update();
+		void Render() const;
 
 		void SetText(const std::string& text);
 		void SetPosition(float x, float y);
+		void SetFont(std::shared_ptr<Font> font);
 
 		TextObject(const std::string& text, std::shared_ptr<Font> font);
+		TextObject() = default;
 		virtual ~TextObject() = default;
 		TextObject(const TextObject& other) = delete;
 		TextObject(TextObject&& other) = delete;
