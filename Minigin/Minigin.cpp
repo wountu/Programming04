@@ -67,6 +67,8 @@ dae::Minigin::Minigin(const std::string &dataPath)
 	Renderer::GetInstance().Init(g_window);
 
 	ResourceManager::GetInstance().Init(dataPath);
+
+	m_pTimeClass->Initialize();
 }
 
 dae::Minigin::~Minigin()
@@ -84,14 +86,17 @@ void dae::Minigin::Run(const std::function<void()>& load)
 	auto& renderer = Renderer::GetInstance();
 	auto& sceneManager = SceneManager::GetInstance();
 	auto& input = InputManager::GetInstance();
+	auto& time = TimeClass::GetInstance();
 
 	bool doContinue = true;
 	auto lastTime = std::chrono::high_resolution_clock::now();
 	float lag = 0.0f;
-	const float fixedTimeStep{ 0.2f };
+	const float fixedTimeStep{ 0.02f };
 
 	while (doContinue)
 	{
+		time.Update();
+
 		const auto currentTime = std::chrono::high_resolution_clock::now();
 		const float deltaTime = std::chrono::duration<float>(currentTime - lastTime).count();
 		lastTime = currentTime;

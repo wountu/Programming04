@@ -1,6 +1,9 @@
 #pragma once
 #include <string>
 #include <functional>
+#include <memory>
+
+#include "TimeClass.h"
 
 namespace dae
 {
@@ -15,5 +18,7 @@ namespace dae
 		Minigin(Minigin&& other) = delete;
 		Minigin& operator=(const Minigin& other) = delete;
 		Minigin& operator=(Minigin&& other) = delete;
+	private:
+		std::shared_ptr<TimeClass> m_pTimeClass = std::make_shared<TimeClass>();
 	};
 }
