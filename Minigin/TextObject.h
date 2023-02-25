@@ -20,7 +20,6 @@ namespace dae
 		virtual void SetOwner(std::weak_ptr<GameObject> parent) override;
 
 		void SetText(const std::string& text);
-		//void SetPosition(float x, float y);
 		void SetFont(std::shared_ptr<Font> font);
 
 		TextObject(const std::string& text, std::shared_ptr<Font> font);
@@ -32,7 +31,6 @@ namespace dae
 		TextObject& operator=(TextObject&& other) = delete;
 	private:
 		std::string m_text;
-		//Transform m_transform{};
 		std::shared_ptr<Font> m_font;
 		std::shared_ptr<Texture2D> m_textTexture;
 	};

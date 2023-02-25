@@ -47,12 +47,14 @@ void dae::TextObject::Update()
 
 void dae::TextObject::Render() const
 {
-	//std::cout << "Text is rendering" << "\n";
+	auto transform = m_Parent.lock()->GetComponent<TransformComponent>();
+
+	auto& renderer = Renderer::GetInstance();
 
 	if (m_textTexture != nullptr)
 	{
-		Renderer::GetInstance().RenderTexture(*m_textTexture);
-		//Renderer::GetInstance().
+		renderer.SetRenderPos(transform->GetPosition());
+		renderer.RenderTexture(*m_textTexture);
 	}
 }
 
