@@ -14,8 +14,7 @@ namespace dae
 		TransformComponent(TransformComponent&& other) = delete;
 		TransformComponent& operator=(TransformComponent&& other) = delete;
 
-		virtual void Initialize(const glm::vec2& pos);
-		virtual void SetParent(std::weak_ptr<GameObject> parent) override;
+		virtual void Initialize(const glm::vec2& pos, std::shared_ptr<GameObject> parent);
 
 		void ChangePosition(glm::vec2 pos);
 		glm::vec2 GetPosition() const;

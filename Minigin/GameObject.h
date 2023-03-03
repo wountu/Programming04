@@ -44,20 +44,18 @@ namespace dae
 	};
 
 	template<typename T>
-	inline std::shared_ptr <T> dae::GameObject::AddComponent()
+	std::shared_ptr <T> dae::GameObject::AddComponent()
 	{
 		std::shared_ptr component = std::make_shared<T>();
 		static_assert((std::is_base_of<BaseComponent, T>::value) && ("Not inherited from basecomponent"));
-		
-		component->SetParent(shared_from_this());
 
-		m_components.push_back(component);
+		m_components.emplace_back(component);
 
 		return component;
 	}
 
 	template<typename T>
-	inline std::shared_ptr <T> dae::GameObject::GetComponent() const
+	std::shared_ptr <T> dae::GameObject::GetComponent() const
 	{
 		for (auto& component : m_components)
 		{
@@ -68,5 +66,19 @@ namespace dae
 
 		assert(!"Component not found in gameobject");
 		return nullptr;
+	}
+
+	template<typename T>
+	void dae::GameObject::RemoveComponent()
+	{
+		auto it{ m_components.begin() };
+		for (it; it != m_components.end(); ++it)
+		{
+			if (dynamic_cast<T*>(it->get()))
+			{
+				m_components.erase(it);
+				break;
+			}
+		}
 	}
 }

@@ -3,14 +3,9 @@
 
 namespace dae
 {
-	void TransformComponent::Initialize(const glm::vec2& pos)
+	void TransformComponent::Initialize(const glm::vec2& pos, std::shared_ptr<GameObject> parent)
 	{
-		std::cout << "Init << " << pos.x << ", " << pos.y << "\n";
 		m_position = pos;
-	}
-
-	void TransformComponent::SetParent(std::weak_ptr<GameObject> parent)
-	{
 		m_Parent = parent;
 	}
 
@@ -20,7 +15,6 @@ namespace dae
 
 	void TransformComponent::ChangePosition(glm::vec2 pos)
 	{
-		std::cout << "Change << " << pos.x << ", " << pos.y << "\n";
 		m_position = pos;
 	}
 

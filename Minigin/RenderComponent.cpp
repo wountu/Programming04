@@ -3,24 +3,18 @@
 #include "Texture2D.h"
 #include "Renderer.h"
 
-void dae::RenderComponent::Initialize(std::shared_ptr<Texture2D> texture)
+void dae::RenderComponent::Initialize(std::shared_ptr<Texture2D> texture, std::shared_ptr<GameObject> parent)
 {
 	m_needsRender = true;
 	m_texture = texture;
+	m_Parent = parent;
+	m_transform = m_Parent->GetComponent<TransformComponent>();
 }
 
 void dae::RenderComponent::Render() const
 {
-	auto transform = m_Parent.lock()->GetComponent<TransformComponent>();
-
 	auto &renderer = Renderer::GetInstance();
 
-	renderer.SetRenderPos(transform->GetPosition());
+	renderer.SetRenderPos(m_transform->GetPosition());
 	renderer.RenderTexture(*m_texture);
-
-}
-
-void dae::RenderComponent::SetParent(std::weak_ptr<GameObject> parent)
-{
-	m_Parent = parent;
 }

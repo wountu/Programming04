@@ -3,11 +3,15 @@
 #include "TimeClass.h"
 #include "Renderer.h"
 #include "GameObject.h"
-#include "TextObject.h"
 
-void dae::fpsCounter::Initialize()
+
+void dae::fpsCounter::Initialize(std::shared_ptr<GameObject> parent)
 {
 	m_needsUpdate = true;
+	m_Parent = parent;
+	m_text = m_Parent->GetComponent<TextObject>();
+
+	m_text->SetColor(glm::vec3(0, 255, 0));
 }
 
 void dae::fpsCounter::Update()
@@ -19,13 +23,7 @@ void dae::fpsCounter::Update()
 
 	int fps = timeClass.GetFps();
 
-	auto text = m_Parent.lock()->GetComponent<TextObject>();
-	text->SetText(std::to_string(fps));
-}
-
-void dae::fpsCounter::SetParent(std::weak_ptr<GameObject> parent)
-{
-	m_Parent = parent;
+	m_text->SetText(std::to_string(fps) + " FPS");
 }
 
 int dae::fpsCounter::GetFps() const

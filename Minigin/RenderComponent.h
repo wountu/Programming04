@@ -2,6 +2,7 @@
 #include <memory>
 
 #include "BaseComponent.h"
+#include "TransformComponent.h"
 
 namespace dae
 {
@@ -16,12 +17,11 @@ namespace dae
 		RenderComponent(RenderComponent&& other)				 = delete;
 		RenderComponent& operator=(RenderComponent&& other)		 = delete;
 
-		virtual void Initialize(std::shared_ptr<Texture2D> texture);
+		virtual void Initialize(std::shared_ptr<Texture2D> texture, std::shared_ptr<GameObject> parent);
 		virtual void Render() const override;
-
-		virtual void SetParent(std::weak_ptr<GameObject> parent) override;
 	private:
 		std::shared_ptr<Texture2D> m_texture{ nullptr };
+		std::shared_ptr<TransformComponent> m_transform{ nullptr };
 	};
 
 }

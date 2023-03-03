@@ -3,6 +3,7 @@
 #include <chrono>
 
 #include "BaseComponent.h"
+#include "TextObject.h"
 
 namespace dae
 {
@@ -16,10 +17,8 @@ namespace dae
 		fpsCounter(fpsCounter&& other)				   = delete;
 		fpsCounter& operator=(fpsCounter&& other)	   = delete;
 
-		virtual void Initialize() override;
+		virtual void Initialize(std::shared_ptr<GameObject> parent) override;
 		virtual void Update() override;
-
-		virtual void SetParent(std::weak_ptr<GameObject> parent) override;
 
 		int GetFps() const;
 	private:
@@ -29,6 +28,8 @@ namespace dae
 		float m_timeCounter{};
 		int m_Counter{};
 		int m_fps{};
+
+		std::shared_ptr<TextObject> m_text{};
 	};
 }
 

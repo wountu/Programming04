@@ -2,8 +2,9 @@
 
 namespace dae
 {
-	void BaseComponent::Initialize()
+	void BaseComponent::Initialize(std::shared_ptr<GameObject> parent)
 	{
+		m_Parent = parent;
 	}
 
 	BaseComponent::~BaseComponent()
@@ -26,10 +27,5 @@ namespace dae
 	bool BaseComponent::GetNeedRender() const
 	{
 		return m_needsRender;
-	}
-
-	void BaseComponent::SetParent(std::weak_ptr<GameObject> parent)
-	{
-		m_Parent = parent;
 	}
 }
