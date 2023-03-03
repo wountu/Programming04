@@ -17,7 +17,7 @@ namespace dae
 		virtual void Update() override;
 		virtual void Render() const override;
 
-		virtual void SetOwner(std::weak_ptr<GameObject> parent) override;
+		virtual void SetParent(std::weak_ptr<GameObject> parent) override;
 
 		void SetText(const std::string& text);
 		void SetFont(std::shared_ptr<Font> font);

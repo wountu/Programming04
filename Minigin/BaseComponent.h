@@ -22,7 +22,7 @@ namespace dae
 		virtual bool GetNeedUpdate() const;
 		virtual bool GetNeedRender() const;
 
-		virtual void SetOwner(std::weak_ptr<GameObject> parent);
+		virtual void SetParent(std::weak_ptr<GameObject> parent);
 	protected:
 		bool m_needsUpdate{ false }; //If needed, overwrite in derived componentclasses
 		bool m_needsRender{ false }; //Same as m_needsUpdate

@@ -19,16 +19,16 @@ namespace dae
 		virtual void Initialize() override;
 		virtual void Update() override;
 
-		virtual void SetOwner(std::weak_ptr<GameObject> parent) override;
+		virtual void SetParent(std::weak_ptr<GameObject> parent) override;
 
 		int GetFps() const;
 	private:
 		std::chrono::steady_clock::time_point m_timeLastFrame;
 		std::chrono::steady_clock::time_point m_timeThisFrame;
 
-		float m_timeCounter;
-		int m_Counter;
-		int m_fps;
+		float m_timeCounter{};
+		int m_Counter{};
+		int m_fps{};
 	};
 }
 

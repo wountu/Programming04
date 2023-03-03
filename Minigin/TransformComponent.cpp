@@ -9,7 +9,7 @@ namespace dae
 		m_position = pos;
 	}
 
-	void TransformComponent::SetOwner(std::weak_ptr<GameObject> parent)
+	void TransformComponent::SetParent(std::weak_ptr<GameObject> parent)
 	{
 		m_Parent = parent;
 	}

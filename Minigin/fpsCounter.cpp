@@ -23,7 +23,7 @@ void dae::fpsCounter::Update()
 	text->SetText(std::to_string(fps));
 }
 
-void dae::fpsCounter::SetOwner(std::weak_ptr<GameObject> parent)
+void dae::fpsCounter::SetParent(std::weak_ptr<GameObject> parent)
 {
 	m_Parent = parent;
 }

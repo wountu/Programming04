@@ -17,12 +17,20 @@ namespace dae
 
 		void Initialize();
 		void Update();
+
 		int GetFps() const;
+
+		void SetLag(float lag);
+		float GetLag() const;
+
+		std::chrono::steady_clock::time_point GetTotalTime() const;
 	private:
 		std::chrono::steady_clock::time_point m_timeLastFrame;
 		std::chrono::steady_clock::time_point m_timeThisFrame;
+		std::chrono::high_resolution_clock m_currentTime;
 
-		int m_fps;
+		int m_fps{};
+		float m_lag{};
 	};
 }
 

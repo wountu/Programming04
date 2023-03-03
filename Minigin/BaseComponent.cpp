@@ -28,7 +28,7 @@ namespace dae
 		return m_needsRender;
 	}
 
-	void BaseComponent::SetOwner(std::weak_ptr<GameObject> parent)
+	void BaseComponent::SetParent(std::weak_ptr<GameObject> parent)
 	{
 		m_Parent = parent;
 	}

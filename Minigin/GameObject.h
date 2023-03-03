@@ -49,7 +49,7 @@ namespace dae
 		std::shared_ptr component = std::make_shared<T>();
 		static_assert((std::is_base_of<BaseComponent, T>::value) && ("Not inherited from basecomponent"));
 		
-		component->SetOwner(shared_from_this());
+		component->SetParent(shared_from_this());
 
 		m_components.push_back(component);
 

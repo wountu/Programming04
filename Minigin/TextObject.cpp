@@ -58,7 +58,7 @@ void dae::TextObject::Render() const
 	}
 }
 
-void dae::TextObject::SetOwner(std::weak_ptr<GameObject> parent)
+void dae::TextObject::SetParent(std::weak_ptr<GameObject> parent)
 {
 	m_Parent = parent;
 }
