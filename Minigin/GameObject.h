@@ -3,6 +3,7 @@
 #include <vector>
 #include <iostream>
 #include <string_view>
+#include <glm/vec2.hpp>
 
 #include "TransformComponent.h"
 #include "Transform.h"
@@ -20,9 +21,6 @@ namespace dae
 		void Update();
 		void Render() const;
 
-		//void SetTexture(const std::string& filename);
-		void SetPosition(float x, float y);	
-
 		template <typename T> std::shared_ptr <T> AddComponent();
 		template <typename T> std::shared_ptr <T> GetComponent() const;
 		template <typename T> void RemoveComponent();
@@ -35,12 +33,33 @@ namespace dae
 		GameObject& operator=(const GameObject& other) = delete;
 		GameObject& operator=(GameObject&& other) = delete;
 
+		std::shared_ptr<GameObject> GetParent() const;
+		void SetParent(std::shared_ptr<GameObject> parent, bool keepWorldPos);
+		
+		int GetChildCount() const;
+		std::shared_ptr<GameObject> GetChildAt(int idx) const;
+
+		void SetLocalPos(const glm::vec2& pos);
+		const glm::vec2& GetWorldPos();
+
 	private:
+		void AddChild(std::shared_ptr<GameObject> child);
+		void RemoveChild(std::shared_ptr<GameObject> child);
+
+		void SetPositionDirty();
+		void UpdateWorldPos();
+
 		std::vector<std::shared_ptr<BaseComponent>> m_components;
 		Transform m_transform{};
 		std::shared_ptr<TransformComponent> m_pTransform{ nullptr };
-		// todo: mmm, every gameobject has a texture? Is that correct?
-		//std::shared_ptr<Texture2D> m_texture{};
+		
+		std::shared_ptr<GameObject> m_parent{ nullptr };
+		std::vector<std::shared_ptr<GameObject>> m_children;
+
+		bool m_positionIsDirty{};
+
+		glm::vec2 m_worldPos{};
+		glm::vec2 m_localPos{};
 	};
 
 	template<typename T>

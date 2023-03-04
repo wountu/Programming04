@@ -15,6 +15,8 @@ void dae::RenderComponent::Render() const
 {
 	auto &renderer = Renderer::GetInstance();
 
-	renderer.SetRenderPos(m_transform->GetPosition());
+	m_Parent->SetLocalPos(m_transform->GetPosition());
+
+	renderer.SetRenderPos(m_Parent->GetWorldPos());
 	renderer.RenderTexture(*m_texture);
 }
