@@ -30,7 +30,7 @@ void dae::GameObject::SetParent(std::shared_ptr<GameObject> parent, bool keepWor
 		m_parent->AddChild(std::shared_ptr<GameObject>(this));
 }
 
-int dae::GameObject::GetChildCount() const
+size_t dae::GameObject::GetChildCount() const
 {
 	return m_children.size();
 }

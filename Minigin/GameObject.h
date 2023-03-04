@@ -36,7 +36,7 @@ namespace dae
 		std::shared_ptr<GameObject> GetParent() const;
 		void SetParent(std::shared_ptr<GameObject> parent, bool keepWorldPos);
 		
-		int GetChildCount() const;
+		size_t GetChildCount() const;
 		std::shared_ptr<GameObject> GetChildAt(int idx) const;
 
 		void SetLocalPos(const glm::vec2& pos);

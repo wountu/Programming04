@@ -75,6 +75,9 @@
     <ClInclude Include="TextObject.h">
       <Filter>Framework\Components</Filter>
     </ClInclude>
+    <ClInclude Include="RotateComponent.h">
+      <Filter>Framework\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -126,6 +129,9 @@
       <Filter>Framework\Components</Filter>
     </ClCompile>
     <ClCompile Include="TextObject.cpp">
+      <Filter>Framework\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="RotateComponent.cpp">
       <Filter>Framework\Components</Filter>
     </ClCompile>
   </ItemGroup>

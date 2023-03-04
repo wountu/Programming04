@@ -67,8 +67,6 @@ dae::Minigin::Minigin(const std::string &dataPath)
 	Renderer::GetInstance().Init(g_window);
 
 	ResourceManager::GetInstance().Init(dataPath);
-
-	m_pTimeClass->Initialize();
 }
 
 dae::Minigin::~Minigin()
@@ -93,6 +91,8 @@ void dae::Minigin::Run(const std::function<void()>& load)
 	const float fixedTimeStep{ 0.02f };
 	const float desiredFps{ 144.f };
 	const int frameTimeMs{ int(1000 / desiredFps) };
+
+	m_pTimeClass->Initialize();
 
 	while (doContinue)
 	{

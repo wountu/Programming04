@@ -22,6 +22,7 @@ namespace dae
 
 		void SetLag(float lag);
 		float GetLag() const;
+		float GetElapsed() const;
 
 		std::chrono::steady_clock::time_point GetTotalTime() const;
 	private:
@@ -31,6 +32,7 @@ namespace dae
 
 		int m_fps{};
 		float m_lag{};
+		float m_elapsed{};
 	};
 }
 

@@ -5,18 +5,17 @@ namespace dae
 {
 	void TimeClass::Initialize()
 	{
-		m_fps = 0;
-		m_lag = 0;
 		m_timeLastFrame = std::chrono::high_resolution_clock::now();
+
 	}
 
 	void TimeClass::Update()
 	{
 		m_timeThisFrame = std::chrono::high_resolution_clock::now();
-		float elapsedSec = std::chrono::duration<float>(m_timeThisFrame - m_timeLastFrame).count();
-		m_lag += elapsedSec;
+		m_elapsed = std::chrono::duration<float>(m_timeThisFrame - m_timeLastFrame).count();
+		m_lag += m_elapsed;
 
-		m_fps = int(1.f / elapsedSec);
+		m_fps = int(1.f / m_elapsed);
 		//std::cout << m_fps << "\n";
 
 		m_timeLastFrame = m_timeThisFrame;
@@ -36,6 +35,11 @@ namespace dae
 	float TimeClass::GetLag() const
 	{
 		return m_lag;
+	}
+
+	float TimeClass::GetElapsed() const
+	{
+		return m_elapsed;
 	}
 
 	std::chrono::steady_clock::time_point TimeClass::GetTotalTime() const
