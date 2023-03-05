@@ -42,6 +42,8 @@ std::shared_ptr<dae::GameObject> dae::GameObject::GetChildAt(int idx) const
 
 void dae::GameObject::AddChild(std::shared_ptr<GameObject> child)
 {
+
+
 	m_children.emplace_back(child);
 }
 
@@ -51,6 +53,8 @@ void dae::GameObject::RemoveChild(std::shared_ptr<GameObject> child)
 
 	if (result != m_children.end())
 	{
+		result->get()->SetParent(nullptr, true);
+
 		m_children.erase(result);
 	}
 }
@@ -88,9 +92,6 @@ void dae::GameObject::Update()
 {
 	for (std::shared_ptr<BaseComponent> pComponent : m_components)
 	{
-		if (!pComponent->GetNeedUpdate())
-			continue;
-
 		pComponent->Update();
 	}
 }
@@ -99,7 +100,6 @@ void dae::GameObject::Render() const
 {
 	for (std::shared_ptr<BaseComponent> pComponent : m_components)
 	{
-		//Renderer::GetInstance().SetRenderPos(m_pTransform->GetPosition());
 		pComponent->Render();
 	}
 }

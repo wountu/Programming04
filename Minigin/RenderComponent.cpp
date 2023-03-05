@@ -5,7 +5,6 @@
 
 void dae::RenderComponent::Initialize(std::shared_ptr<Texture2D> texture, std::shared_ptr<GameObject> parent)
 {
-	m_needsRender = true;
 	m_texture = texture;
 	m_Parent = parent;
 	m_transform = m_Parent->GetComponent<TransformComponent>();

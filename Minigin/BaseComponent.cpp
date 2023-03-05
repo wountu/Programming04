@@ -18,14 +18,4 @@ namespace dae
 	void BaseComponent::Render() const
 	{
 	}
-
-	bool BaseComponent::GetNeedUpdate() const
-	{
-		return m_needsUpdate;
-	}
-
-	bool BaseComponent::GetNeedRender() const
-	{
-		return m_needsRender;
-	}
 }

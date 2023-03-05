@@ -7,7 +7,6 @@
 
 void dae::fpsCounter::Initialize(std::shared_ptr<GameObject> parent)
 {
-	m_needsUpdate = true;
 	m_Parent = parent;
 	m_text = m_Parent->GetComponent<TextObject>();
 
@@ -16,14 +15,15 @@ void dae::fpsCounter::Initialize(std::shared_ptr<GameObject> parent)
 
 void dae::fpsCounter::Update()
 {
-	auto& renderer = Renderer::GetInstance();
 	auto& timeClass = TimeClass::GetInstance();
-
-	renderer.Render();
 
 	int fps = timeClass.GetFps();
 
 	m_text->SetText(std::to_string(fps) + " FPS");
+}
+
+void dae::fpsCounter::Render() const
+{
 }
 
 int dae::fpsCounter::GetFps() const

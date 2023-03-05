@@ -19,6 +19,7 @@ namespace dae
 
 		virtual void Initialize(std::shared_ptr<GameObject> parent) override;
 		virtual void Update() override;
+		virtual void Render() const override;
 
 		int GetFps() const;
 	private:
