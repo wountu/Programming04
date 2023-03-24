@@ -8,54 +8,57 @@
     <Filter Include="Framework">
       <UniqueIdentifier>{b3cce291-5e38-4570-b968-9133181d1e70}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Framework\Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Framework\Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
     <Filter Include="Components">
       <UniqueIdentifier>{095ed47c-8b90-467e-8463-fe7d8b14f9e0}</UniqueIdentifier>
     </Filter>
     <Filter Include="Framework\Components">
       <UniqueIdentifier>{b7d7b82d-36f1-402b-9eef-4d3413697711}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Engine">
+      <UniqueIdentifier>{e6f52837-6c20-4d9b-95ae-f88cd214f0e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Engine\Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Framework\Engine\Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Framework\Engine\Input">
+      <UniqueIdentifier>{8cbcfa6d-c7e2-4ff5-8e68-79ddf0fcb4c2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
-      <Filter>Framework\Header Files</Filter>
+      <Filter>Framework\Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ResourceManager.h">
-      <Filter>Framework\Header Files</Filter>
+      <Filter>Framework\Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
-      <Filter>Framework\Header Files</Filter>
+      <Filter>Framework\Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Texture2D.h">
-      <Filter>Framework\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="InputManager.h">
-      <Filter>Framework\Header Files</Filter>
+      <Filter>Framework\Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
-      <Filter>Framework\Header Files</Filter>
+      <Filter>Framework\Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Framework\Header Files</Filter>
+      <Filter>Framework\Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
-      <Filter>Framework\Header Files</Filter>
+      <Filter>Framework\Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Font.h">
-      <Filter>Framework\Header Files</Filter>
+      <Filter>Framework\Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Minigin.h">
-      <Filter>Framework\Header Files</Filter>
+      <Filter>Framework\Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TimeClass.h">
-      <Filter>Framework\Header Files</Filter>
+      <Filter>Framework\Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TransformComponent.h">
       <Filter>Framework\Components</Filter>
@@ -78,40 +81,46 @@
     <ClInclude Include="RotateComponent.h">
       <Filter>Framework\Components</Filter>
     </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Framework\Engine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="ControllerXbox.h">
+      <Filter>Framework\Engine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>Framework\Engine\Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
-      <Filter>Framework\Source Files</Filter>
+      <Filter>Framework\Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
-      <Filter>Framework\Source Files</Filter>
+      <Filter>Framework\Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Texture2D.cpp">
-      <Filter>Framework\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="InputManager.cpp">
-      <Filter>Framework\Source Files</Filter>
+      <Filter>Framework\Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Transform.cpp">
-      <Filter>Framework\Source Files</Filter>
+      <Filter>Framework\Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>Framework\Source Files</Filter>
+      <Filter>Framework\Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
-      <Filter>Framework\Source Files</Filter>
+      <Filter>Framework\Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Font.cpp">
-      <Filter>Framework\Source Files</Filter>
+      <Filter>Framework\Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
-      <Filter>Framework\Source Files</Filter>
+      <Filter>Framework\Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Minigin.cpp">
-      <Filter>Framework\Source Files</Filter>
+      <Filter>Framework\Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TimeClass.cpp">
-      <Filter>Framework\Source Files</Filter>
+      <Filter>Framework\Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BaseComponent.cpp">
       <Filter>Framework\Components</Filter>
@@ -133,6 +142,15 @@
     </ClCompile>
     <ClCompile Include="RotateComponent.cpp">
       <Filter>Framework\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Framework\Engine\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="ControllerXbox.cpp">
+      <Filter>Framework\Engine\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Command.cpp">
+      <Filter>Framework\Engine\Input</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

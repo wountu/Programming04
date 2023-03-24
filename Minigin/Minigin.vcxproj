@@ -176,6 +176,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BaseComponent.h" />
+    <ClInclude Include="Command.h" />
+    <ClInclude Include="ControllerXbox.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="fpsCounter.h" />
     <ClInclude Include="GameObject.h" />
@@ -196,6 +198,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseComponent.cpp" />
+    <ClCompile Include="Command.cpp" />
+    <ClCompile Include="ControllerXbox.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="fpsCounter.cpp" />
     <ClCompile Include="GameObject.cpp" />
