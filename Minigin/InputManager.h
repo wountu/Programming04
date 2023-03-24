@@ -31,12 +31,12 @@ namespace dae
 
 
 		std::unique_ptr<T> command = std::make_unique<T>(actor);
-		//T* toReturn = command.get();
+		T* toReturn = command.get();
 		ControllerKey keyToPress = std::make_pair(controllerIndex, buttonToPress);
 
 		m_ConsoleCommands.insert({ keyToPress , std::move(command) });
 
-		return command.get();
+		return toReturn;
 	}
 
 

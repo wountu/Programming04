@@ -1,6 +1,6 @@
 #include <SDL.h>
 #include "InputManager.h"
-#include "XInput.h"
+//#include "XInput.h"
 
 bool dae::InputManager::ProcessInput()
 {
