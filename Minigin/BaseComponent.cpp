@@ -4,7 +4,7 @@ namespace dae
 {
 	void BaseComponent::Initialize(std::shared_ptr<GameObject> parent)
 	{
-		m_Parent = parent;
+		m_pParent = parent.get();
 	}
 
 	BaseComponent::~BaseComponent()

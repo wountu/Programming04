@@ -5,12 +5,11 @@
 #include "ResourceManager.h"
 #include "Renderer.h"
 
-dae::GameObject::~GameObject() = default;
-
-std::shared_ptr<dae::GameObject> dae::GameObject::GetParent() const
+dae::GameObject::~GameObject()
 {
-	return m_parent;
+
 }
+
 
 void dae::GameObject::SetParent(std::shared_ptr<GameObject> parent, bool keepWorldPos)
 {
@@ -27,7 +26,7 @@ void dae::GameObject::SetParent(std::shared_ptr<GameObject> parent, bool keepWor
 		m_parent->RemoveChild(std::shared_ptr<GameObject>(this));
 	m_parent = parent;
 	if (m_parent)
-		m_parent->AddChild(std::shared_ptr<GameObject>(this));
+		m_parent->AddChild(this);
 }
 
 size_t dae::GameObject::GetChildCount() const
@@ -40,23 +39,22 @@ std::shared_ptr<dae::GameObject> dae::GameObject::GetChildAt(int idx) const
 	return m_children[idx];
 }
 
-void dae::GameObject::AddChild(std::shared_ptr<GameObject> child)
+void dae::GameObject::AddChild(GameObject* pChild)
 {
-
-
-	m_children.emplace_back(child);
+	m_children.emplace_back(pChild);
 }
 
 void dae::GameObject::RemoveChild(std::shared_ptr<GameObject> child)
 {
-	auto result = std::find(m_children.begin(), m_children.end(), child);
 
-	if (result != m_children.end())
-	{
-		result->get()->SetParent(nullptr, true);
+	//auto result = std::find(m_children.begin(), m_children.end(), child);
 
-		m_children.erase(result);
-	}
+	//if (result != m_children.end())
+	//{
+	//	result->get()->SetParent(nullptr, true);
+
+	//	m_children.erase(result);
+	//}
 }
 
 void dae::GameObject::SetPositionDirty()

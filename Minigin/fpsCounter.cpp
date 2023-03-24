@@ -7,8 +7,8 @@
 
 void dae::fpsCounter::Initialize(std::shared_ptr<GameObject> parent)
 {
-	m_Parent = parent;
-	m_text = m_Parent->GetComponent<TextObject>();
+	m_pParent = parent.get();
+	m_text = m_pParent->GetComponent<TextObject>();
 
 	m_text->SetColor(glm::vec3(0, 255, 0));
 }

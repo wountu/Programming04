@@ -27,7 +27,7 @@ namespace dae
 
 
 		GameObject() = default;
-		~GameObject();
+		virtual ~GameObject();
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
 		GameObject& operator=(const GameObject& other) = delete;
@@ -43,7 +43,7 @@ namespace dae
 		const glm::vec2& GetWorldPos();
 
 	private:
-		void AddChild(std::shared_ptr<GameObject> child);
+		void AddChild(GameObject* pChild);
 		void RemoveChild(std::shared_ptr<GameObject> child);
 
 		void SetPositionDirty();
@@ -54,7 +54,7 @@ namespace dae
 		std::shared_ptr<TransformComponent> m_pTransform{ nullptr };
 		
 		std::shared_ptr<GameObject> m_parent{ nullptr };
-		std::vector<std::shared_ptr<GameObject>> m_children;
+		std::vector<std::shared_ptr<GameObject>> m_children{};
 
 		bool m_positionIsDirty{};
 

@@ -11,7 +11,7 @@ namespace dae
 	{
 	public:
 		RenderComponent() = default;
-		virtual ~RenderComponent() = default;
+		virtual ~RenderComponent();
 		RenderComponent(const RenderComponent& other)			 = delete;
 		RenderComponent& operator=(const RenderComponent& other) = delete;
 		RenderComponent(RenderComponent&& other)				 = delete;

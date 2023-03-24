@@ -5,6 +5,7 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include <chrono>
+#include <iostream>
 
 #include "Minigin.h"
 #include "InputManager.h"
@@ -114,4 +115,5 @@ void dae::Minigin::Run(const std::function<void()>& load)
 		const auto sleepTime = time.GetTotalTime() + std::chrono::milliseconds(frameTimeMs) - std::chrono::high_resolution_clock::now();
 		std::this_thread::sleep_for(sleepTime);
 	}
+	std::cout << "got out of gameloop \n";
 }
