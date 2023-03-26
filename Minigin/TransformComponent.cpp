@@ -1,5 +1,6 @@
 #include <iostream>
 #include "TransformComponent.h"
+#include "GameObject.h"
 
 namespace dae
 {
@@ -11,8 +12,8 @@ namespace dae
 
 	TransformComponent::~TransformComponent()
 	{
-		std::cout << "destructor transform \n";
-		//m_pParent.reset();
+		delete m_pParent;
+		m_pParent = nullptr;
 	}
 
 	void TransformComponent::ChangePosition(glm::vec2 pos)

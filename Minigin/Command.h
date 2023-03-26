@@ -21,15 +21,18 @@ namespace dae
 	};
 
 
-	class MovementRight : public Command
+	class Movement : public Command
 	{
 	public:
-		MovementRight(GameObject* pTransform);
+		Movement(GameObject* pTransform);
+		virtual ~Movement();
+
 		void Execute() override;
 
 		void SetDirectionAndSpeed(glm::vec2 dir, float speed) { m_Direction = dir, m_Speed = speed; }
 	private:
-		TransformComponent* m_pTransform{ nullptr };
+		//std::shared_ptr<TransformComponent> m_pTransform{ nullptr };
+		std::shared_ptr<TransformComponent> m_pTransform{ nullptr };
 		glm::vec2 m_Direction{};
 		float m_Speed{};
 	};

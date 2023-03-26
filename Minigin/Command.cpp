@@ -1,16 +1,25 @@
 #include "Command.h"
 #include "TransformComponent.h"
+#include "TimeClass.h"
 
 namespace dae
 {
-	MovementRight::MovementRight(GameObject* pActor)
+	Movement::Movement(GameObject* pActor)
 		:Command(pActor)
 	{
-		m_pTransform = pActor->GetComponent<TransformComponent>().get();
+		m_pTransform = pActor->GetComponent<TransformComponent>();
 	}
 
-	void MovementRight::Execute()
+	Movement::~Movement()
 	{
-		std::cout << "test" << "\n";
+		//delete m_pTransform;
+		//m_pTransform = nullptr;
+	}
+
+	void Movement::Execute()
+	{
+		auto& timeClass = TimeClass::GetInstance();
+		glm::vec2 newPos{ m_pTransform->GetPosition() + (m_Direction * m_Speed * timeClass.GetElapsed()) };
+		m_pTransform->ChangePosition(newPos);
 	}
 }
