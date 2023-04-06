@@ -25,8 +25,11 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Framework\Engine\Input">
+    <Filter Include="Framework\Input">
       <UniqueIdentifier>{8cbcfa6d-c7e2-4ff5-8e68-79ddf0fcb4c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Observer">
+      <UniqueIdentifier>{c3a92c9b-a6a1-4c82-9ef1-1603051e0be7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -82,13 +85,22 @@
       <Filter>Framework\Components</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
-      <Filter>Framework\Engine\Input</Filter>
+      <Filter>Framework\Input</Filter>
     </ClInclude>
     <ClInclude Include="ControllerXbox.h">
-      <Filter>Framework\Engine\Input</Filter>
+      <Filter>Framework\Input</Filter>
     </ClInclude>
     <ClInclude Include="Command.h">
-      <Filter>Framework\Engine\Input</Filter>
+      <Filter>Framework\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>Framework\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="Achievement.h">
+      <Filter>Framework\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="Subject.h">
+      <Filter>Framework\Observer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -144,13 +156,22 @@
       <Filter>Framework\Components</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
-      <Filter>Framework\Engine\Input</Filter>
+      <Filter>Framework\Input</Filter>
     </ClCompile>
     <ClCompile Include="ControllerXbox.cpp">
-      <Filter>Framework\Engine\Input</Filter>
+      <Filter>Framework\Input</Filter>
     </ClCompile>
     <ClCompile Include="Command.cpp">
-      <Filter>Framework\Engine\Input</Filter>
+      <Filter>Framework\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Achievement.cpp">
+      <Filter>Framework\Observer</Filter>
+    </ClCompile>
+    <ClCompile Include="Subject.cpp">
+      <Filter>Framework\Observer</Filter>
+    </ClCompile>
+    <ClCompile Include="Observer.cpp">
+      <Filter>Framework\Engine\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

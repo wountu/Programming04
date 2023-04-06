@@ -4,12 +4,7 @@
 #include "GameObject.h"
 #include "ResourceManager.h"
 #include "Renderer.h"
-
-dae::GameObject::~GameObject()
-{
-
-}
-
+#include "Achievement.h"
 
 void dae::GameObject::SetParent(std::shared_ptr<GameObject> parent, bool keepWorldPos)
 {
@@ -84,6 +79,11 @@ const glm::vec2& dae::GameObject::GetWorldPos()
 	if (m_positionIsDirty)
 		UpdateWorldPos();
 	return m_worldPos;
+}
+
+void dae::GameObject::SetSubject(std::shared_ptr<Subject> subject)
+{
+	m_Subject = subject;
 }
 
 void dae::GameObject::Update()
