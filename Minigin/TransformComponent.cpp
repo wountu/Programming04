@@ -7,13 +7,13 @@ namespace dae
 	void TransformComponent::Initialize(const glm::vec2& pos, std::shared_ptr<GameObject> parent)
 	{
 		m_position = pos;
-		m_pParent = parent.get();
+		//m_pParent = parent;
+
+		m_Parent = parent.get();
 	}
 
 	TransformComponent::~TransformComponent()
 	{
-		delete m_pParent;
-		m_pParent = nullptr;
 	}
 
 	void TransformComponent::ChangePosition(glm::vec2 pos)

@@ -12,11 +12,11 @@ void dae::TextObject::Initialize(const std::string& text, std::shared_ptr<Font> 
 	m_text = text;
 	m_font = std::move(font);
 	m_textTexture = nullptr;
-	m_pParent = parent.get();
+	m_Parent = parent.get();
 	const SDL_Color white = { 255, 255, 255 };
 	m_Color = white;
 
-	m_transform = m_pParent->GetComponent<TransformComponent>();
+	m_transform = m_Parent->GetComponent<TransformComponent>();
 }
 
 void dae::TextObject::Update()

@@ -10,6 +10,8 @@ namespace dae
 	class InputManager final : public Singleton<InputManager>
 	{
 	public:
+		virtual ~InputManager() = default;
+
 		bool ProcessInput();
 		unsigned AddController();
 		template<typename T> T* AddCommand(unsigned controllerIdx, GameObject* pObject, ControllerXbox::ControllerInputs inputToPress); //For xbox
@@ -18,10 +20,11 @@ namespace dae
 		using ControllerKey = std::pair<unsigned, ControllerXbox::ControllerInputs>;
 		using ControllerCommandsMap = std::map<ControllerKey, std::unique_ptr<Command>>;
 		using KeyboardCommandsMap = std::map<SDL_Scancode, std::unique_ptr<Command>>;
+
 		ControllerCommandsMap m_ConsoleCommands{};
 		KeyboardCommandsMap m_KeyboardCommands{};
-		std::vector<std::unique_ptr<ControllerXbox>> m_Controllers;
 
+		std::vector<std::unique_ptr<ControllerXbox>> m_Controllers{};
 		std::vector<SDL_Scancode> m_PressedKeys{};
 	};
 

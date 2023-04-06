@@ -26,6 +26,7 @@ namespace dae
 
 		glm::vec2 m_position{};
 
+		GameObject* m_Parent{ nullptr };
 		std::shared_ptr<TransformComponent> m_transform{ nullptr };
 	};
 }

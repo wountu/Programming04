@@ -12,10 +12,10 @@ namespace dae
 	public:
 		fpsCounter() = default;
 		virtual ~fpsCounter() = default;
-		fpsCounter(const fpsCounter& other)			   = delete;
+		fpsCounter(const fpsCounter& other) = delete;
 		fpsCounter& operator=(const fpsCounter& other) = delete;
-		fpsCounter(fpsCounter&& other)				   = delete;
-		fpsCounter& operator=(fpsCounter&& other)	   = delete;
+		fpsCounter(fpsCounter&& other) = delete;
+		fpsCounter& operator=(fpsCounter&& other) = delete;
 
 		virtual void Initialize(std::shared_ptr<GameObject> parent) override;
 		virtual void Update() override;
@@ -30,7 +30,11 @@ namespace dae
 		int m_Counter{};
 		int m_fps{};
 
-		std::shared_ptr<TextObject> m_text{};
+		std::shared_ptr<TextObject> m_text{ nullptr };
+		//std::shared_ptr<GameObject> m_pParent{ nullptr };
+
+		//TextObject* m_Text{ nullptr };
+		GameObject* m_Parent{ nullptr };
 	};
 }
 

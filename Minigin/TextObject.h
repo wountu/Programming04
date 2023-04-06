@@ -36,7 +36,10 @@ namespace dae
 		std::shared_ptr<Texture2D> m_textTexture{ nullptr };
 		std::shared_ptr<TransformComponent> m_transform{ nullptr };
 
+		std::shared_ptr<GameObject> m_pParent{ nullptr };
 		SDL_Color m_Color{};
+
+		GameObject* m_Parent{ nullptr };
 	};
 }
 		

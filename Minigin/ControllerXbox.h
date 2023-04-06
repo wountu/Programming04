@@ -3,7 +3,7 @@ class ControllerXbox
 {
 public:
 	explicit ControllerXbox(int controllerIdx);
-	virtual ~ControllerXbox() = default;
+	virtual ~ControllerXbox();
 	ControllerXbox(const ControllerXbox& other)				= delete;
 	ControllerXbox& operator=(const ControllerXbox& other)  = delete;
 	ControllerXbox(ControllerXbox&& other)					= delete;

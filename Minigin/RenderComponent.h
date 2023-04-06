@@ -20,8 +20,13 @@ namespace dae
 		virtual void Initialize(std::shared_ptr<Texture2D> texture, std::shared_ptr<GameObject> parent);
 		virtual void Render() const override;
 	private:
+		//std::shared_ptr<GameObject> m_pParent{ nullptr };
 		std::shared_ptr<Texture2D> m_texture{ nullptr };
 		std::shared_ptr<TransformComponent> m_transform{ nullptr };
+
+		GameObject* m_Parent{ nullptr };
+		//TransformComponent* m_Transform{ nullptr };
+		//Texture2D* m_Texture{ nullptr };
 	};
 
 }

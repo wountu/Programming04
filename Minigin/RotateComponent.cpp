@@ -8,8 +8,8 @@ void dae::RotateComponent::Initialize(std::shared_ptr<GameObject> parent, float 
 {
 	m_radius = radius;
 
-	m_pParent = parent.get();
-	m_transform = m_pParent->GetComponent<TransformComponent>();
+	m_Parent = parent.get();
+	m_transform = m_Parent->GetComponent<TransformComponent>();
 	m_position.x = radius;
 	m_position.y = 0;
 }

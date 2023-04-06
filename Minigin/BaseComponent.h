@@ -18,8 +18,9 @@ namespace dae
 		virtual void Initialize(std::shared_ptr<GameObject> parent);
 		virtual void Update();
 		virtual void Render() const;
-	protected:
-		GameObject* m_pParent;
+	private:
+		std::shared_ptr<GameObject> m_pParent{ nullptr };
+
 	};
 
 }

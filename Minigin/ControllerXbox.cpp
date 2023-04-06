@@ -53,6 +53,12 @@ ControllerXbox::ControllerXbox(int controllerIdx)
 	m_pImpl = new ControllerXboxImpl(controllerIdx);
 }
 
+ControllerXbox::~ControllerXbox()
+{
+	delete m_pImpl;
+	m_pImpl = nullptr;
+}
+
 void ControllerXbox::Update()
 {
 	m_pImpl->Update();

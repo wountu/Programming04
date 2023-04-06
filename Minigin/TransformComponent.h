@@ -20,6 +20,9 @@ namespace dae
 		glm::vec2 GetPosition() const;
 	private:
 		glm::vec2 m_position;
+		//std::shared_ptr<GameObject> m_pParent{ nullptr };
+
+		GameObject* m_Parent{ nullptr };
 	};
 
 }
