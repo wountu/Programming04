@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include "Subject.h"
 
 namespace dae
 {
@@ -20,7 +21,6 @@ namespace dae
 		virtual void Render() const;
 	private:
 		std::shared_ptr<GameObject> m_pParent{ nullptr };
-
 	};
 
 }

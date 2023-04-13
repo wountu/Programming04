@@ -102,6 +102,12 @@
     <ClInclude Include="Subject.h">
       <Filter>Framework\Observer</Filter>
     </ClInclude>
+    <ClInclude Include="HealthDisplayObserver.h">
+      <Filter>Framework\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthComponent.h">
+      <Filter>Framework\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -172,6 +178,12 @@
     </ClCompile>
     <ClCompile Include="Observer.cpp">
       <Filter>Framework\Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthDisplayObserver.cpp">
+      <Filter>Framework\Observer</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthComponent.cpp">
+      <Filter>Framework\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

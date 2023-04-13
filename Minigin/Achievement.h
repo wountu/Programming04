@@ -10,6 +10,9 @@ namespace dae
 		Achievement() = default;
 
 		virtual void Notify(dae::GameObject* actor, Event event);
+
+		virtual void Update();
+		virtual void Render() const;
 	private:
 	};
 

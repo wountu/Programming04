@@ -1,13 +1,17 @@
 #include "Command.h"
 #include "TransformComponent.h"
 #include "TimeClass.h"
+#include "Observer.h"
+#include "HealthComponent.h"
 
 namespace dae
 {
+	//Movement
 	Movement::Movement(GameObject* pActor)
 		:Command(pActor)
 	{
 		m_pTransform = pActor->GetComponent<TransformComponent>();
+		m_Parent = pActor;
 	}
 
 	Movement::~Movement()
@@ -21,5 +25,17 @@ namespace dae
 		auto& timeClass = TimeClass::GetInstance();
 		glm::vec2 newPos{ m_pTransform->GetPosition() + (m_Direction * m_Speed * timeClass.GetElapsed()) };
 		m_pTransform->ChangePosition(newPos);
+	}
+
+	Damage::Damage(GameObject* parent)
+		:Command(parent)
+	{
+		m_Parent = parent;
+	}
+
+	//Damage
+	void Damage::Execute()
+	{
+		m_Parent->GetComponent<HealthComponent>()->LoseHealth(1);
 	}
 }

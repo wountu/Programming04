@@ -86,12 +86,25 @@ void dae::GameObject::SetSubject(std::shared_ptr<Subject> subject)
 	m_Subject = subject;
 }
 
+void dae::GameObject::NotifyObject(Observer::Event event)
+{
+	m_Subject->NotifyObserver(this, event);
+}
+
 void dae::GameObject::Update()
 {
 	for (std::shared_ptr<BaseComponent> pComponent : m_components)
 	{
 		pComponent->Update();
 	}
+
+	//Updating observers
+	if (m_Subject)
+	{
+		m_Subject->Update();
+		//m_Subject->NotifyObserver(this, dae::Observer::Event::PLAYER_DIED);
+	}
+
 }
 
 void dae::GameObject::Render() const
@@ -99,6 +112,12 @@ void dae::GameObject::Render() const
 	for (std::shared_ptr<BaseComponent> pComponent : m_components)
 	{
 		pComponent->Render();
+	}
+
+	//Rendering observers
+	if (m_Subject)
+	{
+		m_Subject->Render();
 	}
 }
 

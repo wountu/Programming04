@@ -29,5 +29,19 @@ namespace dae
 			observer->Notify(actor, event);
 		}
 	}
+	void Subject::Update()
+	{
+		for (auto& observer : m_Observers)
+		{
+			observer->Update();
+		}
+	}
+	void Subject::Render() const
+	{
+		for (auto& observer : m_Observers)
+		{
+			observer->Render();
+		}
+	}
 }
 

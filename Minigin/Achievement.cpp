@@ -6,6 +6,16 @@
 //{
 //}
 
-	void dae::Achievement::Notify(dae::GameObject*, Event)
-	{
-	}
+void dae::Achievement::Notify(dae::GameObject*, Event)
+{
+}
+
+void dae::Achievement::Update()
+{
+}
+
+void dae::Achievement::Render() const
+{
+}
+
+

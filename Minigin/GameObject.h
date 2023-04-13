@@ -52,6 +52,7 @@ namespace dae
 
 		//Set subject
 		void SetSubject(std::shared_ptr<Subject> subject);
+		void NotifyObject(Observer::Event event);
 	private:
 		//Children
 		void AddChild(GameObject* pChild);

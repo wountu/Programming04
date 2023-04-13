@@ -14,6 +14,10 @@ namespace dae
 		void AddObserver(Observer* observer);
 		void RemoverObservers(Observer* observer);
 		void NotifyObserver(GameObject* actor, Observer::Event event);
+
+		//Updating/rendering all the observers
+		void Update();
+		void Render() const;
 	private:
 		std::vector<Observer*> m_Observers;
 	};
