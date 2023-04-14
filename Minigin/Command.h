@@ -48,6 +48,17 @@ namespace dae
 	private:
 		GameObject* m_Parent{ nullptr };
 	};
+
+	class Score final : public Command
+	{
+	public:
+		Score(GameObject* parent);
+		virtual ~Score() = default;
+
+		void Execute() override;
+	private:
+		GameObject* m_Parent{ nullptr };
+	};
 }
 
 

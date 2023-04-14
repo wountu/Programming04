@@ -12,13 +12,6 @@ dae::HealthDisplayObserver::HealthDisplayObserver(std::shared_ptr<GameObject> pa
 	m_Health = m_pHealthComp->GetHealth();
 }
 
-dae::HealthDisplayObserver::~HealthDisplayObserver()
-{
-	//delete m_pTextObject;
-	//m_pTextObject = nullptr;
-
-}
-
 void dae::HealthDisplayObserver::Notify(GameObject* , Event event)
 {
 	if (event == Event::PLAYER_RECEIVED_DAMAGE)

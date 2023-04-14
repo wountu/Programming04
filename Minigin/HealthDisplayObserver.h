@@ -11,7 +11,7 @@ namespace dae
 	{
 	public:
 		HealthDisplayObserver(std::shared_ptr<GameObject> parent, glm::vec2 pos);
-		virtual ~HealthDisplayObserver();
+		virtual ~HealthDisplayObserver() = default;
 		
 		HealthDisplayObserver(const HealthDisplayObserver& other)			 = delete;
 		HealthDisplayObserver& operator=(const HealthDisplayObserver& other) = delete;

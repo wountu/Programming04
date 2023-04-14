@@ -3,6 +3,7 @@
 #include "TimeClass.h"
 #include "Observer.h"
 #include "HealthComponent.h"
+#include "ScoreComponent.h"
 
 namespace dae
 {
@@ -37,5 +38,16 @@ namespace dae
 	void Damage::Execute()
 	{
 		m_Parent->GetComponent<HealthComponent>()->LoseHealth(1);
+	}
+
+	Score::Score(GameObject* parent)
+		:Command(parent)
+	{
+		m_Parent = parent;
+	}
+
+	void Score::Execute()
+	{
+		m_Parent->GetComponent<ScoreComponent>()->AddScore(100);
 	}
 }

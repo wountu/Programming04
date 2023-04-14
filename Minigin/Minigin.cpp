@@ -6,6 +6,7 @@
 #include <SDL_ttf.h>
 #include <chrono>
 #include <iostream>
+#include <steam_api.h>
 
 #include "Minigin.h"
 #include "InputManager.h"
@@ -97,6 +98,8 @@ void dae::Minigin::Run(const std::function<void()>& load)
 
 	while (doContinue)
 	{
+		SteamAPI_RunCallbacks();
+
 		//const auto currentTime = std::chrono::high_resolution_clock::now();
 		//const float deltaTime = std::chrono::duration<float>(currentTime - lastTime).count();
 		//lastTime = currentTime;
@@ -114,6 +117,7 @@ void dae::Minigin::Run(const std::function<void()>& load)
 		renderer.Render(); 
 		const auto sleepTime = time.GetTotalTime() + std::chrono::milliseconds(frameTimeMs) - std::chrono::high_resolution_clock::now();
 		std::this_thread::sleep_for(sleepTime);
+
 	}
 	std::cout << "got out of gameloop \n";
 }

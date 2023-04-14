@@ -9,6 +9,7 @@ namespace dae
 		{
 			PLAYER_RECEIVED_DAMAGE,
 			PLAYER_DIED,
+			SCORE_ADDED,
 			SCORE_500
 		};
 
