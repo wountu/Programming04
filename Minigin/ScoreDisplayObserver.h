@@ -10,7 +10,7 @@ namespace dae
 	class ScoreDisplayObserver final : public Observer
 	{
 	public:
-		ScoreDisplayObserver(std::shared_ptr<GameObject> parent, glm::vec2 pos);
+		ScoreDisplayObserver(std::shared_ptr<GameObject> parent, int startScore = 0);
 		virtual ~ScoreDisplayObserver() = default;
 
 		ScoreDisplayObserver(const ScoreDisplayObserver& other) = delete;
@@ -23,7 +23,6 @@ namespace dae
 		virtual void Render() const;
 	private:
 		int m_Score{};
-		glm::vec2 m_Position{};
 		GameObject* m_Parent{ nullptr };
 
 		std::shared_ptr<ScoreComponent> m_pScoreComp{ nullptr };

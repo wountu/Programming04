@@ -39,12 +39,12 @@ namespace dae
 		GameObject& operator=(GameObject&& other) = delete;
 
 		//Parents
-		std::shared_ptr<GameObject> GetParent() const;
+		GameObject* GetParent() const;
 		void SetParent(std::shared_ptr<GameObject> parent, bool keepWorldPos);
 		
 		//Children
 		size_t GetChildCount() const;
-		std::shared_ptr<GameObject> GetChildAt(int idx) const;
+		GameObject* GetChildAt(int idx) const;
 
 		//positions
 		void SetLocalPos(const glm::vec2& pos);
@@ -53,6 +53,11 @@ namespace dae
 		//Set subject
 		void SetSubject(std::shared_ptr<Subject> subject);
 		void NotifyObject(Observer::Event event);
+
+		//Observers
+		void AddObserver(Observer* observer);
+		void RemoverObservers(Observer* observer);
+		void NotifyObserver(GameObject* actor, Observer::Event event);
 	private:
 		//Children
 		void AddChild(GameObject* pChild);
@@ -72,11 +77,12 @@ namespace dae
 		std::shared_ptr<TransformComponent> m_pTransform{ nullptr };
 		
 		//parents-Children
-		std::shared_ptr<GameObject> m_parent{ nullptr };
-		std::vector<std::shared_ptr<GameObject>> m_children{};
+		GameObject* m_parent{ nullptr };
+		std::vector<GameObject*> m_children{};
 
 		//Subject
 		std::shared_ptr<Subject> m_Subject{ nullptr };
+		std::vector<Observer*> m_Observers;
 	};
 
 	template<typename T>

@@ -2,21 +2,21 @@
 
 #include <iostream>
 
-dae::HealthDisplayObserver::HealthDisplayObserver(std::shared_ptr<GameObject> parent, glm::vec2 pos)
+dae::HealthDisplayObserver::HealthDisplayObserver(std::shared_ptr<GameObject> parent, int startHealth)
 {
 	m_Parent = parent.get();
-	m_Position = pos;
 
 	m_pTextObject = m_Parent->GetComponent<TextObject>();
-	m_pHealthComp = m_Parent->GetComponent<HealthComponent>();
-	m_Health = m_pHealthComp->GetHealth();
+	m_pTextObject->SetText("Health: " + std::to_string(startHealth));
 }
 
-void dae::HealthDisplayObserver::Notify(GameObject* , Event event)
+void dae::HealthDisplayObserver::Notify(GameObject* actor, Event event)
 {
-	if (event == Event::PLAYER_RECEIVED_DAMAGE)
+	//Check if the event is receiving damage and if the actor that received dmg is the parent of the observer
+	if (event == Event::PLAYER_RECEIVED_DAMAGE && actor == m_Parent->GetParent())
 	{
-		m_Health = m_pHealthComp->GetHealth();
+		const int health = actor->GetComponent<HealthComponent>()->GetHealth();
+		m_pTextObject->SetText("Health: " + std::to_string(health));
 		std::cout << "Received damage!" << "\n";
 	}
 
@@ -29,7 +29,6 @@ void dae::HealthDisplayObserver::Notify(GameObject* , Event event)
 
 void dae::HealthDisplayObserver::Update()
 {
-	m_pTextObject->SetText("Health: " + std::to_string(m_Health));
 }
 
 void dae::HealthDisplayObserver::Render() const

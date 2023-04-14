@@ -6,6 +6,11 @@
 #include "Renderer.h"
 #include "Achievement.h"
 
+dae::GameObject* dae::GameObject::GetParent() const
+{
+	return m_parent;
+}
+
 void dae::GameObject::SetParent(std::shared_ptr<GameObject> parent, bool keepWorldPos)
 {
 	if (parent == nullptr)
@@ -19,7 +24,7 @@ void dae::GameObject::SetParent(std::shared_ptr<GameObject> parent, bool keepWor
 
 	if (m_parent)
 		m_parent->RemoveChild(std::shared_ptr<GameObject>(this));
-	m_parent = parent;
+	m_parent = parent.get();
 	if (m_parent)
 		m_parent->AddChild(this);
 }
@@ -29,7 +34,7 @@ size_t dae::GameObject::GetChildCount() const
 	return m_children.size();
 }
 
-std::shared_ptr<dae::GameObject> dae::GameObject::GetChildAt(int idx) const
+dae::GameObject* dae::GameObject::GetChildAt(int idx) const
 {
 	return m_children[idx];
 }
@@ -91,6 +96,24 @@ void dae::GameObject::NotifyObject(Observer::Event event)
 	m_Subject->NotifyObserver(this, event);
 }
 
+void dae::GameObject::AddObserver(Observer* observer)
+{
+	m_Observers.push_back(observer);
+}
+
+void dae::GameObject::RemoverObservers(Observer* observer)
+{
+	m_Observers.erase(std::remove(m_Observers.begin(), m_Observers.end(), observer), m_Observers.end());
+}
+
+void dae::GameObject::NotifyObserver(GameObject* actor, Observer::Event event)
+{
+	for (const auto observer : m_Observers)
+	{
+		observer->Notify(actor, event);
+	}
+}
+
 void dae::GameObject::Update()
 {
 	for (std::shared_ptr<BaseComponent> pComponent : m_components)
@@ -98,11 +121,16 @@ void dae::GameObject::Update()
 		pComponent->Update();
 	}
 
-	//Updating observers
-	if (m_Subject)
+	////Updating observers
+	//if (m_Subject)
+	//{
+	//	m_Subject->Update();
+	//	//m_Subject->NotifyObserver(this, dae::Observer::Event::PLAYER_DIED);
+	//}
+
+	for (const auto& observer : m_Observers)
 	{
-		m_Subject->Update();
-		//m_Subject->NotifyObserver(this, dae::Observer::Event::PLAYER_DIED);
+		observer->Update();
 	}
 
 }
@@ -114,10 +142,15 @@ void dae::GameObject::Render() const
 		pComponent->Render();
 	}
 
-	//Rendering observers
-	if (m_Subject)
+	////Rendering observers
+	//if (m_Subject)
+	//{
+	//	m_Subject->Render();
+	//}
+
+	for (const auto& observer : m_Observers)
 	{
-		m_Subject->Render();
+		observer->Render();
 	}
 }
 

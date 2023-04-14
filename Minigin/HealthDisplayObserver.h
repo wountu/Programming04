@@ -10,7 +10,7 @@ namespace dae
 	class HealthDisplayObserver final : public Observer
 	{
 	public:
-		HealthDisplayObserver(std::shared_ptr<GameObject> parent, glm::vec2 pos);
+		HealthDisplayObserver(std::shared_ptr<GameObject> parent, int startHealth);
 		virtual ~HealthDisplayObserver() = default;
 		
 		HealthDisplayObserver(const HealthDisplayObserver& other)			 = delete;
@@ -23,7 +23,6 @@ namespace dae
 		virtual void Render() const;
 	private:
 		int m_Health{};
-		glm::vec2 m_Position{};
 		GameObject* m_Parent{ nullptr };
 
 		std::shared_ptr<HealthComponent> m_pHealthComp{ nullptr };
