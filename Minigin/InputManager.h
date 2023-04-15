@@ -10,22 +10,30 @@ namespace dae
 	class InputManager final : public Singleton<InputManager>
 	{
 	public:
+		enum class KeyPress
+		{
+			SINGLEPRESS,
+			HOLD
+		};
+
 		virtual ~InputManager() = default;
 
 		bool ProcessInput();
 		unsigned AddController();
 		template<typename T> T* AddCommand(unsigned controllerIdx, GameObject* pObject, ControllerXbox::ControllerInputs inputToPress); //For xbox
-		template<typename T> T* AddCommand(GameObject* pObject, SDL_Scancode key); //For keyboard
+		template<typename T> T* AddCommand(GameObject* pObject, SDL_Scancode key, KeyPress keypress); //For keyboard
 	private:
 		using ControllerKey = std::pair<unsigned, ControllerXbox::ControllerInputs>;
 		using ControllerCommandsMap = std::map<ControllerKey, std::unique_ptr<Command>>;
 		using KeyboardCommandsMap = std::map<SDL_Scancode, std::unique_ptr<Command>>;
 
 		ControllerCommandsMap m_ConsoleCommands{};
-		KeyboardCommandsMap m_KeyboardCommands{};
+		KeyboardCommandsMap m_HoldKeyboardCommands{};
+		KeyboardCommandsMap m_PressKeyboardCommands{};
 
 		std::vector<std::unique_ptr<ControllerXbox>> m_Controllers{};
-		std::vector<SDL_Scancode> m_PressedKeys{};
+		std::vector<SDL_Scancode> m_HoldKeys{};
+		std::vector<SDL_Scancode> m_PressKeys{};
 	};
 
 
@@ -48,12 +56,15 @@ namespace dae
 	}
 
 	template<typename T>
-	inline T* InputManager::AddCommand(GameObject* actor, SDL_Scancode key)
+	inline T* InputManager::AddCommand(GameObject* actor, SDL_Scancode key, KeyPress keypress)
 	{
 		std::unique_ptr<T> command = std::make_unique<T>(actor);
 		T* returnValue = command.get();
 
-		m_KeyboardCommands.insert({ key , std::move(command) });
+		if (keypress == KeyPress::HOLD)
+			m_HoldKeyboardCommands.insert({ key , std::move(command) });
+		else if (keypress == KeyPress::SINGLEPRESS)
+			m_PressKeyboardCommands.insert({ key, std::move(command) });
 
 		return returnValue;
 	}

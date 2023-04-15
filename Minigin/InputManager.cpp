@@ -4,21 +4,27 @@
 
 bool dae::InputManager::ProcessInput()
 {
+	m_PressKeys.clear();
+
 	SDL_Event e;
 	while (SDL_PollEvent(&e)) {
 		if (e.type == SDL_QUIT) {
 			return false;
 		}
 		if (e.type == SDL_KEYDOWN) {
-			auto find = std::find(m_PressedKeys.begin(), m_PressedKeys.end(), e.key.keysym.scancode);
-			if(find == m_PressedKeys.end())
-				m_PressedKeys.push_back(e.key.keysym.scancode);
+			auto find = std::find(m_HoldKeys.begin(), m_HoldKeys.end(), e.key.keysym.scancode);
+			if (find == m_HoldKeys.end())
+			{
+				m_HoldKeys.push_back(e.key.keysym.scancode);
+				m_PressKeys.push_back(e.key.keysym.scancode);
+			}
+				
 		}
 		if (e.type == SDL_KEYUP)
 		{
-			auto erase = std::find(m_PressedKeys.begin(), m_PressedKeys.end(), e.key.keysym.scancode);
-			if(erase != m_PressedKeys.end())
-				m_PressedKeys.erase(erase);
+			auto erase = std::find(m_HoldKeys.begin(), m_HoldKeys.end(), e.key.keysym.scancode);
+			if(erase != m_HoldKeys.end())
+				m_HoldKeys.erase(erase);
 		}
 		if (e.type == SDL_MOUSEBUTTONDOWN) {
 
@@ -41,11 +47,21 @@ bool dae::InputManager::ProcessInput()
 		}
 	}
 
-	for (auto& command : m_KeyboardCommands)
+	for (auto& command : m_HoldKeyboardCommands)
 	{
-		auto result = std::find(m_PressedKeys.begin(), m_PressedKeys.end(), command.first);
+		auto result = std::find(m_HoldKeys.begin(), m_HoldKeys.end(), command.first);
 
-		if (result != m_PressedKeys.end())
+		if (result != m_HoldKeys.end())
+		{
+			command.second->Execute();
+		}
+	}
+
+	for (auto& command : m_PressKeyboardCommands)
+	{
+		auto result = std::find(m_PressKeys.begin(), m_PressKeys.end(), command.first);
+
+		if (result != m_PressKeys.end())
 		{
 			command.second->Execute();
 		}
