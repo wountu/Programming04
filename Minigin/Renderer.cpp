@@ -22,6 +22,7 @@ void dae::Renderer::Init(SDL_Window* window)
 	m_window = window;
 	m_renderPos.x = 0;
 	m_renderPos.y = 0;
+	m_Angle = 0.f;
 
 	m_renderer = SDL_CreateRenderer(window, GetOpenGLDriverIndex(), SDL_RENDERER_ACCELERATED);
 	if (m_renderer == nullptr) 
@@ -56,7 +57,8 @@ void dae::Renderer::RenderTexture(const Texture2D& texture) const
 	dst.x = static_cast<int>(m_renderPos.x);
 	dst.y = static_cast<int>(m_renderPos.y);
 	SDL_QueryTexture(texture.GetSDLTexture(), nullptr, nullptr, &dst.w, &dst.h);
-	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst);
+	//SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst);
+	SDL_RenderCopyEx(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst, m_Angle, nullptr, SDL_RendererFlip::SDL_FLIP_NONE);
 }
 
 void dae::Renderer::RenderTexture(const Texture2D& texture, const float width, const float height) const
@@ -66,12 +68,18 @@ void dae::Renderer::RenderTexture(const Texture2D& texture, const float width, c
 	dst.y = static_cast<int>(m_renderPos.y);
 	dst.w = static_cast<int>(width);
 	dst.h = static_cast<int>(height);
-	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst);
+	//SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst);
+	SDL_RenderCopyEx(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst, -90.f, nullptr, SDL_RendererFlip::SDL_FLIP_NONE);
 }
 
 void dae::Renderer::SetRenderPos(glm::vec2 pos)
 {
 	m_renderPos = pos;
+}
+
+void dae::Renderer::SetRenderAngle(float angle)
+{
+	m_Angle = angle;
 }
 
 inline SDL_Renderer* dae::Renderer::GetSDLRenderer() const { return m_renderer; }

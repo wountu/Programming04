@@ -25,4 +25,9 @@ void dae::ScoreComponent::AddScore(int amount)
     m_Score += amount;
 
     m_Parent->NotifyObject(dae::Observer::Event::SCORE_ADDED);
+
+    if (m_Score >= 500)
+    {
+        m_Parent->NotifyObject(dae::Observer::Event::SCORE_500);
+    }
 }

@@ -26,6 +26,17 @@ namespace dae
 		auto& timeClass = TimeClass::GetInstance();
 		glm::vec2 newPos{ m_pTransform->GetPosition() + (m_Direction * m_Speed * timeClass.GetElapsed()) };
 		m_pTransform->ChangePosition(newPos);
+
+		//float angle = 
+
+		float angle = acos(glm::dot(m_Direction, glm::vec2(1, 0))); //Radians
+		angle = glm::degrees(angle); //To degrees
+
+		if (m_Direction.y == -1)
+			angle *= -1; //rotate up
+
+		std::cout << angle << "\n";
+		m_pTransform->ChangeAngle(angle);
 	}
 
 	Damage::Damage(GameObject* parent)

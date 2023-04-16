@@ -24,6 +24,7 @@ namespace dae
 		void RenderTexture(const Texture2D& texture, float width, float height) const;
 
 		void SetRenderPos(glm::vec2 pos);
+		void SetRenderAngle(float angle);
 
 		SDL_Renderer* GetSDLRenderer() const;
 
@@ -31,6 +32,7 @@ namespace dae
 		void SetBackgroundColor(const SDL_Color& color) { m_clearColor = color; }
 	private:
 		glm::vec2 m_renderPos;
+		float m_Angle;
 	};
 }
 

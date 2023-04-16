@@ -7,12 +7,14 @@ namespace dae
 	class Achievement final : public Observer
 	{
 	public:
-		Achievement() = default;
+		Achievement();
 
 		virtual void Notify(dae::GameObject* actor, Event event);
 
 		virtual void Update();
 		virtual void Render() const;
+
+
 	private:
 	};
 
