@@ -38,6 +38,17 @@ namespace dae
 		GameObject* m_Parent{ nullptr };
 	};
 
+	class Shoot final : public Command
+	{
+	public:
+		Shoot(GameObject* parent);
+		virtual ~Shoot() = default;
+
+		void Execute() override;
+	private:
+		GameObject* m_Parent{ nullptr };
+	};
+
 	class Damage final : public Command
 	{
 	public:

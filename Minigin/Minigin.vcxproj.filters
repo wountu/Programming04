@@ -114,6 +114,12 @@
     <ClInclude Include="SceneManager.h">
       <Filter>Framework\Engine\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BulletComponent.h">
+      <Filter>Framework\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletManager.h">
+      <Filter>Framework\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -195,6 +201,12 @@
       <Filter>Framework\Observer</Filter>
     </ClCompile>
     <ClCompile Include="ScoreComponent.cpp">
+      <Filter>Framework\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletComponent.cpp">
+      <Filter>Framework\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletManager.cpp">
       <Filter>Framework\Components</Filter>
     </ClCompile>
   </ItemGroup>

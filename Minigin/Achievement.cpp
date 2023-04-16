@@ -11,7 +11,7 @@
 dae::Achievement::Achievement()
 {
 	SteamUserStats()->ClearAchievement("ACH_WIN_ONE_GAME");
-}
+}         
 
 void dae::Achievement::Notify(dae::GameObject*, Event event)
 {

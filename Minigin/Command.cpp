@@ -4,6 +4,7 @@
 #include "Observer.h"
 #include "HealthComponent.h"
 #include "ScoreComponent.h"
+#include "BulletManager.h"
 
 namespace dae
 {
@@ -60,5 +61,16 @@ namespace dae
 	void Score::Execute()
 	{
 		m_Parent->GetComponent<ScoreComponent>()->AddScore(100);
+	}
+
+	Shoot::Shoot(GameObject* parent)
+		:Command(parent)
+	{
+		m_Parent = parent;
+	}
+
+	void Shoot::Execute()
+	{
+		m_Parent->GetComponent<BulletManager>()->SpawnBullet(glm::vec2(), glm::vec2());
 	}
 }
