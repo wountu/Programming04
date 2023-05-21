@@ -8,9 +8,6 @@
     <Filter Include="Framework">
       <UniqueIdentifier>{b3cce291-5e38-4570-b968-9133181d1e70}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Components">
-      <UniqueIdentifier>{095ed47c-8b90-467e-8463-fe7d8b14f9e0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Framework\Components">
       <UniqueIdentifier>{b7d7b82d-36f1-402b-9eef-4d3413697711}</UniqueIdentifier>
     </Filter>
@@ -30,6 +27,9 @@
     </Filter>
     <Filter Include="Framework\Observer">
       <UniqueIdentifier>{c3a92c9b-a6a1-4c82-9ef1-1603051e0be7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Audio">
+      <UniqueIdentifier>{d4f34889-a752-4a5a-8ed5-110624f3c9e1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -60,25 +60,10 @@
     <ClInclude Include="TimeClass.h">
       <Filter>Framework\Engine\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TransformComponent.h">
-      <Filter>Framework\Components</Filter>
-    </ClInclude>
     <ClInclude Include="BaseComponent.h">
       <Filter>Framework\Components</Filter>
     </ClInclude>
-    <ClInclude Include="fpsCounter.h">
-      <Filter>Framework\Components</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>Framework\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderComponent.h">
-      <Filter>Framework\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="TextObject.h">
-      <Filter>Framework\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="RotateComponent.h">
       <Filter>Framework\Components</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
@@ -87,38 +72,23 @@
     <ClInclude Include="ControllerXbox.h">
       <Filter>Framework\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Command.h">
-      <Filter>Framework\Input</Filter>
-    </ClInclude>
     <ClInclude Include="Observer.h">
-      <Filter>Framework\Observer</Filter>
-    </ClInclude>
-    <ClInclude Include="Achievement.h">
       <Filter>Framework\Observer</Filter>
     </ClInclude>
     <ClInclude Include="Subject.h">
       <Filter>Framework\Observer</Filter>
     </ClInclude>
-    <ClInclude Include="HealthDisplayObserver.h">
-      <Filter>Framework\Observer</Filter>
-    </ClInclude>
-    <ClInclude Include="HealthComponent.h">
-      <Filter>Framework\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="ScoreDisplayObserver.h">
-      <Filter>Framework\Observer</Filter>
-    </ClInclude>
-    <ClInclude Include="ScoreComponent.h">
-      <Filter>Framework\Components</Filter>
-    </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>Framework\Engine\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BulletComponent.h">
-      <Filter>Framework\Components</Filter>
+    <ClInclude Include="ServiceLocator.h">
+      <Filter>Framework\Audio</Filter>
     </ClInclude>
-    <ClInclude Include="BulletManager.h">
-      <Filter>Framework\Components</Filter>
+    <ClInclude Include="SoundSystem.h">
+      <Filter>Framework\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundEffectSystem.h">
+      <Filter>Framework\Audio</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -155,22 +125,7 @@
     <ClCompile Include="BaseComponent.cpp">
       <Filter>Framework\Components</Filter>
     </ClCompile>
-    <ClCompile Include="fpsCounter.cpp">
-      <Filter>Framework\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderComponent.cpp">
-      <Filter>Framework\Components</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>Framework\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="TransformComponent.cpp">
-      <Filter>Framework\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="TextObject.cpp">
-      <Filter>Framework\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="RotateComponent.cpp">
       <Filter>Framework\Components</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
@@ -179,35 +134,17 @@
     <ClCompile Include="ControllerXbox.cpp">
       <Filter>Framework\Input</Filter>
     </ClCompile>
-    <ClCompile Include="Command.cpp">
-      <Filter>Framework\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Achievement.cpp">
-      <Filter>Framework\Observer</Filter>
-    </ClCompile>
     <ClCompile Include="Subject.cpp">
       <Filter>Framework\Observer</Filter>
     </ClCompile>
     <ClCompile Include="Observer.cpp">
       <Filter>Framework\Engine\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="HealthDisplayObserver.cpp">
-      <Filter>Framework\Observer</Filter>
+    <ClCompile Include="ServiceLocator.cpp">
+      <Filter>Framework\Audio</Filter>
     </ClCompile>
-    <ClCompile Include="HealthComponent.cpp">
-      <Filter>Framework\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="ScoreDisplayObserver.cpp">
-      <Filter>Framework\Observer</Filter>
-    </ClCompile>
-    <ClCompile Include="ScoreComponent.cpp">
-      <Filter>Framework\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="BulletComponent.cpp">
-      <Filter>Framework\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="BulletManager.cpp">
-      <Filter>Framework\Components</Filter>
+    <ClCompile Include="SoundEffectSystem.cpp">
+      <Filter>Framework\Audio</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

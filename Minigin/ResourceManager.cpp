@@ -5,6 +5,7 @@
 #include "Renderer.h"
 #include "Texture2D.h"
 #include "Font.h"
+//#include "SDL_mixer.h"
 
 void dae::ResourceManager::Init(const std::string& dataPath)
 {
@@ -30,4 +31,9 @@ std::shared_ptr<dae::Texture2D> dae::ResourceManager::LoadTexture(const std::str
 std::shared_ptr<dae::Font> dae::ResourceManager::LoadFont(const std::string& file, unsigned int size) const
 {
 	return std::make_shared<Font>(m_dataPath + file, size);
+}
+
+std::string dae::ResourceManager::GetDataPath() const
+{
+	return m_dataPath;
 }
