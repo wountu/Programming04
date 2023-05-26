@@ -179,6 +179,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" /R/Y</Comm
   <ItemGroup>
     <ClCompile Include="..\Minigin\BulletComponent.cpp" />
     <ClCompile Include="..\Minigin\BulletManager.cpp" />
+    <ClCompile Include="..\Minigin\CollisionBoxComponent.cpp" />
     <ClCompile Include="..\Minigin\Command.cpp" />
     <ClCompile Include="..\Minigin\fpsCounter.cpp" />
     <ClCompile Include="..\Minigin\HealthComponent.cpp" />
@@ -194,6 +195,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" /R/Y</Comm
   <ItemGroup>
     <ClInclude Include="..\Minigin\BulletComponent.h" />
     <ClInclude Include="..\Minigin\BulletManager.h" />
+    <ClInclude Include="..\Minigin\CollisionBoxComponent.h" />
     <ClInclude Include="..\Minigin\Command.h" />
     <ClInclude Include="..\Minigin\fpsCounter.h" />
     <ClInclude Include="..\Minigin\HealthComponent.h" />

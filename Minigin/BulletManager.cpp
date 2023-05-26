@@ -1,12 +1,12 @@
 #include "BulletManager.h"
 #include "ServiceLocator.h"
-#include "BulletComponent.h"
-
-#include "RenderComponent.h"
 #include "ResourceManager.h"
-
 #include "SceneManager.h"
 #include "Scene.h"
+
+#include "BulletComponent.h"
+#include "RenderComponent.h"
+#include "CollisionBoxComponent.h"
 
 void dae::BulletManager::Initialize(std::shared_ptr<GameObject> parent)
 {
@@ -45,6 +45,13 @@ void dae::BulletManager::SpawnBullet(glm::vec2, glm::vec2)
 
 	auto bulletComp = bullet->AddComponent<BulletComponent>();
 	bulletComp->Initialize(bullet, parentTransform->GetDir());
+
+	auto collision = bullet->AddComponent<CollisionBoxComponent>();
+	CollisionBox box;
+	box._height = static_cast<float>(m_Texture->GetSize().y);
+	box._width = static_cast<float>(m_Texture->GetSize().x);
+	box._leftTop = transform->GetPosition();
+	collision->Initialize(bullet, box);
 
 	SceneManager::GetInstance().GetScene(0)->Add(bullet);
 

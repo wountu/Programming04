@@ -31,7 +31,6 @@ namespace dae
 		float angle = static_cast<float>(atan2(m_Direction.y, m_Direction.x));
 		angle = glm::degrees(angle);
 
-		std::cout << angle << "\n";
 		m_pTransform->ChangeAngle(angle);
 	}
 

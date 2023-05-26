@@ -33,6 +33,7 @@
 #include "BulletManager.h"
 #include "SoundEffectSystem.h"
 #include "ServiceLocator.h"
+#include "CollisionBoxComponent.h"
 
 void load()
 {
@@ -99,6 +100,7 @@ void load()
 	auto renderCompTronTank01 = tronTank01->AddComponent<dae::RenderComponent>();
 	auto transformTronTank01 = tronTank01->AddComponent <dae::TransformComponent>();
 	auto bulletManager = tronTank01->AddComponent<dae::BulletManager>();
+	auto tankCollision = tronTank01->AddComponent<dae::CollisionBoxComponent>();
 
 	texture = dae::ResourceManager::GetInstance().LoadTexture("BlueTank.png");
 	renderCompTronTank01->Initialize(texture, tronTank01);
@@ -106,6 +108,13 @@ void load()
 	healthTronTank01->Initialize(startHealth, tronTank01);
 	scoreTronTank01->Initialize(tronTank01);
 	bulletManager->Initialize(tronTank01);
+
+	dae::CollisionBox box{};
+	box._width = static_cast<float>(texture->GetSize().x);
+	box._height = static_cast<float>(texture->GetSize().y);
+	box._leftTop = transformTronTank01->GetPosition();
+
+	tankCollision->Initialize(tronTank01, box);
 
 	tronTank01->SetSubject(subject);
 
@@ -160,16 +169,21 @@ void load()
 	auto scoreTronTank02 = tronTank02->AddComponent<dae::ScoreComponent>();
 	//auto rotateCompTronTank02 = tronTank02->AddComponent<dae::RotateComponent>();
 	bulletManager = tronTank02->AddComponent<dae::BulletManager>();
+	tankCollision = tronTank02->AddComponent<dae::CollisionBoxComponent>();
 
 	texture = dae::ResourceManager::GetInstance().LoadTexture("GreenTank.png");
 	renderCompTronTank02->Initialize(texture, tronTank02);
 	transformTronTank02->Initialize(glm::vec2(40, 0), 0.f, tronTank02);
-
 	healthTronTank02->Initialize(startHealth, tronTank02);
 	//textScoreObjectTronTank02->Initialize((std::string("Score: " + std::to_string(startScore))), font, tronTank02);
 	scoreTronTank02->Initialize(tronTank02, startScore);
-
 	bulletManager->Initialize(tronTank02);
+
+	box._width = static_cast<float>(texture->GetSize().x);
+	box._height = static_cast<float>(texture->GetSize().y);
+	box._leftTop = transformTronTank01->GetPosition();
+
+	tankCollision->Initialize(tronTank02, box);
 
 	scene.Add(tronTank02);
 	//rotateCompTronTank02->Initialize(tronTank02, 50.f);
@@ -210,23 +224,6 @@ void load()
 	scoreObserver_TT02->SetSubject(subject);
 
 	scene.Add(scoreObserver_TT02);
-
-	//BULLET
-	//auto testBullet = std::make_shared<dae::GameObject>();
-	//
-	//auto bulletRender = testBullet->AddComponent<dae::RenderComponent>();
-	//auto bulletTransform = testBullet->AddComponent<dae::TransformComponent>();
-	//auto bullet = testBullet->AddComponent<dae::BulletComponent>();
-	////auto bulletManager = testBullet->AddComponent<dae::BulletManager>();
-
-	//texture = dae::ResourceManager::GetInstance().LoadTexture("BulletPlayer.png");
-
-	//bulletRender->Initialize(texture, testBullet);
-	//bulletTransform->Initialize(glm::vec2(200.f, 50.f), 0.f, testBullet);
-	//bullet->Initialize(testBullet, glm::vec2(-1, 0));
-	////bulletManager->Initialize(testBullet);
-
-	//scene.Add(testBullet);
 
 
 	//Commands

@@ -63,6 +63,9 @@
     <ClCompile Include="..\Minigin\HealthDisplayObserver.cpp">
       <Filter>Observers</Filter>
     </ClCompile>
+    <ClCompile Include="..\Minigin\CollisionBoxComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Minigin\BulletComponent.h">
@@ -100,6 +103,9 @@
     </ClInclude>
     <ClInclude Include="..\Minigin\HealthDisplayObserver.h">
       <Filter>Observers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Minigin\CollisionBoxComponent.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
