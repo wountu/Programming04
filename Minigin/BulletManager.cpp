@@ -1,5 +1,6 @@
 #include "BulletManager.h"
 #include "ServiceLocator.h"
+#include "BulletComponent.h"
 
 void dae::BulletManager::Initialize(std::shared_ptr<GameObject> parent)
 {
@@ -22,6 +23,8 @@ void dae::BulletManager::SpawnBullet(glm::vec2, glm::vec2)
 
 	//dae::sound_id sound = 1;
 	//system.LoadSound(sound, "TankShot.wav");
+
+	std::unique_ptr<BulletComponent> bullet = std::make_unique<BulletComponent>();
 	
 	system.Play(1, 50);
 
