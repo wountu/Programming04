@@ -18,7 +18,6 @@ void dae::BulletComponent::Update()
 	auto offset = (speed * m_Direction * timeClass.GetElapsed());
 	glm::vec2 newPos = oldPos + offset;
 
-	//std::cout << offset.x << ", " << offset.y << "\n";
 
 	m_Transform->ChangePosition(newPos);
 }

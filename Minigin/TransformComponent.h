@@ -23,10 +23,11 @@ namespace dae
 
 		void ChangeAngle(float angle);
 		float GetAngle() const;
+		glm::vec2 GetDir() const;
 	private:
 		glm::vec2 m_position;
+		glm::vec2 m_Direction;
 		float m_Angle;
-		//std::shared_ptr<GameObject> m_pParent{ nullptr };
 
 		GameObject* m_Parent{ nullptr };
 	};

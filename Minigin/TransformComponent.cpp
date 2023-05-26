@@ -35,11 +35,20 @@ namespace dae
 	void TransformComponent::ChangeAngle(float angle)
 	{
 		m_Angle = angle;
+
+
+		m_Direction.x = cos(glm::radians(m_Angle));
+		m_Direction.y = sin(glm::radians(m_Angle));
 	}
 
 	float TransformComponent::GetAngle() const
 	{
 		return m_Angle;
+	}
+
+	glm::vec2 TransformComponent::GetDir() const
+	{
+		return m_Direction;
 	}
 
 

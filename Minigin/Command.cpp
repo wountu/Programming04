@@ -28,13 +28,8 @@ namespace dae
 		glm::vec2 newPos{ m_pTransform->GetPosition() + (m_Direction * m_Speed * timeClass.GetElapsed()) };
 		m_pTransform->ChangePosition(newPos);
 
-		//float angle = 
-
-		float angle = acos(glm::dot(m_Direction, glm::vec2(1, 0))); //Radians
-		angle = glm::degrees(angle); //To degrees
-
-		if (m_Direction.y == -1)
-			angle *= -1; //rotate up
+		float angle = static_cast<float>(atan2(m_Direction.y, m_Direction.x));
+		angle = glm::degrees(angle);
 
 		std::cout << angle << "\n";
 		m_pTransform->ChangeAngle(angle);

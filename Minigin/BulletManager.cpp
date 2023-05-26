@@ -37,15 +37,14 @@ void dae::BulletManager::SpawnBullet(glm::vec2, glm::vec2)
 	bullet->SetParent(m_Parent->shared_from_this(), false);
 	
 	auto transform = bullet->AddComponent<TransformComponent>();
-	glm::vec2 pos = m_Parent->GetComponent<TransformComponent>()->GetPosition();
-	pos.x += 30.f;
-	transform->Initialize(pos, 0.f, bullet);
+	const auto parentTransform = m_Parent->GetComponent<TransformComponent>();
+	transform->Initialize(parentTransform->GetPosition(), parentTransform->GetAngle(), bullet);
 
 	auto render = bullet->AddComponent<RenderComponent>();
 	render->Initialize(m_Texture, bullet);
 
 	auto bulletComp = bullet->AddComponent<BulletComponent>();
-	bulletComp->Initialize(bullet, glm::vec2(1, 0));
+	bulletComp->Initialize(bullet, parentTransform->GetDir());
 
 	SceneManager::GetInstance().GetScene(0)->Add(bullet);
 
