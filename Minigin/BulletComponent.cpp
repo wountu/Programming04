@@ -7,27 +7,20 @@ void dae::BulletComponent::Initialize(std::shared_ptr<GameObject> parent, glm::v
 	m_Direction = direction;
 
 	m_Transform = m_Parent->GetComponent<TransformComponent>().get();
-	auto test = m_Transform->GetPosition();
-	std::cout << test.x << ", " << test.y << "\n";
 }
 
 void dae::BulletComponent::Update()
 {
-	if (!m_FirstFrame)
-	{
-		const float speed{ 50.f };
-		auto& timeClass = TimeClass::GetInstance();
+	const float speed{ 100.f };
+	auto& timeClass = TimeClass::GetInstance();
 
-		auto oldPos = m_Transform->GetPosition();
-		auto offset = (speed * m_Direction * timeClass.GetElapsed());
-		glm::vec2 newPos = oldPos + offset;
+	auto oldPos = m_Transform->GetPosition();
+	auto offset = (speed * m_Direction * timeClass.GetElapsed());
+	glm::vec2 newPos = oldPos + offset;
 
-		std::cout << offset.x << ", " << offset.y << "\n";
+	//std::cout << offset.x << ", " << offset.y << "\n";
 
-		m_Transform->ChangePosition(newPos);
-	}
-	else m_FirstFrame = false;
-
+	m_Transform->ChangePosition(newPos);
 }
 
 void dae::BulletComponent::Render() const

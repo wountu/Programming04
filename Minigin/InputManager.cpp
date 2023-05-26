@@ -37,13 +37,41 @@ bool dae::InputManager::ProcessInput()
 		controller->Update();
 	}
 
-	for (auto& command : m_ConsoleCommands)
+	for (auto& command : m_ConsoleCommandsType)
 	{
-		const unsigned& index = command.first.first;
-		const ControllerXbox::ControllerInputs& button = command.first.second;
-		if (m_Controllers[index]->IsPressed(button))
+		//Getting the variables
+		const unsigned& index = command.first.first.first;
+		const ControllerXbox::ControllerInputs& button = command.first.first.second;
+		KeyPress pressType = command.second;
+
+		if (pressType == KeyPress::SINGLEPRESS)
 		{
-			command.second->Execute();
+			//Look for the button to see if it's been pressed
+			const auto& result = std::find(m_PressButtons.begin(), m_PressButtons.end(), button);
+
+			//If it's been pressed before and now isn't being pressed anymore remove it from the container
+			if (result != m_PressButtons.end())
+			{
+				if (m_Controllers[index]->IsUpThisFrame(button))
+					m_PressButtons.erase(result);
+			}
+
+			//If the button has been pressed for the first time exute it's command and store it in the container
+			else
+			{
+				if (m_Controllers[index]->IsDownThisFrame(button))
+				{
+					m_PressButtons.emplace_back(button);
+					command.first.second->Execute();
+				}
+			}
+		}
+		else
+		{
+			if (m_Controllers[index]->IsPressed(button))
+			{
+				command.first.second->Execute();
+			}
 		}
 	}
 

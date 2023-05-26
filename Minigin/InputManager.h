@@ -20,25 +20,30 @@ namespace dae
 
 		bool ProcessInput();
 		unsigned AddController();
-		template<typename T> T* AddCommand(unsigned controllerIdx, GameObject* pObject, ControllerXbox::ControllerInputs inputToPress); //For xbox
+		template<typename T> T* AddCommand(unsigned controllerIdx, GameObject* pObject, ControllerXbox::ControllerInputs inputToPress, KeyPress keypress); //For xbox
 		template<typename T> T* AddCommand(GameObject* pObject, SDL_Scancode key, KeyPress keypress); //For keyboard
 	private:
 		using ControllerKey = std::pair<unsigned, ControllerXbox::ControllerInputs>;
-		using ControllerCommandsMap = std::map<ControllerKey, std::unique_ptr<Command>>;
+		using ControllerCommandsMap = std::pair<ControllerKey, std::unique_ptr<Command>>;
+		using ControllerCommandType = std::map<ControllerCommandsMap, KeyPress>;
 		using KeyboardCommandsMap = std::map<SDL_Scancode, std::unique_ptr<Command>>;
 
 		ControllerCommandsMap m_ConsoleCommands{};
+		ControllerCommandType m_ConsoleCommandsType{};
+
 		KeyboardCommandsMap m_HoldKeyboardCommands{};
 		KeyboardCommandsMap m_PressKeyboardCommands{};
 
 		std::vector<std::unique_ptr<ControllerXbox>> m_Controllers{};
 		std::vector<SDL_Scancode> m_HoldKeys{};
 		std::vector<SDL_Scancode> m_PressKeys{};
+
+		std::vector< ControllerXbox::ControllerInputs> m_PressButtons{};
 	};
 
 
 	template<typename T>
-	inline T* InputManager::AddCommand(unsigned controllerIndex, GameObject* actor, ControllerXbox::ControllerInputs buttonToPress)
+	inline T* InputManager::AddCommand(unsigned controllerIndex, GameObject* actor, ControllerXbox::ControllerInputs buttonToPress, KeyPress keypress)
 	{
 		for (size_t idx{}; idx < controllerIndex; ++idx)
 		{
@@ -48,9 +53,8 @@ namespace dae
 
 		std::unique_ptr<T> command = std::make_unique<T>(actor);
 		T* returnValue = command.get();
-		ControllerKey keyToPress = std::make_pair(controllerIndex, buttonToPress);
 
-		m_ConsoleCommands.insert({ keyToPress , std::move(command) });
+		m_ConsoleCommandsType.emplace( ControllerCommandsMap{ ControllerKey{controllerIndex, buttonToPress}, std::move(command)}, keypress);
 
 		return returnValue;
 	}

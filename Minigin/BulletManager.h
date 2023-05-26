@@ -3,6 +3,7 @@
 #include "BaseComponent.h"
 #include "TransformComponent.h"
 #include "TextObject.h"
+#include "Texture2D.h"
 
 namespace dae
 {
@@ -24,6 +25,9 @@ namespace dae
 	private:
 		GameObject* m_Parent{ nullptr };
 		TransformComponent* m_Transform{ nullptr };
+
+		std::shared_ptr<Texture2D> m_Texture{ nullptr };
+
 		bool m_FirstFrame{ true };
 	};
 }

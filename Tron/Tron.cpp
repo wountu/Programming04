@@ -151,6 +151,7 @@ void load()
 
 	//TRONTANK 2
 	auto tronTank02 = std::make_shared <dae::GameObject>();
+
 	auto renderCompTronTank02 = tronTank02->AddComponent<dae::RenderComponent>();
 	auto transformTronTank02 = tronTank02->AddComponent <dae::TransformComponent>();
 
@@ -167,6 +168,7 @@ void load()
 	healthTronTank02->Initialize(startHealth, tronTank02);
 	//textScoreObjectTronTank02->Initialize((std::string("Score: " + std::to_string(startScore))), font, tronTank02);
 	scoreTronTank02->Initialize(tronTank02, startScore);
+
 	bulletManager->Initialize(tronTank02);
 
 	scene.Add(tronTank02);
@@ -232,16 +234,16 @@ void load()
 	unsigned controller = input.AddController();
 
 	const float speed{ 50.f };
-	auto pCommand = input.AddCommand<dae::Movement>(controller, tronTank01.get(), ControllerXbox::ControllerInputs::DPAD_UP);
+	auto pCommand = input.AddCommand<dae::Movement>(controller, tronTank01.get(), ControllerXbox::ControllerInputs::DPAD_UP, dae::InputManager::KeyPress::HOLD);
 	pCommand->SetDirectionAndSpeed(glm::vec2{ 0.f, -1.f }, speed); // - in y is up 
 
-	pCommand = input.AddCommand<dae::Movement>(controller, tronTank01.get(), ControllerXbox::ControllerInputs::DPAD_DOWN);
+	pCommand = input.AddCommand<dae::Movement>(controller, tronTank01.get(), ControllerXbox::ControllerInputs::DPAD_DOWN, dae::InputManager::KeyPress::HOLD);
 	pCommand->SetDirectionAndSpeed(glm::vec2{ 0.f, 1.f }, speed);
 
-	pCommand = input.AddCommand<dae::Movement>(controller, tronTank01.get(), ControllerXbox::ControllerInputs::DPAD_LEFT);
+	pCommand = input.AddCommand<dae::Movement>(controller, tronTank01.get(), ControllerXbox::ControllerInputs::DPAD_LEFT, dae::InputManager::KeyPress::HOLD);
 	pCommand->SetDirectionAndSpeed(glm::vec2{ -1.f, 0.f }, speed);
 
-	pCommand = input.AddCommand<dae::Movement>(controller, tronTank01.get(), ControllerXbox::ControllerInputs::DPAD_RIGHT);
+	pCommand = input.AddCommand<dae::Movement>(controller, tronTank01.get(), ControllerXbox::ControllerInputs::DPAD_RIGHT, dae::InputManager::KeyPress::HOLD);
 	pCommand->SetDirectionAndSpeed(glm::vec2{ 1.f, 0.f }, speed);
 
 	pCommand = input.AddCommand<dae::Movement>(tronTank02.get(), SDL_SCANCODE_W, dae::InputManager::KeyPress::HOLD);
@@ -256,10 +258,10 @@ void load()
 	pCommand = input.AddCommand<dae::Movement>(tronTank02.get(), SDL_SCANCODE_D, dae::InputManager::KeyPress::HOLD);
 	pCommand->SetDirectionAndSpeed(glm::vec2{ 1.f, 0.f }, speed * 2.f);
 
-	input.AddCommand <dae::Damage>(tronTank02.get(), SDL_SCANCODE_F, dae::InputManager::KeyPress::SINGLEPRESS);
-	input.AddCommand<dae::Damage>(tronTank01.get(), SDL_SCANCODE_E, dae::InputManager::KeyPress::SINGLEPRESS);
+	//input.AddCommand <dae::Damage>(tronTank02.get(), SDL_SCANCODE_F, dae::InputManager::KeyPress::SINGLEPRESS);
+	//input.AddCommand<dae::Damage>(controller, tronTank01.get(), ControllerXbox::ControllerInputs::A);
 
-	input.AddCommand<dae::Shoot>(tronTank01.get(), SDL_SCANCODE_V, dae::InputManager::KeyPress::SINGLEPRESS);
+	input.AddCommand<dae::Shoot>(controller, tronTank01.get(), ControllerXbox::ControllerInputs::A, dae::InputManager::KeyPress::SINGLEPRESS);
 	//input.AddCommand<dae::Shoot>(controller, tronTank01.get(), ControllerXbox::ControllerInputs::A);
 	input.AddCommand<dae::Shoot>(tronTank02.get(), SDL_SCANCODE_SPACE, dae::InputManager::KeyPress::SINGLEPRESS);
 	//input.AddCommand<dae::Shoot>(tronTank02.get(), SDL_SCANCODE_SPACE, dae::InputManager::KeyPress::SINGLEPRESS);

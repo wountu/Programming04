@@ -25,5 +25,6 @@ namespace dae
 		bool m_FirstFrame{ true };
 
 		glm::vec2 m_Direction;
+
 	};
 }

@@ -131,7 +131,6 @@ void dae::GameObject::Update()
 	{
 		observer->Update();
 	}
-
 }
 
 void dae::GameObject::Render() const

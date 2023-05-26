@@ -1,4 +1,5 @@
 #include "SceneManager.h"
+#include "SceneManager.h"
 #include "Scene.h"
 
 void dae::SceneManager::Update()
@@ -20,6 +21,11 @@ void dae::SceneManager::Render()
 	{
 		scene->Render();
 	}
+}
+
+std::shared_ptr<dae::Scene> dae::SceneManager::GetScene(int idx) const
+{
+	return m_scenes[idx];
 }
 
 dae::Scene& dae::SceneManager::CreateScene(const std::string& name)
