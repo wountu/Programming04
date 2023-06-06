@@ -90,6 +90,12 @@
     <ClInclude Include="SoundEffectSystem.h">
       <Filter>Framework\Audio</Filter>
     </ClInclude>
+    <ClInclude Include="Decorator.h">
+      <Filter>Framework\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionDetector.h">
+      <Filter>Framework\Engine\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -145,6 +151,12 @@
     </ClCompile>
     <ClCompile Include="SoundEffectSystem.cpp">
       <Filter>Framework\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="Decorator.cpp">
+      <Filter>Framework\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionDetector.cpp">
+      <Filter>Framework\Engine\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

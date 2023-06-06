@@ -12,7 +12,7 @@ void dae::BulletManager::Initialize(std::shared_ptr<GameObject> parent)
 {
 	m_Parent = parent.get();
 
-	dae::ServiceLocator::GetSoundSystem().LoadSound(1, "TankShot.wav");
+	dae::ServiceLocator::GetSoundSystem().LoadSound(1, "Shoot.wav");
 
 
 	m_Texture = dae::ResourceManager::GetInstance().LoadTexture("BulletPlayer.png");
@@ -29,9 +29,6 @@ void dae::BulletManager::Render() const
 void dae::BulletManager::SpawnBullet(glm::vec2, glm::vec2)
 {
 	auto& system = dae::ServiceLocator::GetSoundSystem();
-
-	//dae::sound_id sound = 1;
-	//system.LoadSound(sound, "TankShot.wav");
 
 	std::shared_ptr<GameObject> bullet = std::make_unique<GameObject>();
 	bullet->SetParent(m_Parent->shared_from_this(), false);

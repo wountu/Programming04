@@ -1,3 +1,4 @@
+#pragma once
 #include <memory>
 #include <glm/vec2.hpp>
 
@@ -34,9 +35,14 @@ namespace dae
 		virtual void Initialize(std::shared_ptr<GameObject> parent, CollisionBox collision);
 		virtual void Update() override;
 		virtual void Render() const override;
+
+		CollisionBox GetBox() const;
+		GameObject* GetOverlappingGameObject() const;
+
+		GameObject* GetParent() const;
 	private:
 		GameObject* m_Parent{ nullptr };
-
+		GameObject* m_CollidingObject{};
 		CollisionBox m_CollisionBox{};
 	};
 }

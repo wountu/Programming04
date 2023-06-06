@@ -53,9 +53,11 @@ void dae::SoundEffectSystem::Update()
 				if (m_Sounds.contains(sound.sound))
 				{
 					const auto chunck = m_Sounds.at(sound.sound);
-
-					if (Mix_PlayChannel(-1, chunck, 0) == -1)
+					auto channel = Mix_PlayChannel(-1, chunck, 0);
+					if (channel == -1)
 						std::cout << "Problem trying to play the sound with id --> " << sound.sound << "\n";
+				
+					Mix_Volume(channel, static_cast<int>(sound.volume));
 				}
 			}
 			else std::cout << "The sound at id: " << sound.sound << " is not loaded." << "\n";
