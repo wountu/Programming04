@@ -120,12 +120,10 @@ void dae::GameObject::Update()
 		pComponent->Update();
 	}
 
-	////Updating observers
-	//if (m_Subject)
-	//{
-	//	m_Subject->Update();
-	//	//m_Subject->NotifyObserver(this, dae::Observer::Event::PLAYER_DIED);
-	//}
+	for (const auto& child : m_children)
+	{
+		child->Update();
+	}
 
 	for (const auto& observer : m_Observers)
 	{
