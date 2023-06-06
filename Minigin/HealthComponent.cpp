@@ -22,11 +22,13 @@ int dae::HealthComponent::GetHealth() const
 
 void dae::HealthComponent::LoseHealth(int amount)
 {
+	std::cout << "Player lost hp" << "\n";
 	m_Health -= amount;
 	m_Parent->NotifyObject(dae::Observer::Event::PLAYER_RECEIVED_DAMAGE);
 
 	if (m_Health <= 0)
 	{
 		m_Parent->NotifyObject(dae::Observer::Event::PLAYER_DIED);
+		std::cout << "Player died" << "\n";
 	}
 }

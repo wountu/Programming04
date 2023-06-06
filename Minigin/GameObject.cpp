@@ -160,3 +160,11 @@ void dae::GameObject::Render() const
 	}
 }
 
+void dae::GameObject::RemoveAllComponents()
+{
+	while (m_components.size() != 0)
+	{
+		m_components.pop_back();
+	}
+}
+

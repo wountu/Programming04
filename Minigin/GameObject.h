@@ -37,6 +37,7 @@ namespace dae
 		template <typename T> std::shared_ptr <T> AddComponent();
 		template <typename T> std::shared_ptr <T> GetComponent() const;
 		template <typename T> void RemoveComponent();
+		void RemoveAllComponents();
 
 		//Rule of 5
 		GameObject() = default;

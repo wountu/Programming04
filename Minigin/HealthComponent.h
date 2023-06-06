@@ -20,7 +20,7 @@ namespace dae
 		int GetHealth() const;
 		void LoseHealth(int amount);
 	private:
-		int m_Health;
+		int m_Health{};
 		GameObject* m_Parent{ nullptr };
   	};
 }

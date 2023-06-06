@@ -21,14 +21,20 @@ void dae::BulletManager::Initialize(std::shared_ptr<GameObject> parent)
 void dae::BulletManager::Update()
 {
 	//Remove the bullet from the scene 
+
 	for (auto& bullet : m_pBullets)
 	{
 		if (bullet->GetComponent<BulletComponent>()->GetDestroy())
 		{
-			m_pBullets.erase(std::remove(m_pBullets.begin(), m_pBullets.end(), bullet), m_pBullets.end());
+			bullet->RemoveAllComponents();
+			bullet->SetParent(nullptr, false);
 			SceneManager::GetInstance().GetScene(0)->Remove(bullet);
+			//bulletToDelete = bullet;
 		}
 	}
+
+	//if(bulletToDelete)
+	//	m_pBullets.erase(std::remove(m_pBullets.begin(), m_pBullets.end(), bulletToDelete), m_pBullets.end());
 }
 
 void dae::BulletManager::Render() const

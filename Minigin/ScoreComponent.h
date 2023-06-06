@@ -20,7 +20,7 @@ namespace dae
 		int GetScore() const;
 		void AddScore(int score);
 	private:
-		int m_Score;
+		int m_Score{};
 		GameObject* m_Parent{ nullptr };
 	};
 }
