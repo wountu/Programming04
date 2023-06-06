@@ -1,5 +1,8 @@
 #include "BulletComponent.h"
 #include "TimeClass.h"
+#include "CollisionBoxComponent.h"
+#include "SceneManager.h"
+#include "Scene.h"
 
 void dae::BulletComponent::Initialize(std::shared_ptr<GameObject> parent, glm::vec2 direction)
 {
@@ -20,8 +23,25 @@ void dae::BulletComponent::Update()
 
 
 	m_Transform->ChangePosition(newPos);
+	
+	auto overlap = m_Parent->GetComponent<CollisionBoxComponent>()->GetOverlappingGameObject();
+	if (overlap && overlap != m_Parent->GetParent()) //If we have an overlap that isn't our tank
+	{
+		auto overlapTag = overlap->GetTag(); 
+
+		if (overlapTag != dae::Static)
+		{
+			m_Destroy = true;
+			std::cout << "Hit player" << "\n";
+		}
+	}
 }
 
 void dae::BulletComponent::Render() const
 {
+}
+
+bool dae::BulletComponent::GetDestroy() const
+{
+	return m_Destroy;
 }

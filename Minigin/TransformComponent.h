@@ -25,9 +25,9 @@ namespace dae
 		float GetAngle() const;
 		glm::vec2 GetDir() const;
 	private:
-		glm::vec2 m_position;
-		glm::vec2 m_Direction;
-		float m_Angle;
+		glm::vec2 m_position{};
+		glm::vec2 m_Direction{};
+		float m_Angle{};
 
 		GameObject* m_Parent{ nullptr };
 	};

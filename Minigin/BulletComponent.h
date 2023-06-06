@@ -19,12 +19,15 @@ namespace dae
 		virtual void Initialize(std::shared_ptr<GameObject> parent, glm::vec2 direction);
 		virtual void Update() override;
 		virtual void Render() const override;
+
+		bool GetDestroy() const;
 	private:
 		GameObject* m_Parent{ nullptr };
 		TransformComponent* m_Transform{ nullptr };
 		bool m_FirstFrame{ true };
 
 		glm::vec2 m_Direction;
+		bool m_Destroy{};
 
 	};
 }

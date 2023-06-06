@@ -117,6 +117,7 @@ void load()
 	tankCollision->Initialize(tronTank01, box);
 
 	tronTank01->SetSubject(subject);
+	tronTank01->SetTag(dae::Player1);
 
 	scene.Add(tronTank01);
 
@@ -184,6 +185,7 @@ void load()
 	box._leftTop = transformTronTank01->GetPosition();
 
 	tankCollision->Initialize(tronTank02, box);
+	tronTank02->SetTag(dae::Player2);
 
 	scene.Add(tronTank02);
 	//rotateCompTronTank02->Initialize(tronTank02, 50.f);

@@ -113,6 +113,16 @@ void dae::GameObject::NotifyObserver(GameObject* actor, Observer::Event event)
 	}
 }
 
+void dae::GameObject::SetTag(Tag tag)
+{
+	m_Tag = tag;
+}
+
+dae::Tag dae::GameObject::GetTag() const
+{
+	return m_Tag;
+}
+
 void dae::GameObject::Update()
 {
 	for (std::shared_ptr<BaseComponent> pComponent : m_components)

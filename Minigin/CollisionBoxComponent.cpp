@@ -22,8 +22,6 @@ namespace dae
 		if (collidingObject)
 		{
 			m_CollidingObject = collidingObject->GetParent();
-			if (m_CollidingObject)
-				std::cout << "Collision!!   ";
 		}
 
 		m_CollisionBox._leftTop = m_Parent->GetComponent<TransformComponent>()->GetPosition(); //Updating it's pos

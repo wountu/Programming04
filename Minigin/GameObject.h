@@ -17,6 +17,14 @@ namespace dae
 	//class BaseComponent;
 	//class Observer;
 
+	enum Tag
+	{
+		Static,
+		Player1,
+		Player2,
+		Enemy
+	};
+
 	// todo: this should become final.
 	class GameObject final : public std::enable_shared_from_this<GameObject>
 	{
@@ -58,6 +66,9 @@ namespace dae
 		void AddObserver(Observer* observer);
 		void RemoverObservers(Observer* observer);
 		void NotifyObserver(GameObject* actor, Observer::Event event);
+
+		void SetTag(Tag tag);
+		Tag GetTag() const;
 	private:
 		//Children
 		void AddChild(GameObject* pChild);
@@ -83,6 +94,9 @@ namespace dae
 		//Subject
 		std::shared_ptr<Subject> m_Subject{ nullptr };
 		std::vector<Observer*> m_Observers;
+
+		//Gameobject tag
+		Tag m_Tag{ Tag::Static }; //Standard static tag
 	};
 
 	template<typename T>

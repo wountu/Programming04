@@ -28,6 +28,6 @@ namespace dae
 
 		std::shared_ptr<Texture2D> m_Texture{ nullptr };
 
-		bool m_FirstFrame{ true };
+		std::vector<std::shared_ptr<GameObject>> m_pBullets;
 	};
 }
