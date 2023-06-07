@@ -22,19 +22,21 @@ void dae::BulletManager::Update()
 {
 	//Remove the bullet from the scene 
 
+	std::shared_ptr<GameObject> bulletToDelete { nullptr };
+
 	for (auto& bullet : m_pBullets)
 	{
 		if (bullet->GetComponent<BulletComponent>()->GetDestroy())
 		{
-			bullet->RemoveAllComponents();
-			bullet->SetParent(nullptr, false);
+			bullet->GetParent()->RemoveChild(bullet);
+			bulletToDelete = bullet;
 			SceneManager::GetInstance().GetScene(0)->Remove(bullet);
-			//bulletToDelete = bullet;
 		}
 	}
 
-	//if(bulletToDelete)
-	//	m_pBullets.erase(std::remove(m_pBullets.begin(), m_pBullets.end(), bulletToDelete), m_pBullets.end());
+	if (bulletToDelete)
+		m_pBullets.erase(std::remove(m_pBullets.begin(), m_pBullets.end(), bulletToDelete), m_pBullets.end());
+
 }
 
 void dae::BulletManager::Render() const
@@ -71,9 +73,6 @@ void dae::BulletManager::SpawnBullet(glm::vec2, glm::vec2)
 	box._width = static_cast<float>(m_Texture->GetSize().x);
 	box._leftTop = transform->GetPosition();
 	collision->Initialize(bullet, box);
-
-	//Add bullet to scene
-	SceneManager::GetInstance().GetScene(0)->Add(bullet);
 
 	//Store bullet
 	m_pBullets.emplace_back(bullet);

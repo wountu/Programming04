@@ -41,7 +41,7 @@ namespace dae
 
 		//Rule of 5
 		GameObject() = default;
-		virtual ~GameObject() = default;
+		virtual ~GameObject();
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
 		GameObject& operator=(const GameObject& other) = delete;
@@ -54,6 +54,7 @@ namespace dae
 		//Children
 		size_t GetChildCount() const;
 		GameObject* GetChildAt(int idx) const;
+		void RemoveChild(std::shared_ptr<GameObject> child);
 
 		//positions
 		void SetLocalPos(const glm::vec2& pos);
@@ -73,7 +74,6 @@ namespace dae
 	private:
 		//Children
 		void AddChild(GameObject* pChild);
-		void RemoveChild(std::shared_ptr<GameObject> child);
 
 		//Update position with dirty flag
 		void SetPositionDirty();

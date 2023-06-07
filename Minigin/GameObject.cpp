@@ -5,6 +5,9 @@
 #include "ResourceManager.h"
 #include "Renderer.h"
 
+#include "SceneManager.h"
+#include "Scene.h"
+
 dae::GameObject* dae::GameObject::GetParent() const
 {
 	return m_parent;
@@ -45,15 +48,13 @@ void dae::GameObject::AddChild(GameObject* pChild)
 
 void dae::GameObject::RemoveChild(std::shared_ptr<GameObject> child)
 {
+	auto result = std::find(m_children.begin(), m_children.end(), child.get());
 
-	//auto result = std::find(m_children.begin(), m_children.end(), child);
+	if (result != m_children.end())
+	{
+		m_children.erase(std::remove(m_children.begin(), m_children.end(), child.get()), m_children.end());
+	}
 
-	//if (result != m_children.end())
-	//{
-	//	result->get()->SetParent(nullptr, true);
-
-	//	m_children.erase(result);
-	//}
 }
 
 void dae::GameObject::SetPositionDirty()
@@ -148,6 +149,11 @@ void dae::GameObject::Render() const
 		pComponent->Render();
 	}
 
+	for (const auto& child : m_children)
+	{
+		child->Render();
+	}
+
 	////Rendering observers
 	//if (m_Subject)
 	//{
@@ -166,5 +172,10 @@ void dae::GameObject::RemoveAllComponents()
 	{
 		m_components.pop_back();
 	}
+}
+
+dae::GameObject::~GameObject()
+{
+	m_children.clear();
 }
 
