@@ -66,6 +66,11 @@ namespace dae
 	void Shoot::Execute()
 	{
 		m_Parent->GetComponent<BulletManager>()->SpawnBullet(m_Direction);
+
+		float angle = static_cast<float>(atan2(m_Direction.y, m_Direction.x));
+		angle = glm::degrees(angle);
+
+		m_Parent->GetComponent<TransformComponent>()->ChangeAngle(angle);
 	}
 	void Shoot::SetDirection(glm::vec2 dir)
 	{

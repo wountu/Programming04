@@ -25,3 +25,8 @@ void dae::RenderComponent::Render() const
 	renderer.SetRenderAngle(m_transform->GetAngle());
 	renderer.RenderTexture(*m_texture);
 }
+
+void dae::RenderComponent::StopRendering(bool render)
+{
+	m_Render = render;
+}

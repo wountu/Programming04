@@ -28,9 +28,8 @@ void dae::BulletManager::Update()
 	{
 		if (bullet->GetComponent<BulletComponent>()->GetDestroy())
 		{
-			bullet->GetParent()->RemoveChild(bullet);
+			bullet->RemoveAllComponents();
 			bulletToDelete = bullet;
-			SceneManager::GetInstance().GetScene(0)->Remove(bullet);
 		}
 	}
 
@@ -49,14 +48,23 @@ void dae::BulletManager::SpawnBullet(glm::vec2 dir)
 	auto& system = dae::ServiceLocator::GetSoundSystem();
 	system.Play(1, 50);
 
+	const float textureWidth = static_cast<float>(m_Texture->GetSize().x);
+
 	//GameObject
 	std::shared_ptr<GameObject> bullet = std::make_unique<GameObject>();
-	bullet->SetParent(m_Parent->shared_from_this(), false);
+	//bullet->SetParent(m_Parent->shared_from_this(), false);
 	
 	//Transform
 	auto transform = bullet->AddComponent<TransformComponent>();
 	const auto parentTransform = m_Parent->GetComponent<TransformComponent>();
-	transform->Initialize(parentTransform->GetLocalPosition(), parentTransform->GetAngle(), bullet);
+	
+	//Allignment with gun
+	auto tankCol = m_Parent->GetParent()->GetComponent<CollisionBoxComponent>();
+	glm::vec2 allignedWithGun{ parentTransform->GetLocalPosition().x + tankCol->GetBox()._width, parentTransform->GetLocalPosition().y + tankCol->GetBox()._height / 2 };
+
+	auto bulletPos = parentTransform->GetWorldPosition() + allignedWithGun;
+
+	transform->Initialize(bulletPos, parentTransform->GetAngle(), bullet);
 
 	//Render
 	auto render = bullet->AddComponent<RenderComponent>();
@@ -70,12 +78,18 @@ void dae::BulletManager::SpawnBullet(glm::vec2 dir)
 	auto collision = bullet->AddComponent<CollisionBoxComponent>();
 	CollisionBox box;
 	box._height = static_cast<float>(m_Texture->GetSize().y);
-	box._width = static_cast<float>(m_Texture->GetSize().x);
+	box._width = textureWidth;
 	box._leftTop = transform->GetWorldPosition();
 	collision->Initialize(bullet, box);
 
+	//Initialize the gameobject
+	bullet->Initialize();
+	bullet->SetTag(m_Parent->GetParent()->GetTag());
+
 	//Store bullet
 	m_pBullets.emplace_back(bullet);
+
+	SceneManager::GetInstance().GetScene(0)->Add(bullet);
 
 	std::cout << "Spawn in bullet" << "\n";
 }
