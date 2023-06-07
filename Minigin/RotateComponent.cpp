@@ -27,5 +27,5 @@ void dae::RotateComponent::Update()
 	m_position.x = cos(3.14f / 180.f * m_angle) * m_radius;
 	m_position.y = sin(3.14f / 180.f * m_angle) * m_radius;
 
-	m_transform->ChangePosition(m_position);
+	m_transform->ChangeLocalPosition(m_position);
 }

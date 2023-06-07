@@ -12,15 +12,7 @@ void dae::RenderComponent::Initialize(std::shared_ptr<Texture2D> texture, std::s
 
 dae::RenderComponent::~RenderComponent()
 {
-//	m_pParent.reset();
 
-	//delete m_Transform;
-
-	//delete m_Parent;
-	//m_Parent = nullptr;
-
-	//delete m_Transform;
-	//m_Transform = nullptr;
 }
 
 void dae::RenderComponent::Render() const
@@ -29,7 +21,7 @@ void dae::RenderComponent::Render() const
 
 	//m_Parent->SetLocalPos(m_transform->GetPosition());
 
-	renderer.SetRenderPos(m_transform->GetPosition());
+	renderer.SetRenderPos(m_transform->GetWorldPosition());
 	renderer.SetRenderAngle(m_transform->GetAngle());
 	renderer.RenderTexture(*m_texture);
 }

@@ -8,6 +8,11 @@
 #include "SceneManager.h"
 #include "Scene.h"
 
+void dae::GameObject::Initialize()
+{
+	m_pTransform = GetComponent<TransformComponent>();
+}
+
 dae::GameObject* dae::GameObject::GetParent() const
 {
 	return m_parent;
@@ -16,12 +21,14 @@ dae::GameObject* dae::GameObject::GetParent() const
 void dae::GameObject::SetParent(std::shared_ptr<GameObject> parent, bool keepWorldPos)
 {
 	if (parent == nullptr)
-		SetLocalPos(GetWorldPos());
+		m_pTransform->ChangeLocalPosition(m_pTransform->GetWorldPosition());
+
 	else
 	{
 		if (keepWorldPos)
-			SetLocalPos(m_localPos - parent->GetWorldPos());
-		SetPositionDirty();
+		{
+			m_pTransform->ChangeLocalPosition(m_pTransform->GetLocalPosition() - parent->GetComponent<TransformComponent>()->GetWorldPosition());
+		}
 	}
 
 	if (m_parent)
@@ -31,19 +38,14 @@ void dae::GameObject::SetParent(std::shared_ptr<GameObject> parent, bool keepWor
 		m_parent->AddChild(this);
 }
 
-size_t dae::GameObject::GetChildCount() const
-{
-	return m_children.size();
-}
-
-dae::GameObject* dae::GameObject::GetChildAt(int idx) const
-{
-	return m_children[idx];
-}
-
 void dae::GameObject::AddChild(GameObject* pChild)
 {
 	m_children.emplace_back(pChild);
+}
+
+std::vector<dae::GameObject*> dae::GameObject::GetChildren() const
+{
+	return m_children;
 }
 
 void dae::GameObject::RemoveChild(std::shared_ptr<GameObject> child)
@@ -175,7 +177,7 @@ void dae::GameObject::RemoveAllComponents()
 }
 
 dae::GameObject::~GameObject()
-{
+{	
 	m_children.clear();
 }
 

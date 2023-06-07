@@ -6,7 +6,7 @@ namespace dae
 {
 	void TransformComponent::Initialize(const glm::vec2& pos, float angle, std::shared_ptr<GameObject> parent)
 	{
-		m_position = pos;
+		m_WorldPosition = pos;
 		m_Angle = angle;
 		//m_pParent = parent;
 
@@ -15,21 +15,30 @@ namespace dae
 
 	void TransformComponent::Update()
 	{
-		m_Parent->SetLocalPos(m_position);
+		m_Parent->SetLocalPos(m_WorldPosition);
 	}
 
 	TransformComponent::~TransformComponent()
 	{
 	}
 
-	void TransformComponent::ChangePosition(glm::vec2 pos)
+	void TransformComponent::ChangeLocalPosition(glm::vec2 pos)
 	{
-		m_position = pos;
+		m_LocalPosition = pos;
+		SetPositionDirty();
 	}
 
-	glm::vec2 TransformComponent::GetPosition() const
+	glm::vec2 TransformComponent::GetLocalPosition() const
+	{	
+		return m_LocalPosition;
+	}
+
+	glm::vec2 TransformComponent::GetWorldPosition()
 	{
-		return m_position;
+		if (m_DirtyFlag)
+			UpdateWorldPos();
+
+		return m_WorldPosition;
 	}
 
 	void TransformComponent::ChangeAngle(float angle)
@@ -51,5 +60,29 @@ namespace dae
 		return m_Direction;
 	}
 
+	void TransformComponent::SetPositionDirty()
+	{
+		auto children = m_Parent->GetChildren();
+		for (const auto& child : children)
+		{
+			auto trans = child->GetComponent<TransformComponent>();
+			trans->SetPositionDirty();
+		}
 
+		m_DirtyFlag = true;
+	}
+
+	void TransformComponent::UpdateWorldPos()
+	{
+		if (!m_Parent->GetParent())
+			m_WorldPosition = m_LocalPosition;
+
+		else
+		{
+			auto transform = m_Parent->GetComponent<TransformComponent>();
+			m_WorldPosition = transform->GetWorldPosition() + m_LocalPosition;
+		}
+
+		m_DirtyFlag = false;
+	}
 }

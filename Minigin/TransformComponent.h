@@ -18,18 +18,27 @@ namespace dae
 
 		virtual void Update() override;
 
-		void ChangePosition(glm::vec2 pos);
-		glm::vec2 GetPosition() const;
+		void ChangeLocalPosition(glm::vec2 pos);
+
+		glm::vec2 GetLocalPosition() const;
+		glm::vec2 GetWorldPosition();
 
 		void ChangeAngle(float angle);
 		float GetAngle() const;
 		glm::vec2 GetDir() const;
+
+		void SetPositionDirty();
 	private:
-		glm::vec2 m_position{};
+		glm::vec2 m_WorldPosition{};
+		glm::vec2 m_LocalPosition{};
 		glm::vec2 m_Direction{};
 		float m_Angle{};
 
+		bool m_DirtyFlag{};
+
 		GameObject* m_Parent{ nullptr };
+
+		void UpdateWorldPos();
 	};
 
 }

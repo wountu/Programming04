@@ -66,6 +66,9 @@
     <ClCompile Include="..\Minigin\CollisionBoxComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="AimComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Minigin\BulletComponent.h">
@@ -105,6 +108,9 @@
       <Filter>Observers</Filter>
     </ClInclude>
     <ClInclude Include="..\Minigin\CollisionBoxComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="AimComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>

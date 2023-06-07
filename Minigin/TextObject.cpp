@@ -41,7 +41,7 @@ void dae::TextObject::Render() const
 
 	if (m_textTexture != nullptr)
 	{
-		renderer.SetRenderPos(m_transform->GetPosition());
+		renderer.SetRenderPos(m_transform->GetLocalPosition());
 		renderer.SetRenderAngle(m_transform->GetAngle());
 		renderer.RenderTexture(*m_textTexture);
 	}

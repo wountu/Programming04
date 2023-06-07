@@ -56,7 +56,7 @@ void dae::BulletManager::SpawnBullet(glm::vec2, glm::vec2)
 	//Transform
 	auto transform = bullet->AddComponent<TransformComponent>();
 	const auto parentTransform = m_Parent->GetComponent<TransformComponent>();
-	transform->Initialize(parentTransform->GetPosition(), parentTransform->GetAngle(), bullet);
+	transform->Initialize(parentTransform->GetLocalPosition(), parentTransform->GetAngle(), bullet);
 
 	//Render
 	auto render = bullet->AddComponent<RenderComponent>();
@@ -71,7 +71,7 @@ void dae::BulletManager::SpawnBullet(glm::vec2, glm::vec2)
 	CollisionBox box;
 	box._height = static_cast<float>(m_Texture->GetSize().y);
 	box._width = static_cast<float>(m_Texture->GetSize().x);
-	box._leftTop = transform->GetPosition();
+	box._leftTop = transform->GetLocalPosition();
 	collision->Initialize(bullet, box);
 
 	//Store bullet

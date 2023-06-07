@@ -18,12 +18,12 @@ void dae::BulletComponent::Update()
 	const float speed{ 100.f };
 	auto& timeClass = TimeClass::GetInstance();
 
-	auto oldPos = m_Transform->GetPosition();
+	auto oldPos = m_Transform->GetLocalPosition();
 	auto offset = (speed * m_Direction * timeClass.GetElapsed());
 	glm::vec2 newPos = oldPos + offset;
 
 
-	m_Transform->ChangePosition(newPos);
+	m_Transform->ChangeLocalPosition(newPos);
 	
 	auto overlap = m_Parent->GetComponent<CollisionBoxComponent>()->GetOverlappingGameObject();
 	if (overlap && overlap != m_Parent->GetParent()) //If we have an overlap that isn't our tank
@@ -33,7 +33,7 @@ void dae::BulletComponent::Update()
 		if (overlapTag != dae::Static)
 		{
 			m_Destroy = true;
-			//overlap->GetComponent<HealthComponent>()->LoseHealth(1);
+			overlap->GetComponent<HealthComponent>()->LoseHealth(1);
 		}
 	}
 }

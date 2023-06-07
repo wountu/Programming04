@@ -34,6 +34,7 @@
 #include "SoundEffectSystem.h"
 #include "ServiceLocator.h"
 #include "CollisionBoxComponent.h"
+#include "AimComponent.h"
 
 void load()
 {
@@ -75,7 +76,6 @@ void load()
 	scene.Add(daeTextureGameObject);
 
 
-
 	auto fpsGameobject = std::make_shared<dae::GameObject>();
 	auto transformComp = fpsGameobject->AddComponent<dae::TransformComponent>();
 	auto textComp = fpsGameobject->AddComponent<dae::TextObject>();
@@ -99,7 +99,7 @@ void load()
 	auto scoreTronTank01 = tronTank01->AddComponent<dae::ScoreComponent>();
 	auto renderCompTronTank01 = tronTank01->AddComponent<dae::RenderComponent>();
 	auto transformTronTank01 = tronTank01->AddComponent <dae::TransformComponent>();
-	auto bulletManager = tronTank01->AddComponent<dae::BulletManager>();
+
 	auto tankCollision = tronTank01->AddComponent<dae::CollisionBoxComponent>();
 
 	texture = dae::ResourceManager::GetInstance().LoadTexture("BlueTank.png");
@@ -107,12 +107,11 @@ void load()
 	transformTronTank01->Initialize(glm::vec2(250, 400), 90.f, tronTank01);
 	healthTronTank01->Initialize(startHealth, tronTank01);
 	scoreTronTank01->Initialize(tronTank01);
-	bulletManager->Initialize(tronTank01);
 
 	dae::CollisionBox box{};
 	box._width = static_cast<float>(texture->GetSize().x);
 	box._height = static_cast<float>(texture->GetSize().y);
-	box._leftTop = transformTronTank01->GetPosition();
+	box._leftTop = transformTronTank01->GetLocalPosition();
 
 	tankCollision->Initialize(tronTank01, box);
 
@@ -121,16 +120,36 @@ void load()
 
 	scene.Add(tronTank01);
 
+	//Trontank aim
+	auto aimTronTank01 = std::make_shared<dae::GameObject>(); 
+	auto aimComponent = aimTronTank01->AddComponent<dae::AimComponent>();
+	auto aimTransform = aimTronTank01->AddComponent<dae::TransformComponent>();
+	auto bulletManager = aimTronTank01->AddComponent<dae::BulletManager>();
+	auto renderCompAim = aimTronTank01->AddComponent<dae::RenderComponent>();
+
+	aimTronTank01->Initialize();
+	aimComponent->Initialize(aimTronTank01);
+	aimTransform->Initialize(tronTank01->GetComponent<dae::TransformComponent>()->GetLocalPosition(), tronTank01->GetComponent<dae::TransformComponent>()->GetAngle(), aimTronTank01);
+	bulletManager->Initialize(aimTronTank01);
+	texture = dae::ResourceManager::GetInstance().LoadTexture("BlueTankGun.png");
+	renderCompAim->Initialize(texture, aimTronTank01);
+
+	aimTronTank01->SetParent(tronTank01, false);
+	aimTronTank01->SetTag(dae::Player1);
+
+	scene.Add(aimTronTank01);
 
 	//Health observer for tron tank 01
 	auto healthObserver_TT01 = std::make_shared <dae::GameObject>();
-	healthObserver_TT01->SetParent(tronTank01, true); //Needed for the observer
 
 	auto textHealthObject_HO_TT01 = healthObserver_TT01->AddComponent <dae::TextObject>();
 	auto textTransform_HO_TT01 = healthObserver_TT01->AddComponent<dae::TransformComponent>();
 
 	textHealthObject_HO_TT01->Initialize((std::string("Health: " + std::to_string(startHealth))), font, healthObserver_TT01);
 	textTransform_HO_TT01->Initialize(glm::vec2(5.f, 100.f), 0.f, healthObserver_TT01);
+	
+	healthObserver_TT01->Initialize();
+	healthObserver_TT01->SetParent(tronTank01, true); //Needed for the observer
 
 	//Adding the observers to the subject, and adding that subject to the gameobject
 	dae::HealthDisplayObserver* healthDisplay_TT1 = new dae::HealthDisplayObserver(healthObserver_TT01, startHealth);
@@ -142,13 +161,15 @@ void load()
 
 	//Score observer for tron tank 02
 	auto scoreObserver_TT01 = std::make_shared<dae::GameObject>();
-	scoreObserver_TT01->SetParent(tronTank01, true);
 
 	auto textScoreObject_SO_TT01 = scoreObserver_TT01->AddComponent<dae::TextObject>();
 	auto textTransfrom_SO_TT1 = scoreObserver_TT01->AddComponent<dae::TransformComponent>();
 
 	textScoreObject_SO_TT01->Initialize(std::string("Score: 0"), font, scoreObserver_TT01);
 	textTransfrom_SO_TT1->Initialize(glm::vec2(5.f, 130.f), 0.f, scoreObserver_TT01);
+
+	scoreObserver_TT01->Initialize();
+	scoreObserver_TT01->SetParent(tronTank01, true);
 
 	//Adding the observers to the subject, and adding that subject to the gameobject
 	dae::ScoreDisplayObserver* scoreDisplay_TT1 = new dae::ScoreDisplayObserver(scoreObserver_TT01);
@@ -169,20 +190,21 @@ void load()
 	//auto textScoreObjectTronTank02 = tronTank02->AddComponent<dae::TextObject>();
 	auto scoreTronTank02 = tronTank02->AddComponent<dae::ScoreComponent>();
 	//auto rotateCompTronTank02 = tronTank02->AddComponent<dae::RotateComponent>();
-	bulletManager = tronTank02->AddComponent<dae::BulletManager>();
+	//bulletManager = tronTank02->AddComponent<dae::BulletManager>();
 	tankCollision = tronTank02->AddComponent<dae::CollisionBoxComponent>();
 
+	tronTank02->Initialize();
 	texture = dae::ResourceManager::GetInstance().LoadTexture("GreenTank.png");
 	renderCompTronTank02->Initialize(texture, tronTank02);
 	transformTronTank02->Initialize(glm::vec2(40, 0), 0.f, tronTank02);
 	healthTronTank02->Initialize(startHealth, tronTank02);
 	//textScoreObjectTronTank02->Initialize((std::string("Score: " + std::to_string(startScore))), font, tronTank02);
 	scoreTronTank02->Initialize(tronTank02, startScore);
-	bulletManager->Initialize(tronTank02);
+	//bulletManager->Initialize(tronTank02);
 
 	box._width = static_cast<float>(texture->GetSize().x);
 	box._height = static_cast<float>(texture->GetSize().y);
-	box._leftTop = transformTronTank01->GetPosition();
+	box._leftTop = transformTronTank01->GetLocalPosition();
 
 	tankCollision->Initialize(tronTank02, box);
 	tronTank02->SetTag(dae::Player2);
@@ -195,13 +217,15 @@ void load()
 
 	//Health observer for tron tank 02
 	auto healthObserver_TT02 = std::make_shared <dae::GameObject>();
-	healthObserver_TT02->SetParent(tronTank02, true); //Needed for the observer
 
 	auto textHealthObject_HO_TT02 = healthObserver_TT02->AddComponent <dae::TextObject>();
 	auto textTransform_HO_TT02 = healthObserver_TT02->AddComponent<dae::TransformComponent>();
 
+	healthObserver_TT02->Initialize();
 	textHealthObject_HO_TT02->Initialize((std::string("Health: " + std::to_string(startHealth))), font, healthObserver_TT02);
 	textTransform_HO_TT02->Initialize(glm::vec2(5.f, 200.f), 0.f, healthObserver_TT02);
+
+	healthObserver_TT02->SetParent(tronTank02, true); //Needed for the observer
 
 	//Adding the observers to the subject, and adding that subject to the gameobject
 	dae::HealthDisplayObserver* healthDisplay_TT2 = new dae::HealthDisplayObserver(healthObserver_TT02, startHealth);
@@ -212,11 +236,11 @@ void load()
 
 	//Score observer for tron tank 02
 	auto scoreObserver_TT02 = std::make_shared<dae::GameObject>();
-	scoreObserver_TT02->SetParent(tronTank02, true);
 
 	auto textScoreObject_SO_TT02 = scoreObserver_TT02->AddComponent<dae::TextObject>();
 	auto textTransfrom_SO_TT2 = scoreObserver_TT02->AddComponent<dae::TransformComponent>();
 
+	scoreObserver_TT02->Initialize();
 	textScoreObject_SO_TT02->Initialize(std::string("Score: 0"), font, scoreObserver_TT02);
 	textTransfrom_SO_TT2->Initialize(glm::vec2(5.f, 230.f), 0.f, scoreObserver_TT02);
 
@@ -224,6 +248,8 @@ void load()
 	dae::ScoreDisplayObserver* scoreDisplay_TT2 = new dae::ScoreDisplayObserver(scoreObserver_TT02);
 	subject->AddObserver(scoreDisplay_TT2);
 	scoreObserver_TT02->SetSubject(subject);
+
+	scoreObserver_TT02->SetParent(tronTank02, true);
 
 	scene.Add(scoreObserver_TT02);
 

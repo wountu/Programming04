@@ -24,7 +24,7 @@ namespace dae
 			m_CollidingObject = collidingObject->GetParent();
 		}
 
-		m_CollisionBox._leftTop = m_Parent->GetComponent<TransformComponent>()->GetPosition(); //Updating it's pos
+		m_CollisionBox._leftTop = m_Parent->GetComponent<TransformComponent>()->GetLocalPosition(); //Updating it's pos
 	}
 
 	void CollisionBoxComponent::Render() const

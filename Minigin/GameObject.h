@@ -29,6 +29,8 @@ namespace dae
 	class GameObject final : public std::enable_shared_from_this<GameObject>
 	{
 	public:
+		void Initialize();
+
 		//Update/Render
 		void Update();
 		void Render() const;
@@ -52,8 +54,7 @@ namespace dae
 		void SetParent(std::shared_ptr<GameObject> parent, bool keepWorldPos);
 		
 		//Children
-		size_t GetChildCount() const;
-		GameObject* GetChildAt(int idx) const;
+		std::vector<GameObject*> GetChildren() const;
 		void RemoveChild(std::shared_ptr<GameObject> child);
 
 		//positions
@@ -85,7 +86,6 @@ namespace dae
 
 		//Components
 		std::vector<std::shared_ptr<BaseComponent>> m_components;
-		Transform m_transform{};
 		std::shared_ptr<TransformComponent> m_pTransform{ nullptr };
 		
 		//parents-Children

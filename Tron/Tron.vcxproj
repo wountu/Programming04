@@ -190,6 +190,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" /R/Y</Comm
     <ClCompile Include="..\Minigin\ScoreDisplayObserver.cpp" />
     <ClCompile Include="..\Minigin\TextObject.cpp" />
     <ClCompile Include="..\Minigin\TransformComponent.cpp" />
+    <ClCompile Include="AimComponent.cpp" />
     <ClCompile Include="Tron.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -206,6 +207,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" /R/Y</Comm
     <ClInclude Include="..\Minigin\ScoreDisplayObserver.h" />
     <ClInclude Include="..\Minigin\TextObject.h" />
     <ClInclude Include="..\Minigin\TransformComponent.h" />
+    <ClInclude Include="AimComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
