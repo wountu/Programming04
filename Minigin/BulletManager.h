@@ -21,7 +21,7 @@ namespace dae
 		virtual void Update() override;
 		virtual void Render() const override;
 
-		void SpawnBullet(glm::vec2 pos, glm::vec2 dir);
+		void SpawnBullet(glm::vec2 dir);
 	private:
 		GameObject* m_Parent{ nullptr };
 		TransformComponent* m_Transform{ nullptr };

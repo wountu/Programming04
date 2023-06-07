@@ -43,7 +43,7 @@ void dae::BulletManager::Render() const
 {
 }
 
-void dae::BulletManager::SpawnBullet(glm::vec2, glm::vec2)
+void dae::BulletManager::SpawnBullet(glm::vec2 dir)
 {
 	//Sound system
 	auto& system = dae::ServiceLocator::GetSoundSystem();
@@ -64,14 +64,14 @@ void dae::BulletManager::SpawnBullet(glm::vec2, glm::vec2)
 
 	//Bullet
 	auto bulletComp = bullet->AddComponent<BulletComponent>();
-	bulletComp->Initialize(bullet, parentTransform->GetDir());
+	bulletComp->Initialize(bullet, dir);
 
 	//Collision
 	auto collision = bullet->AddComponent<CollisionBoxComponent>();
 	CollisionBox box;
 	box._height = static_cast<float>(m_Texture->GetSize().y);
 	box._width = static_cast<float>(m_Texture->GetSize().x);
-	box._leftTop = transform->GetLocalPosition();
+	box._leftTop = transform->GetWorldPosition();
 	collision->Initialize(bullet, box);
 
 	//Store bullet

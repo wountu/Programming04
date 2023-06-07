@@ -89,7 +89,7 @@ void load()
 
 
 	const int startHealth{ 3 };
-	const int startScore{ 0 };
+	//const int startScore{ 0 };
 
 
 	//TRONTANK01
@@ -102,6 +102,7 @@ void load()
 
 	auto tankCollision = tronTank01->AddComponent<dae::CollisionBoxComponent>();
 
+	tronTank01->Initialize();
 	texture = dae::ResourceManager::GetInstance().LoadTexture("BlueTank.png");
 	renderCompTronTank01->Initialize(texture, tronTank01);
 	transformTronTank01->Initialize(glm::vec2(250, 400), 90.f, tronTank01);
@@ -119,7 +120,6 @@ void load()
 	tronTank01->SetTag(dae::Player1);
 
 	scene.Add(tronTank01);
-
 	//Trontank aim
 	auto aimTronTank01 = std::make_shared<dae::GameObject>(); 
 	auto aimComponent = aimTronTank01->AddComponent<dae::AimComponent>();
@@ -129,7 +129,7 @@ void load()
 
 	aimTronTank01->Initialize();
 	aimComponent->Initialize(aimTronTank01);
-	aimTransform->Initialize(tronTank01->GetComponent<dae::TransformComponent>()->GetLocalPosition(), tronTank01->GetComponent<dae::TransformComponent>()->GetAngle(), aimTronTank01);
+	aimTransform->Initialize(glm::vec2{}, tronTank01->GetComponent<dae::TransformComponent>()->GetAngle(), aimTronTank01);
 	bulletManager->Initialize(aimTronTank01);
 	texture = dae::ResourceManager::GetInstance().LoadTexture("BlueTankGun.png");
 	renderCompAim->Initialize(texture, aimTronTank01);
@@ -138,6 +138,7 @@ void load()
 	aimTronTank01->SetTag(dae::Player1);
 
 	scene.Add(aimTronTank01);
+
 
 	//Health observer for tron tank 01
 	auto healthObserver_TT01 = std::make_shared <dae::GameObject>();
@@ -180,115 +181,122 @@ void load()
 
 
 
-	//TRONTANK 2
-	auto tronTank02 = std::make_shared <dae::GameObject>();
+	////TRONTANK 2
+	//auto tronTank02 = std::make_shared <dae::GameObject>();
 
-	auto renderCompTronTank02 = tronTank02->AddComponent<dae::RenderComponent>();
-	auto transformTronTank02 = tronTank02->AddComponent <dae::TransformComponent>();
+	//auto renderCompTronTank02 = tronTank02->AddComponent<dae::RenderComponent>();
+	//auto transformTronTank02 = tronTank02->AddComponent <dae::TransformComponent>();
+	//auto healthTronTank02 = tronTank02->AddComponent<dae::HealthComponent>();
+	//auto scoreTronTank02 = tronTank02->AddComponent<dae::ScoreComponent>();
+	//tankCollision = tronTank02->AddComponent<dae::CollisionBoxComponent>();
 
-	auto healthTronTank02 = tronTank02->AddComponent<dae::HealthComponent>();
-	//auto textScoreObjectTronTank02 = tronTank02->AddComponent<dae::TextObject>();
-	auto scoreTronTank02 = tronTank02->AddComponent<dae::ScoreComponent>();
-	//auto rotateCompTronTank02 = tronTank02->AddComponent<dae::RotateComponent>();
-	//bulletManager = tronTank02->AddComponent<dae::BulletManager>();
-	tankCollision = tronTank02->AddComponent<dae::CollisionBoxComponent>();
+	//tronTank02->Initialize();
+	//texture = dae::ResourceManager::GetInstance().LoadTexture("GreenTank.png");
+	//renderCompTronTank02->Initialize(texture, tronTank02);
+	//transformTronTank02->Initialize(glm::vec2(40, 0), 0.f, tronTank02);
+	//healthTronTank02->Initialize(startHealth, tronTank02);
+	//scoreTronTank02->Initialize(tronTank02, startScore);
 
-	tronTank02->Initialize();
-	texture = dae::ResourceManager::GetInstance().LoadTexture("GreenTank.png");
-	renderCompTronTank02->Initialize(texture, tronTank02);
-	transformTronTank02->Initialize(glm::vec2(40, 0), 0.f, tronTank02);
-	healthTronTank02->Initialize(startHealth, tronTank02);
-	//textScoreObjectTronTank02->Initialize((std::string("Score: " + std::to_string(startScore))), font, tronTank02);
-	scoreTronTank02->Initialize(tronTank02, startScore);
-	//bulletManager->Initialize(tronTank02);
+	//box._width = static_cast<float>(texture->GetSize().x);
+	//box._height = static_cast<float>(texture->GetSize().y);
+	//box._leftTop = transformTronTank01->GetLocalPosition();
 
-	box._width = static_cast<float>(texture->GetSize().x);
-	box._height = static_cast<float>(texture->GetSize().y);
-	box._leftTop = transformTronTank01->GetLocalPosition();
+	//tankCollision->Initialize(tronTank02, box);
+	//tronTank02->SetTag(dae::Player2);
 
-	tankCollision->Initialize(tronTank02, box);
-	tronTank02->SetTag(dae::Player2);
+	//scene.Add(tronTank02);
+	////rotateCompTronTank02->Initialize(tronTank02, 50.f);
 
-	scene.Add(tronTank02);
-	//rotateCompTronTank02->Initialize(tronTank02, 50.f);
-
-	tronTank02->SetSubject(subject);
+	//tronTank02->SetSubject(subject);
 
 
-	//Health observer for tron tank 02
-	auto healthObserver_TT02 = std::make_shared <dae::GameObject>();
+	////Health observer for tron tank 02
+	//auto healthObserver_TT02 = std::make_shared <dae::GameObject>();
 
-	auto textHealthObject_HO_TT02 = healthObserver_TT02->AddComponent <dae::TextObject>();
-	auto textTransform_HO_TT02 = healthObserver_TT02->AddComponent<dae::TransformComponent>();
+	//auto textHealthObject_HO_TT02 = healthObserver_TT02->AddComponent <dae::TextObject>();
+	//auto textTransform_HO_TT02 = healthObserver_TT02->AddComponent<dae::TransformComponent>();
 
-	healthObserver_TT02->Initialize();
-	textHealthObject_HO_TT02->Initialize((std::string("Health: " + std::to_string(startHealth))), font, healthObserver_TT02);
-	textTransform_HO_TT02->Initialize(glm::vec2(5.f, 200.f), 0.f, healthObserver_TT02);
+	//healthObserver_TT02->Initialize();
+	//textHealthObject_HO_TT02->Initialize((std::string("Health: " + std::to_string(startHealth))), font, healthObserver_TT02);
+	//textTransform_HO_TT02->Initialize(glm::vec2(5.f, 200.f), 0.f, healthObserver_TT02);
 
-	healthObserver_TT02->SetParent(tronTank02, true); //Needed for the observer
+	//healthObserver_TT02->SetParent(tronTank02, true); //Needed for the observer
 
-	//Adding the observers to the subject, and adding that subject to the gameobject
-	dae::HealthDisplayObserver* healthDisplay_TT2 = new dae::HealthDisplayObserver(healthObserver_TT02, startHealth);
-	subject->AddObserver(healthDisplay_TT2);
-	healthObserver_TT02->SetSubject(subject);
+	////Adding the observers to the subject, and adding that subject to the gameobject
+	//dae::HealthDisplayObserver* healthDisplay_TT2 = new dae::HealthDisplayObserver(healthObserver_TT02, startHealth);
+	//subject->AddObserver(healthDisplay_TT2);
+	//healthObserver_TT02->SetSubject(subject);
 
-	scene.Add(healthObserver_TT02);
+	//scene.Add(healthObserver_TT02);
 
-	//Score observer for tron tank 02
-	auto scoreObserver_TT02 = std::make_shared<dae::GameObject>();
+	////Score observer for tron tank 02
+	//auto scoreObserver_TT02 = std::make_shared<dae::GameObject>();
 
-	auto textScoreObject_SO_TT02 = scoreObserver_TT02->AddComponent<dae::TextObject>();
-	auto textTransfrom_SO_TT2 = scoreObserver_TT02->AddComponent<dae::TransformComponent>();
+	//auto textScoreObject_SO_TT02 = scoreObserver_TT02->AddComponent<dae::TextObject>();
+	//auto textTransfrom_SO_TT2 = scoreObserver_TT02->AddComponent<dae::TransformComponent>();
 
-	scoreObserver_TT02->Initialize();
-	textScoreObject_SO_TT02->Initialize(std::string("Score: 0"), font, scoreObserver_TT02);
-	textTransfrom_SO_TT2->Initialize(glm::vec2(5.f, 230.f), 0.f, scoreObserver_TT02);
+	//scoreObserver_TT02->Initialize();
+	//textScoreObject_SO_TT02->Initialize(std::string("Score: 0"), font, scoreObserver_TT02);
+	//textTransfrom_SO_TT2->Initialize(glm::vec2(5.f, 230.f), 0.f, scoreObserver_TT02);
 
-	//Adding the observers to the subject, and adding that subject to the gameobject
-	dae::ScoreDisplayObserver* scoreDisplay_TT2 = new dae::ScoreDisplayObserver(scoreObserver_TT02);
-	subject->AddObserver(scoreDisplay_TT2);
-	scoreObserver_TT02->SetSubject(subject);
+	////Adding the observers to the subject, and adding that subject to the gameobject
+	//dae::ScoreDisplayObserver* scoreDisplay_TT2 = new dae::ScoreDisplayObserver(scoreObserver_TT02);
+	//subject->AddObserver(scoreDisplay_TT2);
+	//scoreObserver_TT02->SetSubject(subject);
 
-	scoreObserver_TT02->SetParent(tronTank02, true);
+	//scoreObserver_TT02->SetParent(tronTank02, true);
 
-	scene.Add(scoreObserver_TT02);
+	//scene.Add(scoreObserver_TT02);
 
 
 	//Commands
 	auto& input = dae::InputManager::GetInstance();
-	unsigned controller = input.AddController();
+	//unsigned controller = input.AddController();
 
 	const float speed{ 50.f };
-	auto pCommand = input.AddCommand<dae::Movement>(controller, tronTank01.get(), ControllerXbox::ControllerInputs::DPAD_UP, dae::InputManager::KeyPress::HOLD);
-	pCommand->SetDirectionAndSpeed(glm::vec2{ 0.f, -1.f }, speed); // - in y is up 
+	//auto pCommand = input.AddCommand<dae::Movement>(controller, tronTank02.get(), ControllerXbox::ControllerInputs::DPAD_UP, dae::InputManager::KeyPress::HOLD);
+	//pCommand->SetDirectionAndSpeed(glm::vec2{ 0.f, -1.f }, speed); // - in y is up 
 
-	pCommand = input.AddCommand<dae::Movement>(controller, tronTank01.get(), ControllerXbox::ControllerInputs::DPAD_DOWN, dae::InputManager::KeyPress::HOLD);
-	pCommand->SetDirectionAndSpeed(glm::vec2{ 0.f, 1.f }, speed);
+	//pCommand = input.AddCommand<dae::Movement>(controller, tronTank02.get(), ControllerXbox::ControllerInputs::DPAD_DOWN, dae::InputManager::KeyPress::HOLD);
+	//pCommand->SetDirectionAndSpeed(glm::vec2{ 0.f, 1.f }, speed);
 
-	pCommand = input.AddCommand<dae::Movement>(controller, tronTank01.get(), ControllerXbox::ControllerInputs::DPAD_LEFT, dae::InputManager::KeyPress::HOLD);
-	pCommand->SetDirectionAndSpeed(glm::vec2{ -1.f, 0.f }, speed);
+	//pCommand = input.AddCommand<dae::Movement>(controller, tronTank02.get(), ControllerXbox::ControllerInputs::DPAD_LEFT, dae::InputManager::KeyPress::HOLD);
+	//pCommand->SetDirectionAndSpeed(glm::vec2{ -1.f, 0.f }, speed);
 
-	pCommand = input.AddCommand<dae::Movement>(controller, tronTank01.get(), ControllerXbox::ControllerInputs::DPAD_RIGHT, dae::InputManager::KeyPress::HOLD);
-	pCommand->SetDirectionAndSpeed(glm::vec2{ 1.f, 0.f }, speed);
+	//pCommand = input.AddCommand<dae::Movement>(controller, tronTank02.get(), ControllerXbox::ControllerInputs::DPAD_RIGHT, dae::InputManager::KeyPress::HOLD);
+	//pCommand->SetDirectionAndSpeed(glm::vec2{ 1.f, 0.f }, speed);
 
-	pCommand = input.AddCommand<dae::Movement>(tronTank02.get(), SDL_SCANCODE_W, dae::InputManager::KeyPress::HOLD);
+	auto pCommand = input.AddCommand<dae::Movement>(tronTank01.get(), SDL_SCANCODE_W, dae::InputManager::KeyPress::HOLD);
 	pCommand->SetDirectionAndSpeed(glm::vec2{ 0.f, -1.f }, speed * 2.f);
 
-	pCommand = input.AddCommand<dae::Movement>(tronTank02.get(), SDL_SCANCODE_S, dae::InputManager::KeyPress::HOLD);
+	pCommand = input.AddCommand<dae::Movement>(tronTank01.get(), SDL_SCANCODE_S, dae::InputManager::KeyPress::HOLD);
 	pCommand->SetDirectionAndSpeed(glm::vec2{ 0.f, 1.f }, speed * 2.f);
 
-	pCommand = input.AddCommand<dae::Movement>(tronTank02.get(), SDL_SCANCODE_A, dae::InputManager::KeyPress::HOLD);
+	pCommand = input.AddCommand<dae::Movement>(tronTank01.get(), SDL_SCANCODE_A, dae::InputManager::KeyPress::HOLD);
 	pCommand->SetDirectionAndSpeed(glm::vec2{ -1.f, 0.f }, speed * 2.f);
 
-	pCommand = input.AddCommand<dae::Movement>(tronTank02.get(), SDL_SCANCODE_D, dae::InputManager::KeyPress::HOLD);
+	pCommand = input.AddCommand<dae::Movement>(tronTank01.get(), SDL_SCANCODE_D, dae::InputManager::KeyPress::HOLD);
 	pCommand->SetDirectionAndSpeed(glm::vec2{ 1.f, 0.f }, speed * 2.f);
+
+	auto pShoot = input.AddCommand<dae::Shoot>(aimTronTank01.get(), SDL_SCANCODE_LEFT, dae::InputManager::KeyPress::SINGLEPRESS);
+	pShoot->SetDirection(glm::vec2{ -1,0 });
+
+	pShoot = input.AddCommand<dae::Shoot>(aimTronTank01.get(), SDL_SCANCODE_RIGHT, dae::InputManager::KeyPress::SINGLEPRESS);
+	pShoot->SetDirection(glm::vec2{ 1,0 });
+
+	pShoot = input.AddCommand<dae::Shoot>(aimTronTank01.get(), SDL_SCANCODE_UP, dae::InputManager::KeyPress::SINGLEPRESS);
+	pShoot->SetDirection(glm::vec2{ 0,-1 });
+
+	pShoot = input.AddCommand<dae::Shoot>(aimTronTank01.get(), SDL_SCANCODE_DOWN, dae::InputManager::KeyPress::SINGLEPRESS);
+	pShoot->SetDirection(glm::vec2{ 0,1 });
+
 
 	//input.AddCommand <dae::Damage>(tronTank02.get(), SDL_SCANCODE_F, dae::InputManager::KeyPress::SINGLEPRESS);
 	//input.AddCommand<dae::Damage>(controller, tronTank01.get(), ControllerXbox::ControllerInputs::A);
 
-	input.AddCommand<dae::Shoot>(controller, tronTank01.get(), ControllerXbox::ControllerInputs::A, dae::InputManager::KeyPress::SINGLEPRESS);
+	//input.AddCommand<dae::Shoot>(controller, tronTank01.get(), ControllerXbox::ControllerInputs::A, dae::InputManager::KeyPress::SINGLEPRESS);
 	//input.AddCommand<dae::Shoot>(controller, tronTank01.get(), ControllerXbox::ControllerInputs::A);
-	input.AddCommand<dae::Shoot>(tronTank02.get(), SDL_SCANCODE_SPACE, dae::InputManager::KeyPress::SINGLEPRESS);
+	//input.AddCommand<dae::Shoot>(tronTank02.get(), SDL_SCANCODE_SPACE, dae::InputManager::KeyPress::SINGLEPRESS);
 	//input.AddCommand<dae::Shoot>(tronTank02.get(), SDL_SCANCODE_SPACE, dae::InputManager::KeyPress::SINGLEPRESS);
 }
 

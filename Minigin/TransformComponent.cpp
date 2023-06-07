@@ -6,11 +6,12 @@ namespace dae
 {
 	void TransformComponent::Initialize(const glm::vec2& pos, float angle, std::shared_ptr<GameObject> parent)
 	{
-		m_WorldPosition = pos;
 		m_Angle = angle;
 		//m_pParent = parent;
 
 		m_Parent = parent.get();
+
+		ChangeLocalPosition(pos);
 	}
 
 	void TransformComponent::Update()
@@ -74,13 +75,16 @@ namespace dae
 
 	void TransformComponent::UpdateWorldPos()
 	{
-		if (!m_Parent->GetParent())
-			m_WorldPosition = m_LocalPosition;
-
-		else
+		if (m_DirtyFlag)
 		{
-			auto transform = m_Parent->GetComponent<TransformComponent>();
-			m_WorldPosition = transform->GetWorldPosition() + m_LocalPosition;
+			if (m_Parent->GetParent() == nullptr)
+				m_WorldPosition = m_LocalPosition;
+
+			else
+			{
+				auto transform = m_Parent->GetParent()->GetComponent<TransformComponent>();
+				m_WorldPosition = transform->GetWorldPosition() + m_LocalPosition;
+			}
 		}
 
 		m_DirtyFlag = false;

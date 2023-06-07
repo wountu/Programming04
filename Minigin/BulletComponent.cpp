@@ -26,11 +26,12 @@ void dae::BulletComponent::Update()
 	m_Transform->ChangeLocalPosition(newPos);
 	
 	auto overlap = m_Parent->GetComponent<CollisionBoxComponent>()->GetOverlappingGameObject();
-	if (overlap && overlap != m_Parent->GetParent()) //If we have an overlap that isn't our tank
+	auto aimObj = m_Parent->GetParent();
+	if (overlap && overlap != aimObj->GetParent()) //If we have an overlap that isn't our tank
 	{
 		auto overlapTag = overlap->GetTag(); 
 
-		if (overlapTag != dae::Static)
+		if (overlapTag != dae::Static && overlapTag != m_Parent->GetTag())
 		{
 			m_Destroy = true;
 			overlap->GetComponent<HealthComponent>()->LoseHealth(1);

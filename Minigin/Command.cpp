@@ -65,6 +65,10 @@ namespace dae
 
 	void Shoot::Execute()
 	{
-		m_Parent->GetComponent<BulletManager>()->SpawnBullet(glm::vec2(), glm::vec2());
+		m_Parent->GetComponent<BulletManager>()->SpawnBullet(m_Direction);
+	}
+	void Shoot::SetDirection(glm::vec2 dir)
+	{
+		m_Direction = dir;
 	}
 }
