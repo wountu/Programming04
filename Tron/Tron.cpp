@@ -35,6 +35,7 @@
 #include "ServiceLocator.h"
 #include "CollisionBoxComponent.h"
 #include "AimComponent.h"
+#include "LevelGenerator.h"
 
 void load()
 {
@@ -298,6 +299,8 @@ void load()
 	//input.AddCommand<dae::Shoot>(controller, tronTank01.get(), ControllerXbox::ControllerInputs::A);
 	//input.AddCommand<dae::Shoot>(tronTank02.get(), SDL_SCANCODE_SPACE, dae::InputManager::KeyPress::SINGLEPRESS);
 	//input.AddCommand<dae::Shoot>(tronTank02.get(), SDL_SCANCODE_SPACE, dae::InputManager::KeyPress::SINGLEPRESS);
+
+	dae::LevelGenerator::GetInstance().LoadLevel("Level/LevelLayout0.csv");
 }
 
 int main(int, char* []) {

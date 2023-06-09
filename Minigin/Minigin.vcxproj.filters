@@ -31,6 +31,9 @@
     <Filter Include="Framework\Audio">
       <UniqueIdentifier>{d4f34889-a752-4a5a-8ed5-110624f3c9e1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Level">
+      <UniqueIdentifier>{05f4236e-1d28-4c8e-b0f9-c0d4c86e7714}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
@@ -96,6 +99,9 @@
     <ClInclude Include="CollisionDetector.h">
       <Filter>Framework\Engine\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LevelGenerator.h">
+      <Filter>Framework\Level</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -143,9 +149,6 @@
     <ClCompile Include="Subject.cpp">
       <Filter>Framework\Observer</Filter>
     </ClCompile>
-    <ClCompile Include="Observer.cpp">
-      <Filter>Framework\Engine\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ServiceLocator.cpp">
       <Filter>Framework\Audio</Filter>
     </ClCompile>
@@ -157,6 +160,12 @@
     </ClCompile>
     <ClCompile Include="CollisionDetector.cpp">
       <Filter>Framework\Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Observer.cpp">
+      <Filter>Framework\Observer</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelGenerator.cpp">
+      <Filter>Framework\Level</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
