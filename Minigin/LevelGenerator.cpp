@@ -37,22 +37,29 @@ namespace dae
             {
                 int blockType = std::stoi(number);
                 
+                if (blockType > 2)
+                {
+                    blockType = 2; //No teleporters
+                }
+
                 Block block; //Make block
                 block.LeftTop.x = static_cast<float>(column * m_TextureDimensions);
                 block.LeftTop.y = static_cast<float>(row * m_TextureDimensions);
                 block.Width = m_TextureDimensions;
                 block.Height = m_TextureDimensions;
 
+
+
                 switch (blockType) //Get right block
                 {
                 case 0:
-                    m_PathWays.push_back(block);
+                    m_Walls.push_back(block);
                     break;
                 case 1:
                     m_Void.push_back(block);
                     break;
                 case 2:
-                    m_Walls.push_back(block);
+                    m_PathWays.push_back(block);
                     break;
                 default:
                     break;
@@ -61,6 +68,7 @@ namespace dae
                 ++column;
             }
             ++row;
+            column = 0;
         }
     }
 

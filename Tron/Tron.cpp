@@ -300,7 +300,51 @@ void load()
 	//input.AddCommand<dae::Shoot>(tronTank02.get(), SDL_SCANCODE_SPACE, dae::InputManager::KeyPress::SINGLEPRESS);
 	//input.AddCommand<dae::Shoot>(tronTank02.get(), SDL_SCANCODE_SPACE, dae::InputManager::KeyPress::SINGLEPRESS);
 
-	dae::LevelGenerator::GetInstance().LoadLevel("Level/LevelLayout0.csv");
+	auto& level = dae::LevelGenerator::GetInstance();
+	level.LoadLevel("Level/LevelLayout0.csv");
+
+	auto pathWayTexture = dae::ResourceManager::GetInstance().LoadTexture("Level/Textures/path.png");
+	auto wallTexture = dae::ResourceManager::GetInstance().LoadTexture("level/Textures/wall.png");
+	auto voidTexture = dae::ResourceManager::GetInstance().LoadTexture("level/Textures/void.png");
+
+	for (const auto& pathWay : level.GetPathWay())
+	{
+		auto block = std::make_shared<dae::GameObject>();
+		auto render = block->AddComponent<dae::RenderComponent>();
+		auto transform = block->AddComponent<dae::TransformComponent>();
+
+		block->Initialize();
+		transform->Initialize(pathWay.LeftTop, 0.f, block);
+		render->Initialize(pathWayTexture, block);
+
+		scene.Add(block);
+	}
+
+	for (const auto& wall : level.GetWalls())
+	{
+		auto block = std::make_shared<dae::GameObject>();
+		auto render = block->AddComponent<dae::RenderComponent>();
+		auto transform = block->AddComponent<dae::TransformComponent>();
+
+		block->Initialize();
+		transform->Initialize(wall.LeftTop, 0.f, block);
+		render->Initialize(wallTexture, block);
+
+		scene.Add(block);
+	}
+
+	for (const auto& activeVoid : level.GetVoid())
+	{
+		auto block = std::make_shared<dae::GameObject>();
+		auto render = block->AddComponent<dae::RenderComponent>();
+		auto transform = block->AddComponent<dae::TransformComponent>();
+
+		block->Initialize();
+		transform->Initialize(activeVoid.LeftTop, 0.f, block);
+		render->Initialize(voidTexture, block);
+
+		scene.Add(block);
+	}
 }
 
 int main(int, char* []) {
