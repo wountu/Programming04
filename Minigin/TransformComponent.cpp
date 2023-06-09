@@ -10,13 +10,20 @@ namespace dae
 		//m_pParent = parent;
 
 		m_Parent = parent.get();
+		m_Collision = m_Parent->GetComponent<CollisionBoxComponent>();
 
-		ChangeLocalPosition(pos);
+		m_LocalPosition = pos;
+		SetPositionDirty();
 	}
 
 	void TransformComponent::Update()
 	{
 		m_Parent->SetLocalPos(m_WorldPosition);
+
+		//if (m_Parent->GetTag() == Tag::Player1)
+		//{
+		//	std::cout << m_LocalPosition.x << ", " << m_LocalPosition.y << "\n";
+		//}
 	}
 
 	TransformComponent::~TransformComponent()
@@ -27,6 +34,7 @@ namespace dae
 	{
 		m_LocalPosition = pos;
 		SetPositionDirty();
+		CollisionUpdate();
 	}
 
 	glm::vec2 TransformComponent::GetLocalPosition() const
@@ -71,6 +79,19 @@ namespace dae
 		}
 
 		m_DirtyFlag = true;
+	}
+
+	void TransformComponent::CollisionUpdate()
+	{
+		if (m_Collision)
+		{
+			auto collisionBox = m_Collision->GetOverlappingGameObject();
+
+			if (collisionBox)
+			{
+				std::cout << "Overlapping" << "\n";
+			}
+		}
 	}
 
 	void TransformComponent::UpdateWorldPos()

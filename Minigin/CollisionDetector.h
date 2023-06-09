@@ -1,6 +1,8 @@
 #pragma once
 #include "Singleton.h"
 #include "CollisionBoxComponent.h"
+#include "GameObject.h"
+
 class CollisionBoxComponent;
 namespace dae
 {
@@ -14,13 +16,15 @@ namespace dae
 		CollisionDetector(CollisionDetector&& other) = delete;
 		CollisionDetector& operator=(CollisionDetector&& other) = delete;
 
-		void AddCollisionBox(CollisionBoxComponent* box);
+		void AddCollisionBox(CollisionBoxComponent* box, Tag tag);
 		void RemoveCollisionVox(CollisionBoxComponent* box);
 
 		std::vector<CollisionBoxComponent*> GetCollisionBoxes() const;
 
-		CollisionBoxComponent* BoxColliding(CollisionBoxComponent* boxToCheck);
+		CollisionBoxComponent* BoxColliding(CollisionBoxComponent* boxToCheck, Tag ignores);
+
 	private:
-		std::vector<CollisionBoxComponent*> m_pCollisionBoxes;
+		std::vector<CollisionBoxComponent*> m_pTankCollisions;
+		std::vector<CollisionBoxComponent*> m_pWallBoxes;
 	};
 }

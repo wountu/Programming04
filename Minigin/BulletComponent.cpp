@@ -35,7 +35,7 @@ void dae::BulletComponent::Update()
 		if (overlapTag != dae::Static && overlapTag != m_Parent->GetTag())
 		{
 			m_Destroy = true;
-			overlap->GetComponent<HealthComponent>()->LoseHealth(1);
+			//overlap->GetComponent<HealthComponent>()->LoseHealth(1);
 		}
 	}
 }

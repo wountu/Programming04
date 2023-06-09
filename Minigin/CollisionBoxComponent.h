@@ -32,17 +32,20 @@ namespace dae
 		CollisionBoxComponent(CollisionBoxComponent&& other)				 = delete;
 		CollisionBoxComponent& operator =(CollisionBoxComponent&& other)	 = delete;
 
-		virtual void Initialize(std::shared_ptr<GameObject> parent, CollisionBox collision);
+		virtual void Initialize(std::shared_ptr<GameObject> parent, CollisionBox collision, bool checkEveryFrame);
 		virtual void Update() override;
 		virtual void Render() const override;
+		
+		void CheckCollision();
 
 		CollisionBox GetBox() const;
-		GameObject* GetOverlappingGameObject() const;
+		GameObject* GetOverlappingGameObject();
 
 		GameObject* GetParent() const;
 	private:
 		GameObject* m_Parent{ nullptr };
 		GameObject* m_CollidingObject{};
 		CollisionBox m_CollisionBox{};
+		bool m_CheckEveryFrame{};
 	};
 }

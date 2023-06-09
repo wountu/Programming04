@@ -8,35 +8,44 @@
 
 namespace dae
 {
-	void CollisionBoxComponent::Initialize(std::shared_ptr<GameObject> parent, dae::CollisionBox collision)
+	void CollisionBoxComponent::Initialize(std::shared_ptr<GameObject> parent, CollisionBox collision, bool checkEveryFrame)
 	{
 		m_Parent = parent.get();
-		m_CollisionBox = collision;
 
-		CollisionDetector::GetInstance().AddCollisionBox(this);
+		if (!m_Parent)
+			std::cout << "no parent" << "\n";
+
+		m_CollisionBox = collision;
+		m_CheckEveryFrame = checkEveryFrame;
+
+		CollisionDetector::GetInstance().AddCollisionBox(this, m_Parent->GetTag());
 	}
 
 	void CollisionBoxComponent::Update()
 	{
-		auto collidingObject = CollisionDetector::GetInstance().BoxColliding(this);
-		if (collidingObject)
-		{
-			m_CollidingObject = collidingObject->GetParent();
-		}
-
 		m_CollisionBox._leftTop = m_Parent->GetComponent<TransformComponent>()->GetWorldPosition(); //Updating it's pos
 	}
 
 	void CollisionBoxComponent::Render() const
 	{
+		//Debug render
 
-		SDL_Rect rect;
-		rect.x = static_cast<int>(m_CollisionBox._leftTop.x);
-		rect.y = static_cast<int>(m_CollisionBox._leftTop.y);
-		rect.w = static_cast<int>(m_CollisionBox._width);
-		rect.h = static_cast<int>(m_CollisionBox._height);
+		//SDL_Rect rect;
+		//rect.x = static_cast<int>(m_CollisionBox._leftTop.x);
+		//rect.y = static_cast<int>(m_CollisionBox._leftTop.y);
+		//rect.w = static_cast<int>(m_CollisionBox._width);
+		//rect.h = static_cast<int>(m_CollisionBox._height);
 
-		SDL_RenderDrawRect(Renderer::GetInstance().GetSDLRenderer(), &rect);
+		//SDL_RenderDrawRect(Renderer::GetInstance().GetSDLRenderer(), &rect);
+	}
+
+	void CollisionBoxComponent::CheckCollision()
+	{
+		auto collidingObject = CollisionDetector::GetInstance().BoxColliding(this, m_Parent->GetTag());
+		if (collidingObject)
+		{
+			m_CollidingObject = collidingObject->GetParent();
+		}
 	}
 
 	CollisionBox CollisionBoxComponent::GetBox() const
@@ -44,8 +53,9 @@ namespace dae
 		return m_CollisionBox;
 	}
 
-	GameObject* CollisionBoxComponent::GetOverlappingGameObject() const
+	GameObject* CollisionBoxComponent::GetOverlappingGameObject()
 	{
+		CheckCollision();
 		return m_CollidingObject;
 	}
 

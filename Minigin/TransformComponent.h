@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseComponent.h"
+#include "CollisionBoxComponent.h"
 #include <glm/vec2.hpp>
 
 namespace dae
@@ -28,6 +29,8 @@ namespace dae
 		glm::vec2 GetDir() const;
 
 		void SetPositionDirty();
+
+		void CollisionUpdate();
 	private:
 		glm::vec2 m_WorldPosition{};
 		glm::vec2 m_LocalPosition{};
@@ -39,6 +42,8 @@ namespace dae
 		GameObject* m_Parent{ nullptr };
 
 		void UpdateWorldPos();
+		
+		std::shared_ptr<CollisionBoxComponent> m_Collision{ nullptr };
 	};
 
 }

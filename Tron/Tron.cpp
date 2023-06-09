@@ -48,42 +48,76 @@ void load()
 	//Scene
 	auto& scene = dae::SceneManager::GetInstance().CreateScene("Demo");
 
+	//Level
+	auto& level = dae::LevelGenerator::GetInstance();
+	level.LoadLevel("Level/LevelLayout0.csv");
+
+	auto pathWayTexture = dae::ResourceManager::GetInstance().LoadTexture("Level/Textures/path.png");
+	auto wallTexture = dae::ResourceManager::GetInstance().LoadTexture("level/Textures/wall.png");
+	auto voidTexture = dae::ResourceManager::GetInstance().LoadTexture("level/Textures/void.png");
+
+	for (const auto& pathWay : level.GetPathWay())
+	{
+		auto block = std::make_shared<dae::GameObject>();
+		auto render = block->AddComponent<dae::RenderComponent>();
+		auto transform = block->AddComponent<dae::TransformComponent>();
+
+		block->Initialize();
+		transform->Initialize(pathWay.LeftTop, 0.f, block);
+		render->Initialize(pathWayTexture, block);
+
+
+		scene.Add(block);
+	}
+
+	for (const auto& wall : level.GetWalls())
+	{
+		auto block = std::make_shared<dae::GameObject>();
+		auto render = block->AddComponent<dae::RenderComponent>();
+		auto transform = block->AddComponent<dae::TransformComponent>();
+		auto collison = block->AddComponent<dae::CollisionBoxComponent>();
+
+		dae::CollisionBox colBox;
+		colBox._leftTop = wall.LeftTop;
+		colBox._height = static_cast<float>(wall.Height);
+		colBox._width = static_cast<float>(wall.Width);
+
+		collison->Initialize(block, colBox, false);
+		block->Initialize();
+		transform->Initialize(wall.LeftTop, 0.f, block);
+		render->Initialize(wallTexture, block);
+
+
+
+
+		scene.Add(block);
+	}
+
+	for (const auto& activeVoid : level.GetVoid())
+	{
+		auto block = std::make_shared<dae::GameObject>();
+		auto render = block->AddComponent<dae::RenderComponent>();
+		auto transform = block->AddComponent<dae::TransformComponent>();
+
+		block->Initialize();
+		transform->Initialize(activeVoid.LeftTop, 0.f, block);
+		render->Initialize(voidTexture, block);
+
+		scene.Add(block);
+	}
+
 	//Sound
 	dae::ServiceLocator::RegisterSoundSystem(std::make_unique<dae::SoundEffectSystem>());
-
-	auto backgroundGameObject = std::make_shared<dae::GameObject>();
-	auto renderBackground = backgroundGameObject->AddComponent<dae::RenderComponent>();
-	auto transformBackground = backgroundGameObject->AddComponent<dae::TransformComponent>();
-	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 24);
-
-	std::shared_ptr<dae::Subject> subject = std::make_shared<dae::Subject>();
-
-	auto backgroundTexture = dae::ResourceManager::GetInstance().LoadTexture("background.tga");
-	renderBackground->Initialize(backgroundTexture, backgroundGameObject);
-	transformBackground->Initialize(glm::vec2(0, 0), 0.f, backgroundGameObject);
-
-	scene.Add(backgroundGameObject);
-
-
-
-	auto daeTextureGameObject = std::make_shared<dae::GameObject>();
-	auto renderCompDaeText = daeTextureGameObject->AddComponent<dae::RenderComponent>();
-	auto transformCompDaeText = daeTextureGameObject->AddComponent<dae::TransformComponent>();
-
-	auto texture = dae::ResourceManager::GetInstance().LoadTexture("logo.tga");
-	renderCompDaeText->Initialize(texture, daeTextureGameObject);
-	transformCompDaeText->Initialize(glm::vec2(216, 180), 0.f, daeTextureGameObject);
-
-	scene.Add(daeTextureGameObject);
-
 
 	auto fpsGameobject = std::make_shared<dae::GameObject>();
 	auto transformComp = fpsGameobject->AddComponent<dae::TransformComponent>();
 	auto textComp = fpsGameobject->AddComponent<dae::TextObject>();
 	auto fps = fpsGameobject->AddComponent<dae::fpsCounter>();
 
+	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 12);
+
 	textComp->Initialize("Programming 4 Assignment", font, fpsGameobject);
-	transformComp->Initialize(glm::vec2(5, 5), 0.f, fpsGameobject);
+	transformComp->Initialize(glm::vec2(500, 5), 0.f, fpsGameobject);
 	fps->Initialize(fpsGameobject);
 
 	scene.Add(fpsGameobject);
@@ -104,9 +138,9 @@ void load()
 	auto tankCollision = tronTank01->AddComponent<dae::CollisionBoxComponent>();
 
 	tronTank01->Initialize();
-	texture = dae::ResourceManager::GetInstance().LoadTexture("BlueTank.png");
+	auto texture = dae::ResourceManager::GetInstance().LoadTexture("BlueTank.png");
 	renderCompTronTank01->Initialize(texture, tronTank01);
-	transformTronTank01->Initialize(glm::vec2(250, 400), 90.f, tronTank01);
+	transformTronTank01->Initialize(glm::vec2(80, 200), 180.f, tronTank01);
 	healthTronTank01->Initialize(startHealth, tronTank01);
 	scoreTronTank01->Initialize(tronTank01);
 
@@ -115,12 +149,11 @@ void load()
 	box._height = static_cast<float>(texture->GetSize().y);
 	box._leftTop = transformTronTank01->GetLocalPosition();
 
-	tankCollision->Initialize(tronTank01, box);
-
-	tronTank01->SetSubject(subject);
+	tankCollision->Initialize(tronTank01, box, true);
 	tronTank01->SetTag(dae::Player1);
 
 	scene.Add(tronTank01);
+
 	//Trontank aim
 	auto aimTronTank01 = std::make_shared<dae::GameObject>(); 
 	auto aimComponent = aimTronTank01->AddComponent<dae::AimComponent>();
@@ -154,9 +187,6 @@ void load()
 	healthObserver_TT01->SetParent(tronTank01, true); //Needed for the observer
 
 	//Adding the observers to the subject, and adding that subject to the gameobject
-	dae::HealthDisplayObserver* healthDisplay_TT1 = new dae::HealthDisplayObserver(healthObserver_TT01, startHealth);
-	subject->AddObserver(healthDisplay_TT1);
-	healthObserver_TT01->SetSubject(subject);
 
 	scene.Add(healthObserver_TT01);
 
@@ -174,10 +204,6 @@ void load()
 	scoreObserver_TT01->SetParent(tronTank01, true);
 
 	//Adding the observers to the subject, and adding that subject to the gameobject
-	dae::ScoreDisplayObserver* scoreDisplay_TT1 = new dae::ScoreDisplayObserver(scoreObserver_TT01);
-	subject->AddObserver(scoreDisplay_TT1);
-	scoreObserver_TT01->SetSubject(subject);
-
 	scene.Add(scoreObserver_TT01);
 
 
@@ -202,13 +228,11 @@ void load()
 	box._height = static_cast<float>(texture->GetSize().y);
 	box._leftTop = transformTronTank01->GetLocalPosition();
 
-	tankCollision->Initialize(tronTank02, box);
+	tankCollision->Initialize(tronTank02, box, true);
 	tronTank02->SetTag(dae::Player2);
 
 	scene.Add(tronTank02);
 	//rotateCompTronTank02->Initialize(tronTank02, 50.f);
-
-	tronTank02->SetSubject(subject);
 
 
 	//Health observer for tron tank 02
@@ -224,9 +248,6 @@ void load()
 	healthObserver_TT02->SetParent(tronTank02, true); //Needed for the observer
 
 	//Adding the observers to the subject, and adding that subject to the gameobject
-	dae::HealthDisplayObserver* healthDisplay_TT2 = new dae::HealthDisplayObserver(healthObserver_TT02, startHealth);
-	subject->AddObserver(healthDisplay_TT2);
-	healthObserver_TT02->SetSubject(subject);
 
 	scene.Add(healthObserver_TT02);
 
@@ -241,10 +262,6 @@ void load()
 	textTransfrom_SO_TT2->Initialize(glm::vec2(5.f, 230.f), 0.f, scoreObserver_TT02);
 
 	//Adding the observers to the subject, and adding that subject to the gameobject
-	dae::ScoreDisplayObserver* scoreDisplay_TT2 = new dae::ScoreDisplayObserver(scoreObserver_TT02);
-	subject->AddObserver(scoreDisplay_TT2);
-	scoreObserver_TT02->SetSubject(subject);
-
 	scoreObserver_TT02->SetParent(tronTank02, true);
 
 	scene.Add(scoreObserver_TT02);
@@ -299,52 +316,6 @@ void load()
 	//input.AddCommand<dae::Shoot>(controller, tronTank01.get(), ControllerXbox::ControllerInputs::A);
 	//input.AddCommand<dae::Shoot>(tronTank02.get(), SDL_SCANCODE_SPACE, dae::InputManager::KeyPress::SINGLEPRESS);
 	//input.AddCommand<dae::Shoot>(tronTank02.get(), SDL_SCANCODE_SPACE, dae::InputManager::KeyPress::SINGLEPRESS);
-
-	auto& level = dae::LevelGenerator::GetInstance();
-	level.LoadLevel("Level/LevelLayout0.csv");
-
-	auto pathWayTexture = dae::ResourceManager::GetInstance().LoadTexture("Level/Textures/path.png");
-	auto wallTexture = dae::ResourceManager::GetInstance().LoadTexture("level/Textures/wall.png");
-	auto voidTexture = dae::ResourceManager::GetInstance().LoadTexture("level/Textures/void.png");
-
-	for (const auto& pathWay : level.GetPathWay())
-	{
-		auto block = std::make_shared<dae::GameObject>();
-		auto render = block->AddComponent<dae::RenderComponent>();
-		auto transform = block->AddComponent<dae::TransformComponent>();
-
-		block->Initialize();
-		transform->Initialize(pathWay.LeftTop, 0.f, block);
-		render->Initialize(pathWayTexture, block);
-
-		scene.Add(block);
-	}
-
-	for (const auto& wall : level.GetWalls())
-	{
-		auto block = std::make_shared<dae::GameObject>();
-		auto render = block->AddComponent<dae::RenderComponent>();
-		auto transform = block->AddComponent<dae::TransformComponent>();
-
-		block->Initialize();
-		transform->Initialize(wall.LeftTop, 0.f, block);
-		render->Initialize(wallTexture, block);
-
-		scene.Add(block);
-	}
-
-	for (const auto& activeVoid : level.GetVoid())
-	{
-		auto block = std::make_shared<dae::GameObject>();
-		auto render = block->AddComponent<dae::RenderComponent>();
-		auto transform = block->AddComponent<dae::TransformComponent>();
-
-		block->Initialize();
-		transform->Initialize(activeVoid.LeftTop, 0.f, block);
-		render->Initialize(voidTexture, block);
-
-		scene.Add(block);
-	}
 }
 
 int main(int, char* []) {

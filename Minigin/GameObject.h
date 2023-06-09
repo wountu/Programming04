@@ -121,7 +121,6 @@ namespace dae
 				return cast;
 		}
 
-		assert(!"Component not found in gameobject");
 		return nullptr;
 	}
 
