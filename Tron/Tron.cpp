@@ -82,7 +82,7 @@ void load()
 		colBox._height = static_cast<float>(wall.Height);
 		colBox._width = static_cast<float>(wall.Width);
 
-		collison->Initialize(block, colBox, false);
+		collison->Initialize(block, colBox, 0);
 		block->Initialize();
 		transform->Initialize(wall.LeftTop, 0.f, block);
 		render->Initialize(wallTexture, block);
@@ -147,9 +147,10 @@ void load()
 	dae::CollisionBox box{};
 	box._width = static_cast<float>(texture->GetSize().x);
 	box._height = static_cast<float>(texture->GetSize().y);
-	box._leftTop = transformTronTank01->GetLocalPosition();
+	box._leftTop.x = transformTronTank01->GetLocalPosition().x;
+	box._leftTop.y = transformTronTank01->GetLocalPosition().y;
 
-	tankCollision->Initialize(tronTank01, box, true);
+	tankCollision->Initialize(tronTank01, box, 5);
 	tronTank01->SetTag(dae::Player1);
 
 	scene.Add(tronTank01);
@@ -228,7 +229,7 @@ void load()
 	box._height = static_cast<float>(texture->GetSize().y);
 	box._leftTop = transformTronTank01->GetLocalPosition();
 
-	tankCollision->Initialize(tronTank02, box, true);
+	tankCollision->Initialize(tronTank02, box, 5);
 	tronTank02->SetTag(dae::Player2);
 
 	scene.Add(tronTank02);

@@ -80,7 +80,7 @@ void dae::BulletManager::SpawnBullet(glm::vec2 dir)
 	box._height = static_cast<float>(m_Texture->GetSize().y);
 	box._width = textureWidth;
 	box._leftTop = transform->GetWorldPosition();
-	collision->Initialize(bullet, box, true);
+	collision->Initialize(bullet, box, 0);
 
 	//Initialize the gameobject
 	bullet->Initialize();

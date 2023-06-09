@@ -7,7 +7,6 @@ namespace dae
 	void TransformComponent::Initialize(const glm::vec2& pos, float angle, std::shared_ptr<GameObject> parent)
 	{
 		m_Angle = angle;
-		//m_pParent = parent;
 
 		m_Parent = parent.get();
 		m_Collision = m_Parent->GetComponent<CollisionBoxComponent>();
@@ -19,11 +18,6 @@ namespace dae
 	void TransformComponent::Update()
 	{
 		m_Parent->SetLocalPos(m_WorldPosition);
-
-		//if (m_Parent->GetTag() == Tag::Player1)
-		//{
-		//	std::cout << m_LocalPosition.x << ", " << m_LocalPosition.y << "\n";
-		//}
 	}
 
 	TransformComponent::~TransformComponent()
@@ -33,8 +27,8 @@ namespace dae
 	void TransformComponent::ChangeLocalPosition(glm::vec2 pos)
 	{
 		m_LocalPosition = pos;
-		SetPositionDirty();
 		CollisionUpdate();
+		SetPositionDirty();
 	}
 
 	glm::vec2 TransformComponent::GetLocalPosition() const
@@ -89,7 +83,15 @@ namespace dae
 
 			if (collisionBox)
 			{
-				std::cout << "Overlapping" << "\n";
+				auto otherBox = collisionBox->GetComponent<CollisionBoxComponent>()->GetBox();
+				auto parentBox = m_Parent->GetComponent<CollisionBoxComponent>()->GetBox();
+
+				int leftOverlapWidth = static_cast<int>((otherBox._leftTop.x + otherBox._width) - parentBox._leftTop.x); //The amount it has crossed on the left
+				if (m_Direction.x == -1 && leftOverlapWidth > 0) //if we go the left and enter the other box on the right
+				{
+					std::cout << "Entering Left ..";
+					m_LocalPosition.x += leftOverlapWidth + 1; //Put it back out of the collision
+				}
 			}
 		}
 	}

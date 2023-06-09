@@ -32,7 +32,7 @@ namespace dae
 		CollisionBoxComponent(CollisionBoxComponent&& other)				 = delete;
 		CollisionBoxComponent& operator =(CollisionBoxComponent&& other)	 = delete;
 
-		virtual void Initialize(std::shared_ptr<GameObject> parent, CollisionBox collision, bool checkEveryFrame);
+		virtual void Initialize(std::shared_ptr<GameObject> parent, CollisionBox collision, int inset);
 		virtual void Update() override;
 		virtual void Render() const override;
 		
@@ -46,6 +46,7 @@ namespace dae
 		GameObject* m_Parent{ nullptr };
 		GameObject* m_CollidingObject{};
 		CollisionBox m_CollisionBox{};
-		bool m_CheckEveryFrame{};
+
+		int m_Inset{}; //How much the box needs to inset to the given collisionbox
 	};
 }

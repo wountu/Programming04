@@ -8,15 +8,17 @@
 
 namespace dae
 {
-	void CollisionBoxComponent::Initialize(std::shared_ptr<GameObject> parent, CollisionBox collision, bool checkEveryFrame)
+	void CollisionBoxComponent::Initialize(std::shared_ptr<GameObject> parent, CollisionBox collision, int inset)
 	{
 		m_Parent = parent.get();
 
-		if (!m_Parent)
-			std::cout << "no parent" << "\n";
-
+		m_Inset = inset;
 		m_CollisionBox = collision;
-		m_CheckEveryFrame = checkEveryFrame;
+
+		m_CollisionBox._leftTop.x += inset;
+		m_CollisionBox._leftTop.y += inset;
+		m_CollisionBox._width -= inset * 2;
+		m_CollisionBox._height -= inset * 2;
 
 		CollisionDetector::GetInstance().AddCollisionBox(this, m_Parent->GetTag());
 	}
@@ -24,19 +26,22 @@ namespace dae
 	void CollisionBoxComponent::Update()
 	{
 		m_CollisionBox._leftTop = m_Parent->GetComponent<TransformComponent>()->GetWorldPosition(); //Updating it's pos
+
+		m_CollisionBox._leftTop.x += m_Inset;
+		m_CollisionBox._leftTop.y += m_Inset;
 	}
 
 	void CollisionBoxComponent::Render() const
 	{
 		//Debug render
 
-		//SDL_Rect rect;
-		//rect.x = static_cast<int>(m_CollisionBox._leftTop.x);
-		//rect.y = static_cast<int>(m_CollisionBox._leftTop.y);
-		//rect.w = static_cast<int>(m_CollisionBox._width);
-		//rect.h = static_cast<int>(m_CollisionBox._height);
+		SDL_Rect rect;
+		rect.x = static_cast<int>(m_CollisionBox._leftTop.x);
+		rect.y = static_cast<int>(m_CollisionBox._leftTop.y);
+		rect.w = static_cast<int>(m_CollisionBox._width);
+		rect.h = static_cast<int>(m_CollisionBox._height);
 
-		//SDL_RenderDrawRect(Renderer::GetInstance().GetSDLRenderer(), &rect);
+		SDL_RenderDrawRect(Renderer::GetInstance().GetSDLRenderer(), &rect);
 	}
 
 	void CollisionBoxComponent::CheckCollision()
