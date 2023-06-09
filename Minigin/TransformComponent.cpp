@@ -29,6 +29,8 @@ namespace dae
 		m_LocalPosition = pos;
 		CollisionUpdate();
 		SetPositionDirty();
+
+		std::cout << m_Direction.x << ", " << m_Direction.y << "\n";
 	}
 
 	glm::vec2 TransformComponent::GetLocalPosition() const
@@ -51,6 +53,12 @@ namespace dae
 
 		m_Direction.x = cos(glm::radians(m_Angle));
 		m_Direction.y = sin(glm::radians(m_Angle));
+
+		if (std::abs(m_Direction.x) != 1)
+			m_Direction.x = 0;
+
+		if (std::abs(m_Direction.y) != 1)
+			m_Direction.y = 0;
 	}
 
 	float TransformComponent::GetAngle() const
@@ -80,17 +88,55 @@ namespace dae
 		if (m_Collision)
 		{
 			auto collisionBox = m_Collision->GetOverlappingGameObject();
+			const int replaceOffsetWidth{ 2 }; //The distance to set the collision from the other collision
 
 			if (collisionBox)
 			{
 				auto otherBox = collisionBox->GetComponent<CollisionBoxComponent>()->GetBox();
 				auto parentBox = m_Parent->GetComponent<CollisionBoxComponent>()->GetBox();
 
-				int leftOverlapWidth = static_cast<int>((otherBox._leftTop.x + otherBox._width) - parentBox._leftTop.x); //The amount it has crossed on the left
-				if (m_Direction.x == -1 && leftOverlapWidth > 0) //if we go the left and enter the other box on the right
+				//Left collision
+				if (m_Direction.x == -1 && otherBox._leftTop.x < parentBox._leftTop.x) //if we go to the left and enter the other box on the right
 				{
-					std::cout << "Entering Left ..";
-					m_LocalPosition.x += leftOverlapWidth + 1; //Put it back out of the collision
+					float leftOverlapWidth = (otherBox._leftTop.x + otherBox._width) - parentBox._leftTop.x; //The amount it has crossed on the left
+					if (leftOverlapWidth > 0)
+					{
+						m_LocalPosition.x += leftOverlapWidth + replaceOffsetWidth; //Put it back out of the collision
+						std::cout << "Left col ..";
+					}
+				}
+
+				//Right collision
+				if (m_Direction.x == 1 && otherBox._leftTop.x > parentBox._leftTop.x) //If we go to the right and enter the other box on the left
+				{
+					float rightOverlapWidth = (parentBox._leftTop.x + parentBox._width) - otherBox._leftTop.x; //The amount it has crossed on the right
+					if (rightOverlapWidth > 0)
+					{
+						m_LocalPosition.x -= rightOverlapWidth + replaceOffsetWidth; //Put it back out of the collision
+						std::cout << "Right col ..";
+					}
+				}
+
+				//Top collision
+				if (m_Direction.y == -1 && otherBox._leftTop.y < parentBox._leftTop.y) //If we go up and enter the box on the bottom
+				{
+					float topOverlapWidth = parentBox._leftTop.y - (otherBox._leftTop.y + otherBox._height);
+					if (topOverlapWidth < 0)
+					{
+						m_LocalPosition.y -= topOverlapWidth + replaceOffsetWidth; //Put it back out of collision
+						std::cout << "Top col ..";
+					}
+				}
+
+				//Bottom collision
+				if (m_Direction.y == 1 && otherBox._leftTop.y > parentBox._leftTop.y) //If we go down and enter the box on the top
+				{
+					float botOverlapWidth = otherBox._leftTop.y - (parentBox._leftTop.y + parentBox._height);
+					if (botOverlapWidth < 0)
+					{
+						m_LocalPosition.y += botOverlapWidth + replaceOffsetWidth; //Put it back out of collision
+						std::cout << "Bot col ..";
+					}
 				}
 			}
 		}

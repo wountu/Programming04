@@ -150,7 +150,7 @@ void load()
 	box._leftTop.x = transformTronTank01->GetLocalPosition().x;
 	box._leftTop.y = transformTronTank01->GetLocalPosition().y;
 
-	tankCollision->Initialize(tronTank01, box, 5);
+	tankCollision->Initialize(tronTank01, box, 10);
 	tronTank01->SetTag(dae::Player1);
 
 	scene.Add(tronTank01);

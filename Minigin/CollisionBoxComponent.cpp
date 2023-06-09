@@ -60,6 +60,7 @@ namespace dae
 
 	GameObject* CollisionBoxComponent::GetOverlappingGameObject()
 	{
+		m_CollidingObject = nullptr;
 		CheckCollision();
 		return m_CollidingObject;
 	}
