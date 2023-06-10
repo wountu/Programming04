@@ -34,6 +34,7 @@
 #include "AimComponent.h"
 #include "LevelGenerator.h"
 #include "HealthObserver.h"
+#include "VisionComponent.h"
 
 void load()
 {
