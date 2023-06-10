@@ -214,6 +214,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" "$(OutputP
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AIComonent.h" />
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="CollisionDetector.h" />
     <ClInclude Include="ControllerXbox.h" />
@@ -223,6 +224,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" "$(OutputP
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="LevelGenerator.h" />
     <ClInclude Include="Minigin.h" />
+    <ClInclude Include="Move.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ResourceManager.h" />
@@ -232,12 +234,14 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" "$(OutputP
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="SoundEffectSystem.h" />
     <ClInclude Include="SoundSystem.h" />
+    <ClInclude Include="PlayerState.h" />
     <ClInclude Include="Texture2D.h" />
     <ClInclude Include="TimeClass.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="VisionComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AIComonent.cpp" />
     <ClCompile Include="BaseComponent.cpp" />
     <ClCompile Include="CollisionDetector.cpp" />
     <ClCompile Include="ControllerXbox.cpp" />
@@ -248,6 +252,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" "$(OutputP
     <ClCompile Include="LevelGenerator.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Minigin.cpp" />
+    <ClCompile Include="Move.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />

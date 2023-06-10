@@ -21,7 +21,8 @@ namespace dae
 		Player2,
 		Enemy,
 		Bullet,
-		UI
+		UI,
+		AI
 	};
 
 	// todo: this should become final.

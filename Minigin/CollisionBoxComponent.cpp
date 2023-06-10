@@ -21,6 +21,8 @@ namespace dae
 		m_CollisionBox._height -= inset * 2;
 
 		CollisionDetector::GetInstance().AddCollisionBox(this, m_Parent->GetTag());
+
+		//m_Transform = m_Parent->GetComponent<TransformComponent>();
 	}
 
 	void CollisionBoxComponent::Update()

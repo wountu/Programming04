@@ -35,6 +35,7 @@
 #include "LevelGenerator.h"
 #include "HealthObserver.h"
 #include "VisionComponent.h"
+#include "AIComonent.h"
 
 void load()
 {
@@ -131,6 +132,7 @@ void load()
 	auto renderCompTronTank01 = tronTank01->AddComponent<dae::RenderComponent>();
 	auto transformTronTank01 = tronTank01->AddComponent <dae::TransformComponent>();
 
+
 	auto tankCollision = tronTank01->AddComponent<dae::CollisionBoxComponent>();
 
 	tronTank01->Initialize();
@@ -200,11 +202,40 @@ void load()
 
 	scene.Add(tronTank02);
 
+	const float speed{ 100.f };
+
+	//AI
+	auto aiTank01 = std::make_shared <dae::GameObject>();
+	auto transformAITank01 = aiTank01->AddComponent <dae::TransformComponent>();
+	auto renderCompAITank01 = aiTank01->AddComponent<dae::RenderComponent>();
+	auto healthAITank01 = aiTank01->AddComponent<dae::HealthComponent>();
+	auto AI1TankCollision = aiTank01->AddComponent<dae::CollisionBoxComponent>();
+	auto visionAi1 = aiTank01->AddComponent<dae::VisionComponent>();
+	auto ai01 = aiTank01->AddComponent<dae::AIComponent>();
+
+	aiTank01->Initialize();
+	aiTank01->SetTag(dae::AI);
+	transformAITank01->Initialize(glm::vec2(400, 390), 0.f, aiTank01);
+	texture = dae::ResourceManager::GetInstance().LoadTexture("GreenTank.png");
+	renderCompAITank01->Initialize(texture, aiTank01);
+	healthAITank01->Initialize(1, glm::vec2(400, 390), aiTank01);
+	ai01->Initialize(speed, aiTank01);
+
+	box._width = static_cast<float>(texture->GetSize().x);
+	box._height = static_cast<float>(texture->GetSize().y);
+	box._leftTop.x = transformTronTank01->GetLocalPosition().x;
+	box._leftTop.y = transformTronTank01->GetLocalPosition().y;
+
+	AI1TankCollision->Initialize(aiTank01, box, 10);
+	visionAi1->Initialize(aiTank01, 500, { texture->GetSize().x / 2, texture->GetSize().y / 2 });
+
+
+	scene.Add(aiTank01);
+
 	//Commands
 	auto& input = dae::InputManager::GetInstance();
 	unsigned controller = input.AddController();
 
-	const float speed{ 100.f };
 	auto pCommand = input.AddCommand<dae::Movement>(controller, tronTank02.get(), ControllerXbox::ControllerInputs::DPAD_UP, dae::InputManager::KeyPress::HOLD);
 	pCommand->SetDirectionAndSpeed(glm::vec2{ 0.f, -1.f }, speed); // - in y is up 
 

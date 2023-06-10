@@ -37,6 +37,9 @@
     <Filter Include="Framework\Components\AI">
       <UniqueIdentifier>{c01776a1-3497-43a7-9a1f-6264b270b320}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FSM">
+      <UniqueIdentifier>{bd63438f-c25d-47a1-ad72-c3a01f3c0cdc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
@@ -105,6 +108,15 @@
     <ClInclude Include="VisionComponent.h">
       <Filter>Framework\Components\AI</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerState.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="Move.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="AIComonent.h">
+      <Filter>Framework\Components\AI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -165,6 +177,12 @@
       <Filter>Framework\Level</Filter>
     </ClCompile>
     <ClCompile Include="VisionComponent.cpp">
+      <Filter>Framework\Components\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Move.cpp">
+      <Filter>FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="AIComonent.cpp">
       <Filter>Framework\Components\AI</Filter>
     </ClCompile>
   </ItemGroup>

@@ -56,5 +56,7 @@ void dae::HealthComponent::LoseHealth()
 	Notify(dae::Observer::Health_Lost);
 	--m_Health;
 
+	//std::cout << "Got hit\n";
+
 	m_Parent->GetComponent<TransformComponent>()->ChangeLocalPosition(m_RespawnPos);
 }

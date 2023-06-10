@@ -22,6 +22,7 @@ namespace dae
 		float _height{};
 	};
 
+	class TransformComponent;
 	class CollisionBoxComponent final : public BaseComponent
 	{
 	public:
@@ -46,6 +47,7 @@ namespace dae
 		GameObject* m_Parent{ nullptr };
 		GameObject* m_CollidingObject{};
 		CollisionBox m_CollisionBox{};
+		std::shared_ptr<TransformComponent> m_Transform{};
 
 		int m_Inset{}; //How much the box needs to inset to the given collisionbox
 	};
