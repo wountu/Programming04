@@ -9,13 +9,10 @@
 #include "Transform.h"
 #include "BaseComponent.h"
 #include "Observer.h"
-#include "Subject.h"
 
 namespace dae
 {
 	class Texture2D;
-	//class BaseComponent;
-	//class Observer;
 
 	enum Tag
 	{
@@ -23,7 +20,8 @@ namespace dae
 		Player1,
 		Player2,
 		Enemy,
-		Bullet
+		Bullet,
+		UI
 	};
 
 	// todo: this should become final.
@@ -62,15 +60,6 @@ namespace dae
 		void SetLocalPos(const glm::vec2& pos);
 		const glm::vec2& GetWorldPos();
 
-		//Set subject
-		void SetSubject(std::shared_ptr<Subject> subject);
-		void NotifyObject(Observer::Event event);
-
-		//Observers
-		void AddObserver(Observer* observer);
-		void RemoverObservers(Observer* observer);
-		void NotifyObserver(GameObject* actor, Observer::Event event);
-
 		void SetTag(Tag tag);
 		Tag GetTag() const;
 	private:
@@ -92,10 +81,6 @@ namespace dae
 		//parents-Children
 		GameObject* m_parent{ nullptr };
 		std::vector<GameObject*> m_children{};
-
-		//Subject
-		std::shared_ptr<Subject> m_Subject{ nullptr };
-		std::vector<Observer*> m_Observers;
 
 		//Gameobject tag
 		Tag m_Tag{ Tag::Static }; //Standard static tag

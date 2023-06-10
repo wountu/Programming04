@@ -5,11 +5,48 @@
 
 #include <iostream>
 
-dae::SoundEffectSystem::SoundEffectSystem()
+namespace dae
 {
-	Mix_Init(MIX_INIT_MP3);
-	Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096);
+	class SoundEffectSystemImpl
+	{
+	public:
+		SoundEffectSystemImpl()
+		{
+			Mix_Init(MIX_INIT_MP3);
+			Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096);
+		}
+		~SoundEffectSystemImpl()
+		{
+			Mix_CloseAudio();
+			Mix_Quit();
+		}
 
+		Mix_Chunk* LoadSound(const char* path)
+		{
+			return Mix_LoadWAV(path);
+		}
+
+		int PlaySound(Mix_Chunk* chunck, int channel = -1, int loops = 0)
+		{
+			int returnChannel = Mix_PlayChannel(channel, chunck, loops);
+			if (returnChannel == -1)
+				std::cout << "Problem trying to play a sound\n";
+
+			return returnChannel;
+		}
+
+		void SetVolume(int channel, int volume)
+		{
+			Mix_Volume(channel, volume);
+		}
+
+	private:
+	};
+}
+
+dae::SoundEffectSystem::SoundEffectSystem()
+	:m_pImpl(std::make_unique<SoundEffectSystemImpl>())
+{
 	m_IsRunning = true;
 	m_Thread = std::jthread{ &SoundEffectSystem::Update, this };
 }
@@ -18,9 +55,6 @@ dae::SoundEffectSystem::~SoundEffectSystem()
 {
 	m_IsRunning = false;
 	m_Condition.notify_one();
-
-	Mix_CloseAudio();
-	Mix_Quit();
 }
 
 void dae::SoundEffectSystem::Update()
@@ -50,7 +84,7 @@ void dae::SoundEffectSystem::Update()
 			//auto path = m_LoadSounds.at(sound.sound);
 			if (!loadSoundStruct.pathName.empty())
 			{
-				const auto chunck = Mix_LoadWAV(loadSoundStruct.pathName.c_str());
+				const auto chunck = m_pImpl->LoadSound(loadSoundStruct.pathName.c_str());
 				if (chunck)
 				{
 					m_Sounds.emplace(sound.sound, chunck);
@@ -69,11 +103,8 @@ void dae::SoundEffectSystem::Update()
 				if (m_Sounds.contains(sound.sound))
 				{
 					const auto chunck = m_Sounds.at(sound.sound);
-					auto channel = Mix_PlayChannel(-1, chunck, 0);
-					if (channel == -1)
-						std::cout << "Problem trying to play the sound with id --> " << sound.sound << "\n";
-				
-					Mix_Volume(channel, static_cast<int>(sound.volume));
+					auto channel = m_pImpl->PlaySound(chunck);
+					m_pImpl->SetVolume(channel, static_cast<int>(sound.volume));
 				}
 			}
 			else std::cout << "The sound at id: " << sound.sound << " is not loaded." << "\n";

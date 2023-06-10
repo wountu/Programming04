@@ -88,34 +88,6 @@ const glm::vec2& dae::GameObject::GetWorldPos()
 	return m_worldPos;
 }
 
-void dae::GameObject::SetSubject(std::shared_ptr<Subject> subject)
-{
-	m_Subject = subject;
-}
-
-void dae::GameObject::NotifyObject(Observer::Event event)
-{
-	m_Subject->NotifyObserver(this, event);
-}
-
-void dae::GameObject::AddObserver(Observer* observer)
-{
-	m_Observers.push_back(observer);
-}
-
-void dae::GameObject::RemoverObservers(Observer* observer)
-{
-	m_Observers.erase(std::remove(m_Observers.begin(), m_Observers.end(), observer), m_Observers.end());
-}
-
-void dae::GameObject::NotifyObserver(GameObject* actor, Observer::Event event)
-{
-	for (const auto observer : m_Observers)
-	{
-		observer->Notify(actor, event);
-	}
-}
-
 void dae::GameObject::SetTag(Tag tag)
 {
 	m_Tag = tag;
@@ -137,11 +109,6 @@ void dae::GameObject::Update()
 	{
 		child->Update();
 	}
-
-	for (const auto& observer : m_Observers)
-	{
-		observer->Update();
-	}
 }
 
 void dae::GameObject::Render() const
@@ -154,11 +121,6 @@ void dae::GameObject::Render() const
 	for (const auto& child : m_children)
 	{
 		child->Render();
-	}
-
-	for (const auto& observer : m_Observers)
-	{
-		observer->Render();
 	}
 }
 

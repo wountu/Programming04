@@ -57,17 +57,14 @@
     <ClCompile Include="..\Minigin\Command.cpp">
       <Filter>Input</Filter>
     </ClCompile>
-    <ClCompile Include="..\Minigin\ScoreDisplayObserver.cpp">
-      <Filter>Observers</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Minigin\HealthDisplayObserver.cpp">
-      <Filter>Observers</Filter>
-    </ClCompile>
     <ClCompile Include="..\Minigin\CollisionBoxComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="AimComponent.cpp">
       <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Minigin\HealthObserver.cpp">
+      <Filter>Observers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -101,17 +98,14 @@
     <ClInclude Include="..\Minigin\Command.h">
       <Filter>Input</Filter>
     </ClInclude>
-    <ClInclude Include="..\Minigin\ScoreDisplayObserver.h">
-      <Filter>Observers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Minigin\HealthDisplayObserver.h">
-      <Filter>Observers</Filter>
-    </ClInclude>
     <ClInclude Include="..\Minigin\CollisionBoxComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="AimComponent.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Minigin\HealthObserver.h">
+      <Filter>Observers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

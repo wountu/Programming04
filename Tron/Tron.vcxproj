@@ -183,11 +183,10 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" /R/Y</Comm
     <ClCompile Include="..\Minigin\Command.cpp" />
     <ClCompile Include="..\Minigin\fpsCounter.cpp" />
     <ClCompile Include="..\Minigin\HealthComponent.cpp" />
-    <ClCompile Include="..\Minigin\HealthDisplayObserver.cpp" />
+    <ClCompile Include="..\Minigin\HealthObserver.cpp" />
     <ClCompile Include="..\Minigin\RenderComponent.cpp" />
     <ClCompile Include="..\Minigin\RotateComponent.cpp" />
     <ClCompile Include="..\Minigin\ScoreComponent.cpp" />
-    <ClCompile Include="..\Minigin\ScoreDisplayObserver.cpp" />
     <ClCompile Include="..\Minigin\TextObject.cpp" />
     <ClCompile Include="..\Minigin\TransformComponent.cpp" />
     <ClCompile Include="AimComponent.cpp" />
@@ -200,11 +199,10 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" /R/Y</Comm
     <ClInclude Include="..\Minigin\Command.h" />
     <ClInclude Include="..\Minigin\fpsCounter.h" />
     <ClInclude Include="..\Minigin\HealthComponent.h" />
-    <ClInclude Include="..\Minigin\HealthDisplayObserver.h" />
+    <ClInclude Include="..\Minigin\HealthObserver.h" />
     <ClInclude Include="..\Minigin\RenderComponent.h" />
     <ClInclude Include="..\Minigin\RotateComponent.h" />
     <ClInclude Include="..\Minigin\ScoreComponent.h" />
-    <ClInclude Include="..\Minigin\ScoreDisplayObserver.h" />
     <ClInclude Include="..\Minigin\TextObject.h" />
     <ClInclude Include="..\Minigin\TransformComponent.h" />
     <ClInclude Include="AimComponent.h" />

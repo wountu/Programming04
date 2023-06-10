@@ -10,6 +10,8 @@ struct Mix_Chunk;
 
 namespace dae
 {
+	class SoundEffectSystemImpl;
+
 	class SoundEffectSystem final : public SoundSystem
 	{
 	public:
@@ -55,6 +57,8 @@ namespace dae
 		std::condition_variable m_Condition;
 
 		bool m_IsRunning{};
+
+		std::unique_ptr<SoundEffectSystemImpl> m_pImpl;
 	};
 }
 

@@ -1,6 +1,5 @@
 #pragma once
 #include <memory>
-#include "Subject.h"
 
 namespace dae
 {

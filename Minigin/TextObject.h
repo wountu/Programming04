@@ -23,6 +23,9 @@ namespace dae
 		void SetText(const std::string& text);
 		void SetFont(std::shared_ptr<Font> font);
 		void SetColor(glm::vec3 color);
+		void SetPos(glm::vec2 pos); //For if there is no transform comp
+
+		std::string GetText() const;
 
 		TextObject() = default;
 		virtual ~TextObject() = default;
@@ -35,11 +38,10 @@ namespace dae
 		std::shared_ptr<Font> m_font{ nullptr };
 		std::shared_ptr<Texture2D> m_textTexture{ nullptr };
 		std::shared_ptr<TransformComponent> m_transform{ nullptr };
-
-		std::shared_ptr<GameObject> m_pParent{ nullptr };
 		SDL_Color m_Color{};
 
 		GameObject* m_Parent{ nullptr };
+		glm::vec2 m_pos{};
 	};
 }
 		

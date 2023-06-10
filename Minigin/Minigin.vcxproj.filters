@@ -78,9 +78,6 @@
     <ClInclude Include="Observer.h">
       <Filter>Framework\Observer</Filter>
     </ClInclude>
-    <ClInclude Include="Subject.h">
-      <Filter>Framework\Observer</Filter>
-    </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>Framework\Engine\Header Files</Filter>
     </ClInclude>
@@ -146,9 +143,6 @@
     <ClCompile Include="ControllerXbox.cpp">
       <Filter>Framework\Input</Filter>
     </ClCompile>
-    <ClCompile Include="Subject.cpp">
-      <Filter>Framework\Observer</Filter>
-    </ClCompile>
     <ClCompile Include="ServiceLocator.cpp">
       <Filter>Framework\Audio</Filter>
     </ClCompile>
@@ -160,9 +154,6 @@
     </ClCompile>
     <ClCompile Include="CollisionDetector.cpp">
       <Filter>Framework\Engine\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Observer.cpp">
-      <Filter>Framework\Observer</Filter>
     </ClCompile>
     <ClCompile Include="LevelGenerator.cpp">
       <Filter>Framework\Level</Filter>

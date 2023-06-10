@@ -16,7 +16,10 @@ void dae::TextObject::Initialize(const std::string& text, std::shared_ptr<Font> 
 	const SDL_Color white = { 255, 255, 255 };
 	m_Color = white;
 
+	if(m_Parent)
 	m_transform = m_Parent->GetComponent<TransformComponent>();
+
+	m_pos = { 0, 0 };
 }
 
 void dae::TextObject::Update()
@@ -41,8 +44,14 @@ void dae::TextObject::Render() const
 
 	if (m_textTexture != nullptr)
 	{
-		renderer.SetRenderPos(m_transform->GetLocalPosition());
-		renderer.SetRenderAngle(m_transform->GetAngle());
+		if (m_transform)
+		{
+			renderer.SetRenderPos(m_transform->GetLocalPosition());
+			renderer.SetRenderAngle(m_transform->GetAngle());
+		}
+
+		else renderer.SetRenderPos(m_pos);
+
 		renderer.RenderTexture(*m_textTexture);
 	}
 }
@@ -69,4 +78,14 @@ void dae::TextObject::SetColor(glm::vec3 color)
 	m_Color.r = static_cast<Uint8>(color.x);
 	m_Color.g = static_cast<Uint8>(color.y);
 	m_Color.b = static_cast<Uint8>(color.z);
+}
+
+void dae::TextObject::SetPos(glm::vec2 pos)
+{
+	m_pos = pos;
+}
+
+std::string dae::TextObject::GetText() const
+{
+	return m_text;
 }

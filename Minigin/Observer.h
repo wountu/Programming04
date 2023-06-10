@@ -5,20 +5,18 @@ namespace dae
 	class Observer
 	{
 	public:
-		enum class Event
+		enum Event
 		{
-			PLAYER_RECEIVED_DAMAGE,
-			PLAYER_DIED,
-			SCORE_ADDED,
-			SCORE_500
+			Health_Lost,
+			Health_Died
 		};
 
-		Observer() = default;
 		virtual ~Observer() = default;
-		virtual void Notify(GameObject* actor, Event event) = 0;
+		virtual void HandleEvent(GameObject* actor, Event event) = 0;
+		virtual void OnSubjectDestroy() = 0;
 
-		virtual void Update() = 0;
 		virtual void Render() const = 0;
+		virtual void Update() = 0;
 	};
 
 }
