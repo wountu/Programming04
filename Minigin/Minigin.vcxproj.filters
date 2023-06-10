@@ -117,6 +117,9 @@
     <ClInclude Include="AIComonent.h">
       <Filter>Framework\Components\AI</Filter>
     </ClInclude>
+    <ClInclude Include="Idle.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -184,6 +187,9 @@
     </ClCompile>
     <ClCompile Include="AIComonent.cpp">
       <Filter>Framework\Components\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Idle.cpp">
+      <Filter>FSM</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
