@@ -10,6 +10,7 @@ void dae::BulletComponent::Initialize(std::shared_ptr<GameObject> parent)
 	m_Parent = parent.get();
 
 	m_Transform = m_Parent->GetComponent<TransformComponent>().get();
+
 }
 
 void dae::BulletComponent::Update()
@@ -37,7 +38,7 @@ void dae::BulletComponent::Update()
 			if (overlapTag != dae::Static && overlapTag != m_Parent->GetTag())
 			{
 				m_Destroy = true;
-				overlap->GetComponent<HealthComponent>()->LoseHealth(1);
+				overlap->GetComponent<HealthComponent>()->LoseHealth();
 			}
 
 			else if (overlapTag == dae::Static)

@@ -26,14 +26,6 @@ void dae::HealthObserver::HandleEvent(GameObject*, Event event)
 		--m_Lives;
 		m_LivesDisplay.back() = static_cast<char>(m_Lives + '0');
 		m_Text->SetText(m_LivesDisplay);
-
-		//if (actor)
-		//{
-		//	auto text = actor->GetComponent<TextObject>();
-		//	if (text)
-		//	{
-		//	}
-		//}
 		std::cout << "Lost health" << "\n";
 		break;
 	case dae::Observer::Health_Died:

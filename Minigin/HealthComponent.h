@@ -1,6 +1,8 @@
 #pragma once
 #include "BaseComponent.h"
 #include "Observer.h"
+
+#include <glm/vec2.hpp>
 #include <vector>
 
 namespace dae
@@ -15,22 +17,25 @@ namespace dae
 		HealthComponent(HealthComponent&& other) = delete;
 		HealthComponent& operator=(HealthComponent&& other) = delete;
 
-		virtual void Initialize(int health, std::shared_ptr<GameObject> parent);
+		virtual void Initialize(int health, glm::vec2 respawnPos, std::shared_ptr<GameObject> parent);
 		virtual void Update() override;
 		virtual void Render() const override;        
 
 		void AddObserver(Observer* observer);
 		void RemoveObserver(std::unique_ptr<Observer> observer);
-		void Notify(Observer::Event event);
 
 		int GetHealth() const;
-		void LoseHealth(int amount);
+		void LoseHealth();
+
 	private:
 		int m_Health{};
 		GameObject* m_Parent{ nullptr };
 		GameObject* m_UI{ nullptr }; //UI the lives is displayed on, no UI --> nullptr
 
+		void Notify(Observer::Event event);
 		std::vector<Observer*> m_pObservers;
+
+		glm::vec2 m_RespawnPos;
   	};
 }
 

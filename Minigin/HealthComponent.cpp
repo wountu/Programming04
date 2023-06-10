@@ -9,10 +9,11 @@ dae::HealthComponent::~HealthComponent()
 	m_pObservers.clear();
 }
 
-void dae::HealthComponent::Initialize(int health, std::shared_ptr<GameObject> parent)
+void dae::HealthComponent::Initialize(int health, glm::vec2 respawnPos, std::shared_ptr<GameObject> parent)
 {
 	m_Health = health;
 	m_Parent = parent.get();
+	m_RespawnPos = respawnPos;
 }
 
 void dae::HealthComponent::Update()
@@ -50,9 +51,10 @@ int dae::HealthComponent::GetHealth() const
 	return m_Health;
 }
 
-void dae::HealthComponent::LoseHealth(int amount)
+void dae::HealthComponent::LoseHealth()
 {
-	std::cout << "Player lost hp" << "\n";
 	Notify(dae::Observer::Health_Lost);
-	m_Health -= amount;
+	--m_Health;
+
+	m_Parent->GetComponent<TransformComponent>()->ChangeLocalPosition(m_RespawnPos);
 }

@@ -30,18 +30,6 @@ namespace dae
 		m_pTransform->SetDirection(m_Direction);
 	}
 
-	Damage::Damage(GameObject* parent)
-		:Command(parent)
-	{
-		m_Parent = parent;
-	}
-
-	//Damage
-	void Damage::Execute()
-	{
-		m_Parent->GetComponent<HealthComponent>()->LoseHealth(1);
-	}
-
 	Score::Score(GameObject* parent)
 		:Command(parent)
 	{
