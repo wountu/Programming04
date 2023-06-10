@@ -239,6 +239,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" "$(OutputP
     <ClInclude Include="Texture2D.h" />
     <ClInclude Include="TimeClass.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="Turn.h" />
     <ClInclude Include="VisionComponent.h" />
   </ItemGroup>
   <ItemGroup>
@@ -264,6 +265,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" "$(OutputP
     <ClCompile Include="Texture2D.cpp" />
     <ClCompile Include="TimeClass.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="Turn.cpp" />
     <ClCompile Include="VisionComponent.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -23,6 +23,8 @@ namespace dae
 
 		CollisionBoxComponent* BoxColliding(CollisionBoxComponent* boxToCheck, Tag ignores);
 
+		CollisionBoxComponent* BoxCollidingWithRay(glm::vec2 startRay, glm::vec2 endRay, glm::vec2 dir);
+
 	private:
 		std::vector<CollisionBoxComponent*> m_pTankCollisions;
 		std::vector<CollisionBoxComponent*> m_pWallBoxes;

@@ -29,4 +29,19 @@ namespace dae
 	{
 		SDL_RenderDrawLineF(Renderer::GetInstance().GetSDLRenderer(), m_StartVision.x, m_StartVision.y, m_EndVision.x, m_EndVision.y);
 	}
+
+	glm::vec2 VisionComponent::GetStartVision() const
+	{
+		return m_StartVision;
+	}
+
+	glm::vec2 VisionComponent::GetEndVision() const
+	{
+		return m_EndVision;
+	}
+
+	glm::vec2 VisionComponent::GetDirection() const
+	{
+		return m_Direction;
+	}
 }

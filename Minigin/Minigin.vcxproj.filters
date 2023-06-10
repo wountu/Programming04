@@ -120,6 +120,9 @@
     <ClInclude Include="Idle.h">
       <Filter>FSM</Filter>
     </ClInclude>
+    <ClInclude Include="Turn.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -189,6 +192,9 @@
       <Filter>Framework\Components\AI</Filter>
     </ClCompile>
     <ClCompile Include="Idle.cpp">
+      <Filter>FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="Turn.cpp">
       <Filter>FSM</Filter>
     </ClCompile>
   </ItemGroup>

@@ -216,10 +216,11 @@ void load()
 	aiTank01->Initialize();
 	aiTank01->SetTag(dae::AI);
 	transformAITank01->Initialize(glm::vec2(400, 390), 0.f, aiTank01);
+	transformAITank01->SetDirection(glm::vec2{ -1, 0 });
 	texture = dae::ResourceManager::GetInstance().LoadTexture("GreenTank.png");
 	renderCompAITank01->Initialize(texture, aiTank01);
 	healthAITank01->Initialize(1, glm::vec2(400, 390), aiTank01);
-	ai01->Initialize(speed, aiTank01);
+	ai01->Initialize(speed / 2.f, aiTank01);
 
 	box._width = static_cast<float>(texture->GetSize().x);
 	box._height = static_cast<float>(texture->GetSize().y);

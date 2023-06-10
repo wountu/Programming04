@@ -19,6 +19,10 @@ namespace dae
 		virtual void Initialize(std::shared_ptr<GameObject> parent, float visionLength, glm::vec2 offset = glm::vec2{});
 		virtual void Update() override;
 		virtual void Render() const override;
+
+		glm::vec2 GetStartVision() const;
+		glm::vec2 GetEndVision() const;
+		glm::vec2 GetDirection() const;
 	private:
 		GameObject* m_Parent{ nullptr };
 

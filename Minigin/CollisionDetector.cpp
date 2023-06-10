@@ -77,3 +77,27 @@ dae::CollisionBoxComponent* dae::CollisionDetector::BoxColliding(CollisionBoxCom
 
 	return nullptr;
 }
+
+dae::CollisionBoxComponent* dae::CollisionDetector::BoxCollidingWithRay(glm::vec2 startRay, glm::vec2 endRay, glm::vec2 dir)
+{
+	for (const auto& boxComp : m_pWallBoxes)
+	{
+		const auto box = boxComp->GetBox();
+
+		//Left
+		if (dir.x == -1 && endRay.x < box._leftTop.x)
+		{
+			if (startRay.y > box._leftTop.y && startRay.y < box._leftTop.y + box._height)
+				return boxComp;
+		}
+
+		//Top
+		if (dir.y == -1 && endRay.y < box._leftTop.y)
+		{
+			if (startRay.x > box._leftTop.x && startRay.x < box._leftTop.x + box._width)
+				return boxComp;
+		}
+	}
+
+	return nullptr;
+}
