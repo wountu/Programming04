@@ -27,11 +27,7 @@ namespace dae
 		auto& timeClass = TimeClass::GetInstance();
 		glm::vec2 newPos{ m_pTransform->GetLocalPosition() + (m_Direction * m_Speed * timeClass.GetElapsed()) };
 		m_pTransform->ChangeLocalPosition(newPos);
-
-		float angle = static_cast<float>(atan2(m_Direction.y, m_Direction.x));
-		angle = glm::degrees(angle);
-
-		m_pTransform->ChangeAngle(angle);
+		m_pTransform->SetDirection(m_Direction);
 	}
 
 	Damage::Damage(GameObject* parent)

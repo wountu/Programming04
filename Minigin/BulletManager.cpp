@@ -65,6 +65,7 @@ void dae::BulletManager::SpawnBullet(glm::vec2 dir)
 	auto bulletPos = parentTransform->GetWorldPosition() + allignedWithGun;
 
 	transform->Initialize(bulletPos, parentTransform->GetAngle(), bullet);
+	transform->SetDirection(dir);
 
 	//Render
 	auto render = bullet->AddComponent<RenderComponent>();
@@ -72,7 +73,7 @@ void dae::BulletManager::SpawnBullet(glm::vec2 dir)
 
 	//Bullet
 	auto bulletComp = bullet->AddComponent<BulletComponent>();
-	bulletComp->Initialize(bullet, dir);
+	bulletComp->Initialize(bullet);
 
 	//Collision
 	auto collision = bullet->AddComponent<CollisionBoxComponent>();

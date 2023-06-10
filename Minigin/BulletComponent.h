@@ -16,7 +16,7 @@ namespace dae
 		BulletComponent(BulletComponent&& other) = delete;
 		BulletComponent& operator =(BulletComponent && other) = delete;
 
-		virtual void Initialize(std::shared_ptr<GameObject> parent, glm::vec2 direction);
+		virtual void Initialize(std::shared_ptr<GameObject> parent);
 		virtual void Update() override;
 		virtual void Render() const override;
 
@@ -26,8 +26,10 @@ namespace dae
 		TransformComponent* m_Transform{ nullptr };
 		bool m_FirstFrame{ true };
 
-		glm::vec2 m_Direction;
+		glm::vec2 m_Direction{};
 		bool m_Destroy{};
+
+		GameObject* m_OverlappedObject{ nullptr }; //Last known overlap (if it's a tank it dissapears anyway)
 
 	};
 }

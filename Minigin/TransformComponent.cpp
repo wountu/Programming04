@@ -28,9 +28,7 @@ namespace dae
 	{
 		m_LocalPosition = pos;
 		CollisionUpdate();
-		SetPositionDirty();
-
-		std::cout << m_Direction.x << ", " << m_Direction.y << "\n";
+		SetPositionDirty(); 
 	}
 
 	glm::vec2 TransformComponent::GetLocalPosition() const
@@ -66,9 +64,18 @@ namespace dae
 		return m_Angle;
 	}
 
-	glm::vec2 TransformComponent::GetDir() const
+
+	glm::vec2 TransformComponent::GetDirection() const
 	{
 		return m_Direction;
+	}
+
+	void TransformComponent::SetDirection(glm::vec2 direction)
+	{
+		m_Direction = direction;
+
+		m_Angle = static_cast<float>(atan2(m_Direction.y, m_Direction.x));
+		m_Angle = glm::degrees(m_Angle);
 	}
 
 	void TransformComponent::SetPositionDirty()
@@ -102,7 +109,6 @@ namespace dae
 					if (leftOverlapWidth > 0)
 					{
 						m_LocalPosition.x += leftOverlapWidth + replaceOffsetWidth; //Put it back out of the collision
-						std::cout << "Left col ..";
 					}
 				}
 
@@ -113,7 +119,6 @@ namespace dae
 					if (rightOverlapWidth > 0)
 					{
 						m_LocalPosition.x -= rightOverlapWidth + replaceOffsetWidth; //Put it back out of the collision
-						std::cout << "Right col ..";
 					}
 				}
 
@@ -124,7 +129,6 @@ namespace dae
 					if (topOverlapWidth < 0)
 					{
 						m_LocalPosition.y -= topOverlapWidth + replaceOffsetWidth; //Put it back out of collision
-						std::cout << "Top col ..";
 					}
 				}
 
@@ -135,7 +139,6 @@ namespace dae
 					if (botOverlapWidth < 0)
 					{
 						m_LocalPosition.y += botOverlapWidth + replaceOffsetWidth; //Put it back out of collision
-						std::cout << "Bot col ..";
 					}
 				}
 			}

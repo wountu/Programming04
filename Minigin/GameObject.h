@@ -22,7 +22,8 @@ namespace dae
 		Static,
 		Player1,
 		Player2,
-		Enemy
+		Enemy,
+		Bullet
 	};
 
 	// todo: this should become final.

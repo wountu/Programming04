@@ -26,7 +26,9 @@ namespace dae
 
 		void ChangeAngle(float angle);
 		float GetAngle() const;
-		glm::vec2 GetDir() const;
+
+		glm::vec2 GetDirection() const;
+		void SetDirection(glm::vec2 direction);
 
 		void SetPositionDirty();
 

@@ -5,10 +5,9 @@
 #include "Scene.h"
 #include "HealthComponent.h"
 
-void dae::BulletComponent::Initialize(std::shared_ptr<GameObject> parent, glm::vec2 direction)
+void dae::BulletComponent::Initialize(std::shared_ptr<GameObject> parent)
 {
 	m_Parent = parent.get();
-	m_Direction = direction;
 
 	m_Transform = m_Parent->GetComponent<TransformComponent>().get();
 }
@@ -20,22 +19,33 @@ void dae::BulletComponent::Update()
 
 	auto oldPos = m_Transform->GetLocalPosition();
 
-	auto offset = (speed * m_Direction * timeClass.GetElapsed());
+	auto offset = (speed * m_Transform->GetDirection() * timeClass.GetElapsed());
 
 	glm::vec2 newPos = oldPos + offset;
 
 	m_Transform->ChangeLocalPosition(newPos);
+
+	std::cout << m_Transform->GetDirection().x << ", " << m_Transform->GetDirection().y << "\n";
 	
 	auto overlap = m_Parent->GetComponent<CollisionBoxComponent>()->GetOverlappingGameObject();
-	//auto aimObj = m_Parent->GetParent();
-	if (overlap && overlap->GetTag() != m_Parent->GetTag()) //If we have an overlap that isn't our tank
+	if(overlap != m_OverlappedObject)
 	{
-		auto overlapTag = overlap->GetTag(); 
+		m_OverlappedObject = overlap;
 
-		if (overlapTag != dae::Static && overlapTag != m_Parent->GetTag())
+		if (overlap && overlap->GetTag() != m_Parent->GetTag()) //If we have an overlap that isn't our tank
 		{
-			m_Destroy = true;
-			//overlap->GetComponent<HealthComponent>()->LoseHealth(1);
+			auto overlapTag = overlap->GetTag();
+
+			if (overlapTag != dae::Static && overlapTag != m_Parent->GetTag())
+			{
+				m_Destroy = true;
+				//overlap->GetComponent<HealthComponent>()->LoseHealth(1);
+			}
+
+			else if (overlapTag == dae::Static)
+			{
+				m_Transform->SetDirection({ m_Transform->GetDirection().x * -1, m_Transform->GetDirection().y * -1 });
+			}
 		}
 	}
 }

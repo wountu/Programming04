@@ -156,12 +156,6 @@ void dae::GameObject::Render() const
 		child->Render();
 	}
 
-	////Rendering observers
-	//if (m_Subject)
-	//{
-	//	m_Subject->Render();
-	//}
-
 	for (const auto& observer : m_Observers)
 	{
 		observer->Render();
