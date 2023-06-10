@@ -24,8 +24,6 @@ void dae::BulletComponent::Update()
 	glm::vec2 newPos = oldPos + offset;
 
 	m_Transform->ChangeLocalPosition(newPos);
-
-	std::cout << m_Transform->GetDirection().x << ", " << m_Transform->GetDirection().y << "\n";
 	
 	auto overlap = m_Parent->GetComponent<CollisionBoxComponent>()->GetOverlappingGameObject();
 	if(overlap != m_OverlappedObject)

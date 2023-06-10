@@ -34,11 +34,20 @@ namespace dae
 			sound_id sound;
 			Action soundAction;
 			float volume;
+		};
+
+		struct LoadSoundStruct
+		{
+			std::string pathName;
 			bool isLoaded;
 		};
 
+		std::map<sound_id, LoadSoundStruct> m_LoadSounds{};
+
 		std::map<sound_id, Mix_Chunk*> m_Sounds{};
-		std::map<sound_id, std::string> m_LoadSounds{};
+		//std::map<sound_id, std::string> m_LoadSounds{};
+		//std::map<sound_id, bool> m_SoundLoaded{};
+
 		std::queue <Sound> m_SoundQueue{};
 
 		std::jthread m_Thread;

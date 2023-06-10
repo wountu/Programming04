@@ -30,26 +30,42 @@ void dae::SoundEffectSystem::Update()
 
 		std::unique_lock lock{ m_Mutex };
 		m_Condition.wait(lock, [&]() {
-
-			if (!m_IsRunning)
-			return true;
-
-			return !m_SoundQueue.empty();
+			return !m_IsRunning || !m_SoundQueue.empty();
 		});
 
 		if (m_SoundQueue.empty())
-			return;
+			continue;
 		
 		auto sound = m_SoundQueue.front();
+		m_SoundQueue.pop();
 
 		lock.unlock();
 
-		m_SoundQueue.pop();
+
+		auto loadSoundStruct = m_LoadSounds.at(sound.sound);
+
+		if (sound.soundAction == Load)
+		{
+			
+			//auto path = m_LoadSounds.at(sound.sound);
+			if (!loadSoundStruct.pathName.empty())
+			{
+				const auto chunck = Mix_LoadWAV(loadSoundStruct.pathName.c_str());
+				if (chunck)
+				{
+					m_Sounds.emplace(sound.sound, chunck);
+					loadSoundStruct.isLoaded = true;
+					m_LoadSounds.at(sound.sound) = loadSoundStruct;
+					std::cout << "Sound at id: " << sound.sound << " loaded" << "\n";
+				}
+			}
+		}
 
 		if (sound.soundAction == SoundPlay)
 		{
-			if (sound.isLoaded)
+			if (loadSoundStruct.isLoaded)
 			{
+				std::cout << "The sound at id: " << sound.sound << " is loaded and ready to be played \n";
 				if (m_Sounds.contains(sound.sound))
 				{
 					const auto chunck = m_Sounds.at(sound.sound);
@@ -61,20 +77,6 @@ void dae::SoundEffectSystem::Update()
 				}
 			}
 			else std::cout << "The sound at id: " << sound.sound << " is not loaded." << "\n";
-		}
-		
-		else if (sound.soundAction == Load)
-		{
- 			auto path = m_LoadSounds.at(sound.sound);
-			if (!path.empty())
-			{
-				const auto chunck = Mix_LoadWAV(path.c_str());
-				if (chunck)
-				{
-					m_Sounds.emplace(sound.sound, chunck);
-					sound.isLoaded = true;
-				}
-			}
 		}
 	}
 }
@@ -97,14 +99,17 @@ void dae::SoundEffectSystem::LoadSound(const sound_id id, const std::string& pat
 	Sound sound;
 	sound.sound = id;
 	sound.soundAction = Load;
-	sound.isLoaded = false;
 
 	m_SoundQueue.push(sound);
 
 	auto dataPath = ResourceManager::GetInstance().GetDataPath();
 	std::string soundPath = dataPath + pathName;
 
-	m_LoadSounds.emplace(std::pair{ id, soundPath });
+	LoadSoundStruct loadSound;
+	loadSound.isLoaded = false;
+	loadSound.pathName = soundPath;
+
+	m_LoadSounds.emplace(std::pair{ id, loadSound });
 
 	m_Condition.notify_one();
 }
