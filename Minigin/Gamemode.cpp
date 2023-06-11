@@ -3,6 +3,8 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include "LoadScenes.h"
+#include "fstream"
+#include "GameObject.h"
 
 void dae::Gamemode::SetGameMode(Gamemode::GameModeEnum gameMode)
 {
@@ -17,6 +19,7 @@ dae::Gamemode::GameModeEnum dae::Gamemode::GetGameMode() const
 void dae::Gamemode::AddPlayer(std::shared_ptr<GameObject> player)
 {
 	m_Players.emplace_back(player);
+	player->GetComponent<CollisionBoxComponent>()->SetActive(true);
 }
 
 void dae::Gamemode::PlayerDied(std::shared_ptr<GameObject> player)
@@ -24,7 +27,7 @@ void dae::Gamemode::PlayerDied(std::shared_ptr<GameObject> player)
 	m_ActivePlayers.erase(std::remove(m_ActivePlayers.begin(), m_ActivePlayers.end(), player), m_ActivePlayers.end());
 	if (m_ActivePlayers.empty() && m_GameMode != dae::Gamemode::VERSUS)
 	{
-		std::cout << "Go to highscores\n";
+		GameDone();
 	}
 	if (m_GameMode == dae::Gamemode::VERSUS)
 		GoNextLevel();
@@ -38,6 +41,7 @@ std::vector<std::shared_ptr<dae::GameObject>> dae::Gamemode::GetPlayer() const
 void dae::Gamemode::AddEnemy(std::shared_ptr<GameObject> player)
 {
 	m_Enemies.emplace_back(player);
+	player->GetComponent<CollisionBoxComponent>()->SetActive(true);
 }
 
 void dae::Gamemode::EnemyDied(std::shared_ptr<GameObject> enemy)
@@ -117,6 +121,15 @@ void dae::Gamemode::GoNextLevel()
 		SceneManager::GetInstance().GetActiveScene()->Add(m_Enemies[idx]);
 		m_Enemies[idx]->GetChildren()[0]->GetComponent<BulletManager>()->DestroyAllBullets();
 
+
+		++m_CurrentLevel;
+		if (m_CurrentLevel > 3)
+		{
+			SceneManager::GetInstance().SetSceneByIdx(1);
+			m_CurrentLevel = 1;
+
+		}
+
 		switch (m_CurrentLevel)
 		{
 		case 1:
@@ -146,9 +159,64 @@ void dae::Gamemode::GoNextLevel()
 			break;
 		}
 	}
+}
 
-	++m_CurrentLevel;
+void dae::Gamemode::GameDone()
+{
+	std::string pathName{ dae::ResourceManager::GetInstance().GetDataPath() + "HighScores.txt" };
+	std::ifstream file(pathName);
+	std::vector<int> highScores{};
+	if (file.is_open())
+	{
+		std::string line{};
+		while (std::getline(file, line))
+		{
+			int score = std::stoi(line);
+			highScores.push_back(score);
+		}
 
+		for (const auto& player : m_Players)
+		{
+			int playerScore = player->GetComponent<ScoreComponent>()->GetScore();
+			if (highScores.back() < playerScore)
+			{
+				highScores.pop_back();
+				highScores.push_back(playerScore);
+				std::sort(highScores.rbegin(), highScores.rend());
+			}
+		}
+	}
+
+	std::ofstream writeFile(pathName);
+	if (writeFile.is_open())
+	{
+		for (int score : highScores)
+		{
+			writeFile << score << "\n";
+		}
+	}
+
+	auto scene = SceneManager::GetInstance().CreateScene("Highscores");
+
+	glm::vec2 startPos{ 250, 45 };
+
+	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
+	for (size_t idx{}; idx < highScores.size(); ++idx)
+	{
+		std::shared_ptr<GameObject> highScoresObj = std::make_shared<GameObject>();
+		highScoresObj->Initialize();
+
+		auto score = highScoresObj->AddComponent<TextObject>();
+
+		score->Initialize(std::to_string(highScores[idx]), font, highScoresObj);
+		score->SetPos({ startPos.x, startPos.y + (40 * idx) });
+
+
+		scene->Add(highScoresObj);
+	}
+
+
+	SceneManager::GetInstance().SetActiveScene(scene);
 }
 
 void dae::Gamemode::LoadPLayersAndEnemies()

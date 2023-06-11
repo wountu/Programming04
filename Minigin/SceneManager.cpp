@@ -56,6 +56,11 @@ void dae::SceneManager::SetNextLevelActive()
 	SetActiveScene(m_scenes[newLevelIdx]);
 }
 
+void dae::SceneManager::SetSceneByIdx(int idx)
+{
+	SetActiveScene(m_scenes[idx]);
+}
+
 std::shared_ptr<dae::Scene> dae::SceneManager::GetActiveScene() const
 {
 	return m_ActiveScene;

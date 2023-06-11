@@ -36,6 +36,8 @@ namespace dae
 
 		void StartGame();
 		void GoNextLevel();
+
+		void GameDone();
 	private:
 		GameModeEnum m_GameMode{ };
 		bool m_GameStarted{ false };
@@ -47,6 +49,8 @@ namespace dae
 
 		void LoadPLayersAndEnemies();
 		int m_CurrentLevel{};
+
+		bool m_GameDone{};
 	};
 
 }
