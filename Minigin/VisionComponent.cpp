@@ -27,7 +27,6 @@ namespace dae
 
 	void VisionComponent::Render() const
 	{
-		SDL_RenderDrawLineF(Renderer::GetInstance().GetSDLRenderer(), m_StartVision.x, m_StartVision.y, m_EndVision.x, m_EndVision.y);
 	}
 
 	glm::vec2 VisionComponent::GetStartVision() const

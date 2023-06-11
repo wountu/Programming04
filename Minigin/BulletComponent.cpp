@@ -47,7 +47,11 @@ void dae::BulletComponent::Update()
 
 					auto score = m_Parent->GetParent()->GetParent()->GetComponent<ScoreComponent>();
 					if (score)
-						score->AddScore(100);
+					{
+						if (overlapTag != dae::Recognizer)
+							score->AddScore(100);
+						else score->AddScore(250);
+					}
 				}
 			}
 

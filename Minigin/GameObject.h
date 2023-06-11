@@ -22,7 +22,8 @@ namespace dae
 		Enemy,
 		Bullet,
 		UI,
-		AI
+		AI,
+		Recognizer
 	};
 
 	// todo: this should become final.

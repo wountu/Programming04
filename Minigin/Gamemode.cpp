@@ -626,7 +626,7 @@ void dae::Gamemode::LoadPLayersAndEnemies()
 		auto visionAi4 = aiTank04->AddComponent<dae::VisionComponent>();
 
 		aiTank04->Initialize();
-		aiTank04->SetTag(dae::AI);
+		aiTank04->SetTag(dae::Recognizer);
 		transformAITank04->Initialize(glm::vec2(220, 155), 0.f, aiTank04);
 		transformAITank04->SetDirection(glm::vec2{ 1, 0 });
 		renderCompAITank04->Initialize(recognizer, aiTank04);
@@ -648,7 +648,7 @@ void dae::Gamemode::LoadPLayersAndEnemies()
 
 		aimAI04->Initialize();
 		aimAI04->SetParent(aiTank04, false);
-		aimAI04->SetTag(dae::AI);
+		aimAI04->SetTag(dae::Recognizer);
 		aimTransformAI04->Initialize(glm::vec2{}, aiTank04->GetComponent<dae::TransformComponent>()->GetAngle(), aimAI04);
 		bulletManagerAI04->Initialize(aimAI04);
 
