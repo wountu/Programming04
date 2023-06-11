@@ -21,6 +21,10 @@ namespace dae
     }
     void LevelGenerator::LoadLevel(const std::string& pathName)
     {
+        m_PathWays.clear();
+        m_Void.clear();
+        m_Walls.clear();
+
         const std::string fullPath{ ResourceManager::GetInstance().GetDataPath() + pathName };
 
         std::ifstream file(fullPath);

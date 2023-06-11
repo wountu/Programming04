@@ -25,7 +25,7 @@ void dae::Gamemode::PlayerDied(std::shared_ptr<GameObject> player)
 		std::cout << "Go to highscores\n";
 	}
 	if (m_GameMode == dae::Gamemode::VERSUS)
-		std::cout << "Go to the next level\n";
+		SceneManager::GetInstance().SetNextLevelActive();
 }
 
 std::vector<std::shared_ptr<dae::GameObject>> dae::Gamemode::GetPlayer() const
@@ -41,9 +41,9 @@ void dae::Gamemode::AddEnemy(std::shared_ptr<GameObject> player)
 void dae::Gamemode::EnemyDied(std::shared_ptr<GameObject> enemy)
 {
 	m_Enemies.erase(std::remove(m_Enemies.begin(), m_Enemies.end(), enemy), m_Enemies.end());
-	if (m_Enemies.empty())
+	if (m_Enemies.empty() && m_GameMode != dae::Gamemode::VERSUS)
 	{
-		std::cout << "Go to the next level\n";
+		SceneManager::GetInstance().SetNextLevelActive();
 	}
 }
 

@@ -22,6 +22,7 @@ namespace dae
 		Scene& operator=(Scene&& other) = delete;
 
 		void Activate();
+		void Deactivate();
 
 	private: 
 		std::string m_name;

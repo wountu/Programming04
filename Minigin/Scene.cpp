@@ -19,6 +19,16 @@ void dae::Scene::Activate()
 	}
 }
 
+void dae::Scene::Deactivate()
+{
+	m_Active = false;
+
+	for (const auto& object : m_objects)
+	{
+		object->SetActive(false);
+	}
+}
+
 void Scene::Add(std::shared_ptr<GameObject> object)
 {
 	object->SetActive(m_Active);

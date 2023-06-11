@@ -17,6 +17,7 @@ namespace dae
 		void Render();
 
 		void SetActiveScene(std::shared_ptr<Scene> scene);
+		void SetNextLevelActive();
 
 		std::shared_ptr<Scene> GetScene(int idx) const;
 	private:
