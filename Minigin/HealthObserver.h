@@ -5,7 +5,6 @@
 #include <memory>
 namespace dae
 {
-	class TextObject;
 	class HealthObserver final : public Observer
 	{
 	public:

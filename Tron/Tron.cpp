@@ -36,6 +36,7 @@
 #include "HealthObserver.h"
 #include "VisionComponent.h"
 #include "AIComonent.h"
+#include "ScoreObserver.h"
 
 void load()
 {
@@ -132,7 +133,6 @@ void load()
 	auto renderCompTronTank01 = tronTank01->AddComponent<dae::RenderComponent>();
 	auto transformTronTank01 = tronTank01->AddComponent <dae::TransformComponent>();
 
-
 	auto tankCollision = tronTank01->AddComponent<dae::CollisionBoxComponent>();
 
 	tronTank01->Initialize();
@@ -144,6 +144,9 @@ void load()
 
 	auto healthObserver = new dae::HealthObserver({ 500, 50 }, startHealth);
 	healthTronTank01->AddObserver(healthObserver);
+
+	auto scoreObserver = new dae::ScoreObserver({ 500, 65 }, 0);
+	scoreTronTank01->AddObserver(scoreObserver);
 
 	dae::CollisionBox box{};
 	box._width = static_cast<float>(texture->GetSize().x);
@@ -180,6 +183,7 @@ void load()
 	auto renderCompTronTank02 = tronTank02->AddComponent<dae::RenderComponent>();
 	auto transformTronTank02 = tronTank02->AddComponent <dae::TransformComponent>();
 	auto healthTronTank02 = tronTank02->AddComponent<dae::HealthComponent>();
+	auto scoreTronTank02 = tronTank02->AddComponent<dae::ScoreComponent>();
 	tankCollision = tronTank02->AddComponent<dae::CollisionBoxComponent>();
 
 	tronTank02->Initialize();
@@ -187,9 +191,13 @@ void load()
 	renderCompTronTank02->Initialize(texture, tronTank02);
 	transformTronTank02->Initialize(glm::vec2(40, 0), 0.f, tronTank02);
 	healthTronTank02->Initialize(startHealth, glm::vec2(40, 0), tronTank02);
+	scoreTronTank02->Initialize(tronTank02);
 
 	auto healthObserver2 = new dae::HealthObserver({500, 100}, startHealth);
 	healthTronTank02->AddObserver(healthObserver2);
+
+	auto scoreObserver2 = new dae::ScoreObserver({ 500, 115 }, 0);
+	scoreTronTank02->AddObserver(scoreObserver2);
 
 	box._width = static_cast<float>(texture->GetSize().x);
 	box._height = static_cast<float>(texture->GetSize().y);

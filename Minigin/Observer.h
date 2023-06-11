@@ -8,7 +8,8 @@ namespace dae
 		enum Event
 		{
 			Health_Lost,
-			Health_Died
+			Health_Died,
+			Score_Add,
 		};
 
 		virtual ~Observer() = default;

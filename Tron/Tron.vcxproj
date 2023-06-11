@@ -187,6 +187,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" /R/Y</Comm
     <ClCompile Include="..\Minigin\RenderComponent.cpp" />
     <ClCompile Include="..\Minigin\RotateComponent.cpp" />
     <ClCompile Include="..\Minigin\ScoreComponent.cpp" />
+    <ClCompile Include="..\Minigin\ScoreObserver.cpp" />
     <ClCompile Include="..\Minigin\TextObject.cpp" />
     <ClCompile Include="..\Minigin\TransformComponent.cpp" />
     <ClCompile Include="AimComponent.cpp" />
@@ -203,6 +204,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" /R/Y</Comm
     <ClInclude Include="..\Minigin\RenderComponent.h" />
     <ClInclude Include="..\Minigin\RotateComponent.h" />
     <ClInclude Include="..\Minigin\ScoreComponent.h" />
+    <ClInclude Include="..\Minigin\ScoreObserver.h" />
     <ClInclude Include="..\Minigin\TextObject.h" />
     <ClInclude Include="..\Minigin\TransformComponent.h" />
     <ClInclude Include="AimComponent.h" />

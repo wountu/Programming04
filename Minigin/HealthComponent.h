@@ -30,7 +30,6 @@ namespace dae
 	private:
 		int m_Health{};
 		GameObject* m_Parent{ nullptr };
-		GameObject* m_UI{ nullptr }; //UI the lives is displayed on, no UI --> nullptr
 
 		void Notify(Observer::Event event);
 		std::vector<Observer*> m_pObservers;

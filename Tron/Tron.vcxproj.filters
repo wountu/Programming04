@@ -66,6 +66,9 @@
     <ClCompile Include="..\Minigin\HealthObserver.cpp">
       <Filter>Observers</Filter>
     </ClCompile>
+    <ClCompile Include="..\Minigin\ScoreObserver.cpp">
+      <Filter>Observers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Minigin\BulletComponent.h">
@@ -105,6 +108,9 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="..\Minigin\HealthObserver.h">
+      <Filter>Observers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Minigin\ScoreObserver.h">
       <Filter>Observers</Filter>
     </ClInclude>
   </ItemGroup>

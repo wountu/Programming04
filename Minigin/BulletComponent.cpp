@@ -4,6 +4,7 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include "HealthComponent.h"
+#include "ScoreComponent.h"
 
 void dae::BulletComponent::Initialize(std::shared_ptr<GameObject> parent)
 {
@@ -43,6 +44,10 @@ void dae::BulletComponent::Update()
 					auto health = overlap->GetComponent<HealthComponent>();
 					if (health)
 						health->LoseHealth();
+
+					auto score = m_Parent->GetParent()->GetParent()->GetComponent<ScoreComponent>();
+					if (score)
+						score->AddScore(100);
 				}
 			}
 

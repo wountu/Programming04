@@ -109,7 +109,6 @@ namespace dae
 
 			if (collisionBox && collisionBox->GetTag() != dae::Bullet)
 			{
-				std::cout << collisionBox->GetTag() << "\n";
 				auto otherBox = collisionBox->GetComponent<CollisionBoxComponent>()->GetBox();
    				auto parentBox = m_Parent->GetComponent<CollisionBoxComponent>()->GetBox();
 
