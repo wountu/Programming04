@@ -379,7 +379,7 @@ void dae::Gamemode::LoadPLayersAndEnemies()
 #pragma endregion TRONTANK01
 
 #pragma region TRONTANK02
-	if (m_GameMode == dae::Gamemode::COOP)
+	if (m_GameMode != dae::Gamemode::SINGLE_PLAYER)
 	{
 		unsigned controller = input.AddController();
 
