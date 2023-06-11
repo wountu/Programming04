@@ -17,7 +17,7 @@ namespace dae
 		CollisionDetector& operator=(CollisionDetector&& other) = delete;
 
 		void AddCollisionBox(CollisionBoxComponent* box, Tag tag);
-		void RemoveCollisionVox(CollisionBoxComponent* box);
+		void RemoveCollisionBox(CollisionBoxComponent* box);
 
 		std::vector<CollisionBoxComponent*> GetCollisionBoxes() const;
 

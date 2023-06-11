@@ -58,7 +58,7 @@ namespace dae
 
 		//std::cout << distSqrd << "\n";
 
-		if (distSqrd < 500)
+		if (distSqrd < 450)
 		{
 			//std::cout << "turn" << "\n";
 			auto turn = new Turn();

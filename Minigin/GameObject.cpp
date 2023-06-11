@@ -8,6 +8,8 @@
 #include "SceneManager.h"
 #include "Scene.h"
 
+#include "CollisionDetector.h"
+
 void dae::GameObject::Initialize()
 {
 	m_pTransform = GetComponent<TransformComponent>();
@@ -98,29 +100,50 @@ dae::Tag dae::GameObject::GetTag() const
 	return m_Tag;
 }
 
+void dae::GameObject::SetActive(bool active)
+{
+	m_Active = active;
+
+	for (auto& child : m_children)
+	{
+		child->SetActive(active);
+	}
+}
+
+bool dae::GameObject::GetActive() const
+{
+	return m_Active;
+}
+
 void dae::GameObject::Update()
 {
-	for (std::shared_ptr<BaseComponent> pComponent : m_components)
+	if(m_Active)
 	{
-		pComponent->Update();
-	}
+		for (std::shared_ptr<BaseComponent> pComponent : m_components)
+		{
+			pComponent->Update();
+		}
 
-	for (const auto& child : m_children)
-	{
-		child->Update();
+		for (const auto& child : m_children)
+		{
+			child->Update();
+		}
 	}
 }
 
 void dae::GameObject::Render() const
 {
-	for (std::shared_ptr<BaseComponent> pComponent : m_components)
+	if(m_Active)
 	{
-		pComponent->Render();
-	}
+		for (std::shared_ptr<BaseComponent> pComponent : m_components)
+		{
+			pComponent->Render();
+		}
 
-	for (const auto& child : m_children)
-	{
-		child->Render();
+		for (const auto& child : m_children)
+		{
+			child->Render();
+		}
 	}
 }
 

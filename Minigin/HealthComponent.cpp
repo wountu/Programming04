@@ -1,5 +1,6 @@
 #include "HealthComponent.h"
 #include "GameObject.h"
+#include "Gamemode.h"
 
 dae::HealthComponent::~HealthComponent()
 {
@@ -53,10 +54,22 @@ int dae::HealthComponent::GetHealth() const
 
 void dae::HealthComponent::LoseHealth()
 {
-	Notify(dae::Observer::Health_Lost);
 	--m_Health;
+
+	if (m_Health < 0)
+	{
+		m_Parent->SetActive(false);
+		if (m_Parent->GetTag() != dae::AI)
+			Gamemode::GetInstance().PlayerDied(m_Parent->shared_from_this());
+		else Gamemode::GetInstance().EnemyDied(m_Parent->shared_from_this());
+	}
+	else 
+	{
+		Notify(dae::Observer::Health_Lost);
+		m_Parent->GetComponent<TransformComponent>()->ChangeLocalPosition(m_RespawnPos);
+	}
+	 
 
 	//std::cout << "Got hit\n";
 
-	m_Parent->GetComponent<TransformComponent>()->ChangeLocalPosition(m_RespawnPos);
 }

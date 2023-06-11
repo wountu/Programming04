@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "TextObject.h"
 #include "ResourceManager.h"
+#include "Gamemode.h"
 
 #include <iostream>
 #include <string>

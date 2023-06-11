@@ -13,9 +13,12 @@ void dae::CollisionDetector::AddCollisionBox(CollisionBoxComponent* box, Tag tag
 	}
 }
 
-void dae::CollisionDetector::RemoveCollisionVox(CollisionBoxComponent* box)
+void dae::CollisionDetector::RemoveCollisionBox(CollisionBoxComponent* box)
 {
-	m_pWallBoxes.erase(std::remove(m_pWallBoxes.begin(), m_pWallBoxes.end(), box), m_pWallBoxes.end());
+	if (box->GetParent()->GetTag() == dae::Static)
+		m_pWallBoxes.erase(std::remove(m_pWallBoxes.begin(), m_pWallBoxes.end(), box), m_pWallBoxes.end());
+
+	else m_pTankCollisions.erase(std::remove(m_pTankCollisions.begin(), m_pTankCollisions.end(), box), m_pTankCollisions.end());
 }
 
 std::vector<dae::CollisionBoxComponent*> dae::CollisionDetector::GetCollisionBoxes() const
@@ -29,7 +32,7 @@ dae::CollisionBoxComponent* dae::CollisionDetector::BoxColliding(CollisionBoxCom
 	{
 		for (const auto& boxComp : m_pWallBoxes)
 		{
-			if (boxComp == boxToCheck)
+			if (boxComp == boxToCheck || !boxComp->GetParent()->GetActive())
 				continue;
 
 

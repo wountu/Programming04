@@ -48,22 +48,32 @@ void load()
 	std::cout << "Tank 02 to shoot press v(plays only sound for now) \n";
 
 	//Gamemode
-	auto gameMode = dae::Gamemode::GameModeEnum::VERSUS;
+	auto gameMode = dae::Gamemode::GameModeEnum::SINGLE_PLAYER;
 	dae::Gamemode::GetInstance().SetGameMode(gameMode);
 
 	//Scene
-	auto& scene = dae::SceneManager::GetInstance().CreateScene("Demo");
+	const auto scene = dae::SceneManager::GetInstance().CreateScene("1st scene");
+	const auto scene1 = dae::SceneManager::GetInstance().CreateScene("2nd scene");
+	const auto scene2 = dae::SceneManager::GetInstance().CreateScene("3th scene");
+
+	dae::SceneManager::GetInstance().SetActiveScene(scene);
+
 
 	//Commands
 	auto& input = dae::InputManager::GetInstance();
 
-	//Level
-	auto& level = dae::LevelGenerator::GetInstance();
-	level.LoadLevel("Level/LevelLayout0.csv");
+
+	//Levels
 
 	auto pathWayTexture = dae::ResourceManager::GetInstance().LoadTexture("Level/Textures/path.png");
 	auto wallTexture = dae::ResourceManager::GetInstance().LoadTexture("level/Textures/wall.png");
 	auto voidTexture = dae::ResourceManager::GetInstance().LoadTexture("level/Textures/void.png");
+
+	/// <summary>
+	/// Level1
+	/// </summary>
+	auto& level = dae::LevelGenerator::GetInstance();
+	level.LoadLevel("Level/LevelLayout0.csv");
 
 	for (const auto& pathWay : level.GetPathWay())
 	{
@@ -75,8 +85,8 @@ void load()
 		transform->Initialize(pathWay.LeftTop, 0.f, block);
 		render->Initialize(pathWayTexture, block);
 
-
-		scene.Add(block);
+		
+		scene->Add(block);
 	}
 
 	for (const auto& wall : level.GetWalls())
@@ -99,7 +109,7 @@ void load()
 
 
 
-		scene.Add(block);
+		scene->Add(block);
 	}
 
 	for (const auto& activeVoid : level.GetVoid())
@@ -112,7 +122,113 @@ void load()
 		transform->Initialize(activeVoid.LeftTop, 0.f, block);
 		render->Initialize(voidTexture, block);
 
-		scene.Add(block);
+		scene->Add(block);
+	}
+
+	/// <summary>
+	/// Level2
+	/// </summary>
+
+	level.LoadLevel("Level/LevelLayout1.csv");
+
+	for (const auto& pathWay : level.GetPathWay())
+	{
+		auto block = std::make_shared<dae::GameObject>();
+		auto render = block->AddComponent<dae::RenderComponent>();
+		auto transform = block->AddComponent<dae::TransformComponent>();
+
+		block->Initialize();
+		transform->Initialize(pathWay.LeftTop, 0.f, block);
+		render->Initialize(pathWayTexture, block);
+
+
+		scene1->Add(block);
+	}
+
+	for (const auto& wall : level.GetWalls())
+	{
+		auto block = std::make_shared<dae::GameObject>();
+		auto render = block->AddComponent<dae::RenderComponent>();
+		auto transform = block->AddComponent<dae::TransformComponent>();
+		auto collison = block->AddComponent<dae::CollisionBoxComponent>();
+
+		dae::CollisionBox colBox;
+		colBox._leftTop = wall.LeftTop;
+		colBox._height = static_cast<float>(wall.Height);
+		colBox._width = static_cast<float>(wall.Width);
+
+		collison->Initialize(block, colBox, 0);
+		block->Initialize();
+		transform->Initialize(wall.LeftTop, 0.f, block);
+		render->Initialize(wallTexture, block);
+
+		scene1->Add(block);
+	}
+
+	for (const auto& activeVoid : level.GetVoid())
+	{
+		auto block = std::make_shared<dae::GameObject>();
+		auto render = block->AddComponent<dae::RenderComponent>();
+		auto transform = block->AddComponent<dae::TransformComponent>();
+
+		block->Initialize();
+		transform->Initialize(activeVoid.LeftTop, 0.f, block);
+		render->Initialize(voidTexture, block);
+
+		scene1->Add(block);
+	}
+
+	/// <summary>
+	/// Level 3
+	/// </summary>
+	/// 
+	level.LoadLevel("Level/LevelLayout2.csv");
+
+	for (const auto& pathWay : level.GetPathWay())
+	{
+		auto block = std::make_shared<dae::GameObject>();
+		auto render = block->AddComponent<dae::RenderComponent>();
+		auto transform = block->AddComponent<dae::TransformComponent>();
+
+		block->Initialize();
+		transform->Initialize(pathWay.LeftTop, 0.f, block);
+		render->Initialize(pathWayTexture, block);
+
+
+		scene2->Add(block);
+	}
+
+	for (const auto& wall : level.GetWalls())
+	{
+		auto block = std::make_shared<dae::GameObject>();
+		auto render = block->AddComponent<dae::RenderComponent>();
+		auto transform = block->AddComponent<dae::TransformComponent>();
+		auto collison = block->AddComponent<dae::CollisionBoxComponent>();
+
+		dae::CollisionBox colBox;
+		colBox._leftTop = wall.LeftTop;
+		colBox._height = static_cast<float>(wall.Height);
+		colBox._width = static_cast<float>(wall.Width);
+
+		collison->Initialize(block, colBox, 0);
+		block->Initialize();
+		transform->Initialize(wall.LeftTop, 0.f, block);
+		render->Initialize(wallTexture, block);
+
+		scene2->Add(block);
+	}
+
+	for (const auto& activeVoid : level.GetVoid())
+	{
+		auto block = std::make_shared<dae::GameObject>();
+		auto render = block->AddComponent<dae::RenderComponent>();
+		auto transform = block->AddComponent<dae::TransformComponent>();
+
+		block->Initialize();
+		transform->Initialize(activeVoid.LeftTop, 0.f, block);
+		render->Initialize(voidTexture, block);
+
+		scene2->Add(block);
 	}
 
 	//Sound
@@ -129,7 +245,7 @@ void load()
 	transformComp->Initialize(glm::vec2(500, 5), 0.f, fpsGameobject);
 	fps->Initialize(fpsGameobject);
 
-	scene.Add(fpsGameobject);
+	scene->Add(fpsGameobject);
 
 	const int startHealth{ 3 };
 	const float speed{ 100.f };
@@ -166,7 +282,7 @@ void load()
 	tankCollision->Initialize(tronTank01, box, 5);
 	tronTank01->SetTag(dae::Player1);
 
-	scene.Add(tronTank01);
+	scene->Add(tronTank01);
 
 	//Trontank aim
 	auto aimTronTank01 = std::make_shared<dae::GameObject>(); 
@@ -183,7 +299,8 @@ void load()
 	aimTronTank01->SetParent(tronTank01, false);
 	aimTronTank01->SetTag(dae::Player1);
 
-	scene.Add(aimTronTank01);
+	scene->Add(aimTronTank01);
+	dae::Gamemode::GetInstance().AddPlayer(tronTank01);
 
 	auto pCommand = input.AddCommand<dae::Movement>(tronTank01.get(), SDL_SCANCODE_W, dae::InputManager::KeyPress::HOLD);
 	pCommand->SetDirectionAndSpeed(glm::vec2{ 0.f, -1.f }, speed);
@@ -242,7 +359,8 @@ void load()
 		tankCollision->Initialize(tronTank02, box, 5);
 		tronTank02->SetTag(dae::Player2);
 
-		scene.Add(tronTank02);
+		scene->Add(tronTank02);
+		dae::Gamemode::GetInstance().AddPlayer(tronTank02);
 
 		pCommand = input.AddCommand<dae::Movement>(controller, tronTank02.get(), ControllerXbox::ControllerInputs::DPAD_UP, dae::InputManager::KeyPress::HOLD);
 		pCommand->SetDirectionAndSpeed(glm::vec2{ 0.f, -1.f }, speed); // - in y is up 
@@ -274,7 +392,7 @@ void load()
 		transformAITank01->Initialize(glm::vec2(400, 390), 0.f, aiTank01);
 		transformAITank01->SetDirection(glm::vec2{ -1, 0 });
 		renderCompAITank01->Initialize(aiTexture, aiTank01);
-		healthAITank01->Initialize(1, glm::vec2(400, 390), aiTank01);
+		healthAITank01->Initialize(0, glm::vec2(400, 390), aiTank01);
 
 		box._width = static_cast<float>(aiTexture->GetSize().x);
 		box._height = static_cast<float>(aiTexture->GetSize().y);
@@ -303,8 +421,10 @@ void load()
 		ai01->Initialize(speed / 2.f, aiTank01, bulletManagerAI01);
 
 
-		scene.Add(aimAI01);
-		scene.Add(aiTank01);
+		scene->Add(aimAI01);
+		scene->Add(aiTank01);
+
+		dae::Gamemode::GetInstance().AddEnemy(aiTank01);
 	}
 
 

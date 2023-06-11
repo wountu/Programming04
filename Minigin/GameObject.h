@@ -63,6 +63,9 @@ namespace dae
 
 		void SetTag(Tag tag);
 		Tag GetTag() const;
+
+		void SetActive(bool active);
+		bool GetActive() const;
 	private:
 		//Children
 		void AddChild(GameObject* pChild);
@@ -85,6 +88,9 @@ namespace dae
 
 		//Gameobject tag
 		Tag m_Tag{ Tag::Static }; //Standard static tag
+
+		//Active
+		bool m_Active{ false };
 	};
 
 	template<typename T>

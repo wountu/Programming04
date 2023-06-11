@@ -9,8 +9,19 @@ Scene::Scene(const std::string& name) : m_name(name) {}
 
 Scene::~Scene() = default;
 
+void dae::Scene::Activate()
+{
+	m_Active = true;
+
+	for (const auto& object : m_objects)
+	{
+		object->SetActive(true);
+	}
+}
+
 void Scene::Add(std::shared_ptr<GameObject> object)
 {
+	object->SetActive(m_Active);
 	m_objects.emplace_back(std::move(object));
 }
 
