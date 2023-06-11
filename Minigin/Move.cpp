@@ -32,6 +32,9 @@ namespace dae
 		
 		for(const auto& box : collidingBoxes)
 		{
+			if (box->GetParent()->GetTag() == dae::Bullet)
+				continue;
+
 			glm::vec2 boxToRay{ m_Vision->GetStartVision() - box->GetBox()._leftTop };
 			float newDistSqrd = (boxToRay.x * boxToRay.x) + (boxToRay.y * boxToRay.y);
 			if (newDistSqrd < distSqrd)

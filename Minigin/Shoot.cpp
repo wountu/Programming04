@@ -23,4 +23,5 @@ dae::PlayerState* dae::ShootAI::HandleInput()
 
 void dae::ShootAI::OnExit()
 {
+	m_AI->Shot();
 }

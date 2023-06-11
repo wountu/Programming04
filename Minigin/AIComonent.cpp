@@ -41,6 +41,7 @@ void dae::AIComponent::Update()
 	if (newState != nullptr)
 	{
 		std::cout << "Changine state .. ";
+		m_PlayerState->OnExit();
 		delete m_PlayerState;
 		m_PlayerState = newState;
 		m_PlayerState->OnEnter();
