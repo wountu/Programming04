@@ -84,7 +84,7 @@ void dae::BulletManager::SpawnBullet(glm::vec2 dir)
 
 	//Initialize the gameobject
 	bullet->Initialize();
-	bullet->SetTag(m_Parent->GetParent()->GetTag());
+	bullet->SetTag(dae::Bullet);
 	bullet->SetParent(m_Parent->shared_from_this(), false);
 
 	//Store bullet
