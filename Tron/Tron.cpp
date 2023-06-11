@@ -52,15 +52,29 @@ void load()
 	auto gameMode = dae::Gamemode::GameModeEnum::SINGLE_PLAYER;
 	dae::Gamemode::GetInstance().SetGameMode(gameMode);
 
-	//Scene
-
-
 	//Sound
 	dae::ServiceLocator::RegisterSoundSystem(std::make_unique<dae::SoundEffectSystem>());
 
-	dae::SceneManager::GetInstance().SetActiveScene(dae::LoadScene1(gameMode));
-	dae::LoadScene2(gameMode);
-	dae::LoadScene3(gameMode);
+	//Main Menu
+	static const auto mainMenu = dae::SceneManager::GetInstance().CreateScene("Main menu");
+
+	//Gamemode text
+	std::shared_ptr<dae::GameObject> gameModeText = std::make_shared<dae::GameObject>();
+	gameModeText->Initialize();
+
+	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
+	const auto& text = gameModeText->AddComponent<dae::TextObject>();
+	text->Initialize("Gamemode: ", font, gameModeText);
+	text->SetPos({ 200, 100 });
+
+	mainMenu->Add(gameModeText);
+	
+	dae::SceneManager::GetInstance().SetActiveScene(mainMenu);
+	
+	dae::SceneLoader::GetInstance().LoadScene1(gameMode);
+	dae::SceneLoader::GetInstance().LoadScene2(gameMode);
+	dae::SceneLoader::GetInstance().LoadScene3(gameMode);
+
 
 	//Commands
     //auto& input = dae::InputManager::GetInstance();

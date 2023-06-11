@@ -10,6 +10,7 @@ namespace dae
 	public:
 		enum GameModeEnum
 		{
+			MAIN_MENU,
 			SINGLE_PLAYER,
 			COOP,
 			VERSUS

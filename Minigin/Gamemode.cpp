@@ -1,6 +1,8 @@
 #include "Gamemode.h"
+#include "Gamemode.h"
 #include "SceneManager.h"
 #include "Scene.h"
+#include "LoadScenes.h"
 
 void dae::Gamemode::SetGameMode(Gamemode::GameModeEnum gameMode)
 {
