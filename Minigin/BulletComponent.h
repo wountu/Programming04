@@ -14,7 +14,7 @@ namespace dae
 		BulletComponent(const BulletComponent& other) = delete;
 		BulletComponent& operator=(const BulletComponent& other) = delete;
 		BulletComponent(BulletComponent&& other) = delete;
-		BulletComponent& operator =(BulletComponent && other) = delete;
+		BulletComponent& operator =(BulletComponent&& other) = delete;
 
 		virtual void Initialize(std::shared_ptr<GameObject> parent);
 		virtual void Update() override;
@@ -31,5 +31,6 @@ namespace dae
 
 		GameObject* m_OverlappedObject{ nullptr }; //Last known overlap (if it's a tank it dissapears anyway)
 
+		int m_BouncesLeft{ 5 };
 	};
 }

@@ -48,6 +48,10 @@ void dae::BulletComponent::Update()
 
 			else if (overlapTag == dae::Static)
 			{
+				--m_BouncesLeft;
+				if (m_BouncesLeft <= 0)
+					m_Destroy = true;
+
 				m_Transform->SetDirection({ m_Transform->GetDirection().x * -1, m_Transform->GetDirection().y * -1 });
 			}
 		}
