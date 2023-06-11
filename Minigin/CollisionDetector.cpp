@@ -35,6 +35,8 @@ dae::CollisionBoxComponent* dae::CollisionDetector::BoxColliding(CollisionBoxCom
 			if (boxComp == boxToCheck || !boxComp->GetParent()->GetActive())
 				continue;
 
+			//)
+			//if()
 
 			auto box = boxComp->GetBox();
 			auto otherBox = boxToCheck->GetBox();

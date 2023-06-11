@@ -9,15 +9,9 @@ namespace dae
 	class Command
 	{
 	public:
+		Command() = default;
 		virtual ~Command() = default;
 		virtual void Execute() = 0;
-	protected:
-		explicit Command(GameObject* pObject)
-			:m_pObject{ pObject } {}
-
-		GameObject* GetActor() const { return m_pObject; }
-	private:
-		GameObject* m_pObject{ nullptr };
 	};
 
 
@@ -71,6 +65,29 @@ namespace dae
 		void Execute() override;
 	private:
 		GameObject* m_Parent{ nullptr };
+	};
+
+	class Gamemode;
+	class NextGamemode final : public Command
+	{
+	public:
+		NextGamemode(GameObject* parent);
+		virtual ~NextGamemode() = default;
+
+		void Execute() override;
+	private:
+		GameObject* m_Parent{};
+	};
+
+	class Start final : public Command
+	{
+	public:
+		Start(GameObject* parent);
+		virtual ~Start() = default;
+
+		void Execute() override;
+	private:
+		GameObject* m_Parent;
 	};
 }
 

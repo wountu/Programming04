@@ -284,6 +284,7 @@ namespace dae
 
 				dae::Gamemode::GetInstance().AddEnemy(aiTank01);
 			}
+
 		}
 
 		void LoadScene2(Gamemode::GameModeEnum)

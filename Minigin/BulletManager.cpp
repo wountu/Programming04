@@ -7,6 +7,7 @@
 #include "BulletComponent.h"
 #include "RenderComponent.h"
 #include "CollisionBoxComponent.h"
+#include "CollisionDetector.h"
 
 void dae::BulletManager::Initialize(std::shared_ptr<GameObject> parent)
 {
@@ -28,13 +29,16 @@ void dae::BulletManager::Update()
 	{
 		if (bullet->GetComponent<BulletComponent>()->GetDestroy())
 		{
-			bullet->RemoveAllComponents();
 			bulletToDelete = bullet;
 		}
 	}
 
 	if (bulletToDelete)
+	{
+		CollisionDetector::GetInstance().RemoveCollisionBox(bulletToDelete->GetComponent<CollisionBoxComponent>().get());
+		bulletToDelete->RemoveAllComponents();
 		m_pBullets.erase(std::remove(m_pBullets.begin(), m_pBullets.end(), bulletToDelete), m_pBullets.end());
+	}
 
 }
 
@@ -52,6 +56,11 @@ void dae::BulletManager::SpawnBullet(glm::vec2 dir)
 
 	//GameObject
 	std::shared_ptr<GameObject> bullet = std::make_unique<GameObject>();
+
+	//Initialize the gameobject
+	bullet->Initialize();
+	bullet->SetTag(dae::Bullet);
+	bullet->SetParent(m_Parent->shared_from_this(), false);
 	
 	//Transform
 	auto transform = bullet->AddComponent<TransformComponent>();
@@ -82,15 +91,10 @@ void dae::BulletManager::SpawnBullet(glm::vec2 dir)
 	box._leftTop = transform->GetWorldPosition();
 	collision->Initialize(bullet, box, 0);
 
-	//Initialize the gameobject
-	bullet->Initialize();
-	bullet->SetTag(dae::Bullet);
-	bullet->SetParent(m_Parent->shared_from_this(), false);
-
 	//Store bullet
 	m_pBullets.emplace_back(bullet);
 
-	SceneManager::GetInstance().GetScene(0)->Add(bullet);
+	SceneManager::GetInstance().GetActiveScene()->Add(bullet);
 
 	std::cout << "Spawn in bullet" << "\n";
 }

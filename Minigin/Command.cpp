@@ -5,12 +5,12 @@
 #include "HealthComponent.h"
 #include "ScoreComponent.h"
 #include "BulletManager.h"
+#include "Gamemode.h"
 
 namespace dae
 {
 	//Movement
 	Movement::Movement(GameObject* pActor)
-		:Command(pActor)
 	{
 		m_pTransform = pActor->GetComponent<TransformComponent>();
 		m_Parent = pActor;
@@ -31,7 +31,6 @@ namespace dae
 	}
 
 	Score::Score(GameObject* parent)
-		:Command(parent)
 	{
 		m_Parent = parent;
 	}
@@ -42,7 +41,6 @@ namespace dae
 	}
 
 	Shoot::Shoot(GameObject* parent)
-		:Command(parent)
 	{
 		m_Parent = parent;
 	}
@@ -59,5 +57,44 @@ namespace dae
 	void Shoot::SetDirection(glm::vec2 dir)
 	{
 		m_Direction = dir;
+	}
+
+	NextGamemode::NextGamemode(GameObject* parent)
+	{
+		m_Parent = parent;
+	}
+
+	void NextGamemode::Execute()
+	{
+		auto gameMode = Gamemode::GetInstance().GetGameMode();
+		auto text = m_Parent->GetComponent<TextObject>();
+		dae::Gamemode::GameModeEnum newGameMode{};
+		switch (gameMode)
+		{
+		case dae::Gamemode::SINGLE_PLAYER:
+			newGameMode = dae::Gamemode::COOP;
+			text->SetText("Coop");
+			break;
+		case dae::Gamemode::COOP:
+			newGameMode = dae::Gamemode::VERSUS;
+			text->SetText("Versus");
+			break;
+		case dae::Gamemode::VERSUS:
+			newGameMode = dae::Gamemode::SINGLE_PLAYER;
+			text->SetText("SinglePlayer");
+			break;
+		}
+
+		Gamemode::GetInstance().SetGameMode(newGameMode);
+	}
+
+	Start::Start(GameObject* parent)
+	{
+		m_Parent = parent;
+	}
+
+	void Start::Execute()
+	{
+		Gamemode::GetInstance().StartGame();
 	}
 }

@@ -53,3 +53,17 @@ std::vector<std::shared_ptr<dae::GameObject>> dae::Gamemode::GetEnemies() const
 {
 	return m_Enemies;
 }
+
+void dae::Gamemode::StartGame()
+{
+	if (!m_GameStarted)
+	{
+		m_GameStarted = true;
+		dae::SceneLoader::GetInstance().LoadScene1(m_GameMode);
+		//dae::SceneLoader::GetInstance().LoadScene2(m_GameMode);
+		//dae::SceneLoader::GetInstance().LoadScene3(m_GameMode);
+
+		SceneManager::GetInstance().SetNextLevelActive();
+	}
+	
+}

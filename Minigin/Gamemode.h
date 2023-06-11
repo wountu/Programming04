@@ -34,8 +34,11 @@ namespace dae
 		void EnemyDied(std::shared_ptr<GameObject> player);
 		std::vector<std::shared_ptr<GameObject>> GetEnemies() const;
 
+		void StartGame();
+
 	private:
 		GameModeEnum m_GameMode{ };
+		bool m_GameStarted{ false };
 
 		std::vector<std::shared_ptr<GameObject>> m_Players;
 		std::vector<std::shared_ptr<GameObject>> m_Enemies;
