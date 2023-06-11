@@ -2,6 +2,8 @@
 #include "SceneManager.h"
 #include "Scene.h"
 
+#include <iostream>
+
 void dae::SceneManager::Update()
 {
 	m_ActiveScene->Update();
@@ -36,6 +38,7 @@ void dae::SceneManager::SetActiveScene(std::shared_ptr<Scene> scene)
 
 			m_ActiveScene = scene;
 			m_ActiveScene->Activate();
+			//std::cout << "Switch scene\n";
 		}
 	}
 }

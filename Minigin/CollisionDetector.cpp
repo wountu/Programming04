@@ -50,7 +50,7 @@ dae::CollisionBoxComponent* dae::CollisionDetector::BoxColliding(CollisionBoxCom
 
 	for (const auto& boxComp : m_pTankCollisions)
 	{
-		if (boxComp == boxToCheck)
+		if (boxComp == boxToCheck || !boxComp->IsActive())
 			continue;
 
 
@@ -80,6 +80,8 @@ std::vector<dae::CollisionBoxComponent*> dae::CollisionDetector::BoxesCollidingW
 
 	for (const auto& boxComp : m_pWallBoxes)
 	{
+		if (!boxComp->IsActive())
+			continue;
 		const auto box = boxComp->GetBox();
 
 		//Left
