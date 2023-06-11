@@ -22,6 +22,9 @@
     <Filter Include="Observers">
       <UniqueIdentifier>{f29c3c64-f190-4db3-b4a6-2b74b1b01545}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{3698fc84-cb98-4d13-aeaf-c1de0c6d1362}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Tron.cpp">
@@ -112,6 +115,9 @@
     </ClInclude>
     <ClInclude Include="..\Minigin\ScoreObserver.h">
       <Filter>Observers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Minigin\LoadScenes.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

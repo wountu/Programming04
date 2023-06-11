@@ -201,6 +201,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" /R/Y</Comm
     <ClInclude Include="..\Minigin\fpsCounter.h" />
     <ClInclude Include="..\Minigin\HealthComponent.h" />
     <ClInclude Include="..\Minigin\HealthObserver.h" />
+    <ClInclude Include="..\Minigin\LoadScenes.h" />
     <ClInclude Include="..\Minigin\RenderComponent.h" />
     <ClInclude Include="..\Minigin\RotateComponent.h" />
     <ClInclude Include="..\Minigin\ScoreComponent.h" />
