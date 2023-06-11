@@ -126,6 +126,9 @@
     <ClInclude Include="Shoot.h">
       <Filter>FSM</Filter>
     </ClInclude>
+    <ClInclude Include="Gamemode.h">
+      <Filter>Framework\Engine\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -202,6 +205,9 @@
     </ClCompile>
     <ClCompile Include="Shoot.cpp">
       <Filter>FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="Gamemode.cpp">
+      <Filter>Framework\Engine\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

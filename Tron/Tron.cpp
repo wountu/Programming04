@@ -37,6 +37,7 @@
 #include "VisionComponent.h"
 #include "AIComonent.h"
 #include "ScoreObserver.h"
+#include "Gamemode.h"
 
 void load()
 {
@@ -46,8 +47,15 @@ void load()
 	std::cout << "Tank 02 to move use DPAD on XBOX \n";
 	std::cout << "Tank 02 to shoot press v(plays only sound for now) \n";
 
+	//Gamemode
+	auto gameMode = dae::Gamemode::GameModeEnum::VERSUS;
+	dae::Gamemode::GetInstance().SetGameMode(gameMode);
+
 	//Scene
 	auto& scene = dae::SceneManager::GetInstance().CreateScene("Demo");
+
+	//Commands
+	auto& input = dae::InputManager::GetInstance();
 
 	//Level
 	auto& level = dae::LevelGenerator::GetInstance();
@@ -124,6 +132,7 @@ void load()
 	scene.Add(fpsGameobject);
 
 	const int startHealth{ 3 };
+	const float speed{ 100.f };
 
 	//TRONTANK01
 
@@ -176,88 +185,127 @@ void load()
 
 	scene.Add(aimTronTank01);
 
+	auto pCommand = input.AddCommand<dae::Movement>(tronTank01.get(), SDL_SCANCODE_W, dae::InputManager::KeyPress::HOLD);
+	pCommand->SetDirectionAndSpeed(glm::vec2{ 0.f, -1.f }, speed);
 
-	////TRONTANK 2
-	auto tronTank02 = std::make_shared <dae::GameObject>();
+	pCommand = input.AddCommand<dae::Movement>(tronTank01.get(), SDL_SCANCODE_S, dae::InputManager::KeyPress::HOLD);
+	pCommand->SetDirectionAndSpeed(glm::vec2{ 0.f, 1.f }, speed);
 
-	auto renderCompTronTank02 = tronTank02->AddComponent<dae::RenderComponent>();
-	auto transformTronTank02 = tronTank02->AddComponent <dae::TransformComponent>();
-	auto healthTronTank02 = tronTank02->AddComponent<dae::HealthComponent>();
-	auto scoreTronTank02 = tronTank02->AddComponent<dae::ScoreComponent>();
-	tankCollision = tronTank02->AddComponent<dae::CollisionBoxComponent>();
+	pCommand = input.AddCommand<dae::Movement>(tronTank01.get(), SDL_SCANCODE_A, dae::InputManager::KeyPress::HOLD);
+	pCommand->SetDirectionAndSpeed(glm::vec2{ -1.f, 0.f }, speed);
 
-	tronTank02->Initialize();
-	texture = dae::ResourceManager::GetInstance().LoadTexture("GreenTank.png");
-	renderCompTronTank02->Initialize(texture, tronTank02);
-	transformTronTank02->Initialize(glm::vec2(40, 0), 0.f, tronTank02);
-	healthTronTank02->Initialize(startHealth, glm::vec2(40, 0), tronTank02);
-	scoreTronTank02->Initialize(tronTank02);
+	pCommand = input.AddCommand<dae::Movement>(tronTank01.get(), SDL_SCANCODE_D, dae::InputManager::KeyPress::HOLD);
+	pCommand->SetDirectionAndSpeed(glm::vec2{ 1.f, 0.f }, speed);
 
-	auto healthObserver2 = new dae::HealthObserver({500, 100}, startHealth);
-	healthTronTank02->AddObserver(healthObserver2);
+	auto pShoot = input.AddCommand<dae::Shoot>(aimTronTank01.get(), SDL_SCANCODE_LEFT, dae::InputManager::KeyPress::SINGLEPRESS);
+	pShoot->SetDirection(glm::vec2{ -1,0 });
 
-	auto scoreObserver2 = new dae::ScoreObserver({ 500, 115 }, 0);
-	scoreTronTank02->AddObserver(scoreObserver2);
+	pShoot = input.AddCommand<dae::Shoot>(aimTronTank01.get(), SDL_SCANCODE_RIGHT, dae::InputManager::KeyPress::SINGLEPRESS);
+	pShoot->SetDirection(glm::vec2{ 1,0 });
 
-	box._width = static_cast<float>(texture->GetSize().x);
-	box._height = static_cast<float>(texture->GetSize().y);
-	box._leftTop = transformTronTank01->GetLocalPosition();
+	pShoot = input.AddCommand<dae::Shoot>(aimTronTank01.get(), SDL_SCANCODE_UP, dae::InputManager::KeyPress::SINGLEPRESS);
+	pShoot->SetDirection(glm::vec2{ 0,-1 });
 
-	tankCollision->Initialize(tronTank02, box, 5);
-	tronTank02->SetTag(dae::Player2);
+	pShoot = input.AddCommand<dae::Shoot>(aimTronTank01.get(), SDL_SCANCODE_DOWN, dae::InputManager::KeyPress::SINGLEPRESS);
+	pShoot->SetDirection(glm::vec2{ 0,1 });
 
-	scene.Add(tronTank02);
+	if (gameMode != dae::Gamemode::SINGLE_PLAYER)
+	{
+		unsigned controller = input.AddController();
 
-	const float speed{ 100.f };
+		////TRONTANK 2
+		auto tronTank02 = std::make_shared <dae::GameObject>();
 
-	//AI
-	const auto aiTexture = dae::ResourceManager::GetInstance().LoadTexture("GreenTank.png");
+		auto renderCompTronTank02 = tronTank02->AddComponent<dae::RenderComponent>();
+		auto transformTronTank02 = tronTank02->AddComponent <dae::TransformComponent>();
+		auto healthTronTank02 = tronTank02->AddComponent<dae::HealthComponent>();
+		auto scoreTronTank02 = tronTank02->AddComponent<dae::ScoreComponent>();
+		tankCollision = tronTank02->AddComponent<dae::CollisionBoxComponent>();
 
-	auto aiTank01 = std::make_shared <dae::GameObject>();
-	auto transformAITank01 = aiTank01->AddComponent <dae::TransformComponent>();
-	auto renderCompAITank01 = aiTank01->AddComponent<dae::RenderComponent>();
-	auto healthAITank01 = aiTank01->AddComponent<dae::HealthComponent>();
-	auto AI1TankCollision = aiTank01->AddComponent<dae::CollisionBoxComponent>();
-	auto visionAi1 = aiTank01->AddComponent<dae::VisionComponent>();
+		tronTank02->Initialize();
+		texture = dae::ResourceManager::GetInstance().LoadTexture("GreenTank.png");
+		renderCompTronTank02->Initialize(texture, tronTank02);
+		transformTronTank02->Initialize(glm::vec2(40, 0), 0.f, tronTank02);
+		healthTronTank02->Initialize(startHealth, glm::vec2(40, 0), tronTank02);
+		scoreTronTank02->Initialize(tronTank02);
 
-	aiTank01->Initialize();
-	aiTank01->SetTag(dae::AI);
-	transformAITank01->Initialize(glm::vec2(400, 390), 0.f, aiTank01);
-	transformAITank01->SetDirection(glm::vec2{ -1, 0 });
-	renderCompAITank01->Initialize(aiTexture, aiTank01);
-	healthAITank01->Initialize(1, glm::vec2(400, 390), aiTank01);
+		auto healthObserver2 = new dae::HealthObserver({ 500, 100 }, startHealth);
+		healthTronTank02->AddObserver(healthObserver2);
 
-	box._width = static_cast<float>(aiTexture->GetSize().x);
-	box._height = static_cast<float>(aiTexture->GetSize().y);
-	box._leftTop.x = transformTronTank01->GetLocalPosition().x;
-	box._leftTop.y = transformTronTank01->GetLocalPosition().y;
+		auto scoreObserver2 = new dae::ScoreObserver({ 500, 115 }, 0);
+		scoreTronTank02->AddObserver(scoreObserver2);
 
-	AI1TankCollision->Initialize(aiTank01, box, 5);
-	visionAi1->Initialize(aiTank01, 500, { aiTexture->GetSize().x / 2, aiTexture->GetSize().y / 2 });
+		box._width = static_cast<float>(texture->GetSize().x);
+		box._height = static_cast<float>(texture->GetSize().y);
+		box._leftTop = transformTronTank01->GetLocalPosition();
+
+		tankCollision->Initialize(tronTank02, box, 5);
+		tronTank02->SetTag(dae::Player2);
+
+		scene.Add(tronTank02);
+
+		pCommand = input.AddCommand<dae::Movement>(controller, tronTank02.get(), ControllerXbox::ControllerInputs::DPAD_UP, dae::InputManager::KeyPress::HOLD);
+		pCommand->SetDirectionAndSpeed(glm::vec2{ 0.f, -1.f }, speed); // - in y is up 
+
+		pCommand = input.AddCommand<dae::Movement>(controller, tronTank02.get(), ControllerXbox::ControllerInputs::DPAD_DOWN, dae::InputManager::KeyPress::HOLD);
+		pCommand->SetDirectionAndSpeed(glm::vec2{ 0.f, 1.f }, speed);
+
+		pCommand = input.AddCommand<dae::Movement>(controller, tronTank02.get(), ControllerXbox::ControllerInputs::DPAD_LEFT, dae::InputManager::KeyPress::HOLD);
+		pCommand->SetDirectionAndSpeed(glm::vec2{ -1.f, 0.f }, speed);
+
+		pCommand = input.AddCommand<dae::Movement>(controller, tronTank02.get(), ControllerXbox::ControllerInputs::DPAD_RIGHT, dae::InputManager::KeyPress::HOLD);
+		pCommand->SetDirectionAndSpeed(glm::vec2{ 1.f, 0.f }, speed);
+	}
+
+	if (gameMode != dae::Gamemode::VERSUS)
+	{
+		//AI
+		const auto aiTexture = dae::ResourceManager::GetInstance().LoadTexture("GreenTank.png");
+
+		auto aiTank01 = std::make_shared <dae::GameObject>();
+		auto transformAITank01 = aiTank01->AddComponent <dae::TransformComponent>();
+		auto renderCompAITank01 = aiTank01->AddComponent<dae::RenderComponent>();
+		auto healthAITank01 = aiTank01->AddComponent<dae::HealthComponent>();
+		auto AI1TankCollision = aiTank01->AddComponent<dae::CollisionBoxComponent>();
+		auto visionAi1 = aiTank01->AddComponent<dae::VisionComponent>();
+
+		aiTank01->Initialize();
+		aiTank01->SetTag(dae::AI);
+		transformAITank01->Initialize(glm::vec2(400, 390), 0.f, aiTank01);
+		transformAITank01->SetDirection(glm::vec2{ -1, 0 });
+		renderCompAITank01->Initialize(aiTexture, aiTank01);
+		healthAITank01->Initialize(1, glm::vec2(400, 390), aiTank01);
+
+		box._width = static_cast<float>(aiTexture->GetSize().x);
+		box._height = static_cast<float>(aiTexture->GetSize().y);
+		box._leftTop.x = transformTronTank01->GetLocalPosition().x;
+		box._leftTop.y = transformTronTank01->GetLocalPosition().y;
+
+		AI1TankCollision->Initialize(aiTank01, box, 5);
+		visionAi1->Initialize(aiTank01, 500, { aiTexture->GetSize().x / 2, aiTexture->GetSize().y / 2 });
 
 
-	//Aim
-	auto aimAI01 = std::make_shared<dae::GameObject>();
-	auto aimTransformAI01 = aimAI01->AddComponent<dae::TransformComponent>();
-	auto renderCompAimAI01 = aimAI01->AddComponent<dae::RenderComponent>();
-	auto bulletManagerAI01 = aimAI01->AddComponent<dae::BulletManager>();
+		//Aim
+		auto aimAI01 = std::make_shared<dae::GameObject>();
+		auto aimTransformAI01 = aimAI01->AddComponent<dae::TransformComponent>();
+		auto renderCompAimAI01 = aimAI01->AddComponent<dae::RenderComponent>();
+		auto bulletManagerAI01 = aimAI01->AddComponent<dae::BulletManager>();
 
-	aimAI01->Initialize();
-	aimAI01->SetParent(aiTank01, false);
-	aimAI01->SetTag(dae::AI);
-	aimTransformAI01->Initialize(glm::vec2{}, aiTank01->GetComponent<dae::TransformComponent>()->GetAngle(), aimAI01);
-	texture = dae::ResourceManager::GetInstance().LoadTexture("GreenTankGun.png");
-	renderCompAimAI01->Initialize(texture, aimAI01);
-	bulletManagerAI01->Initialize(aimAI01);
+		aimAI01->Initialize();
+		aimAI01->SetParent(aiTank01, false);
+		aimAI01->SetTag(dae::AI);
+		aimTransformAI01->Initialize(glm::vec2{}, aiTank01->GetComponent<dae::TransformComponent>()->GetAngle(), aimAI01);
+		texture = dae::ResourceManager::GetInstance().LoadTexture("GreenTankGun.png");
+		renderCompAimAI01->Initialize(texture, aimAI01);
+		bulletManagerAI01->Initialize(aimAI01);
 
-	auto ai01 = aiTank01->AddComponent<dae::AIComponent>();
-	ai01->Initialize(speed / 2.f, aiTank01, bulletManagerAI01);
-
-
-	scene.Add(aimAI01);
-	scene.Add(aiTank01);
+		auto ai01 = aiTank01->AddComponent<dae::AIComponent>();
+		ai01->Initialize(speed / 2.f, aiTank01, bulletManagerAI01);
 
 
+		scene.Add(aimAI01);
+		scene.Add(aiTank01);
+	}
 
 
 	//auto aiTank02 = std::make_shared <dae::GameObject>();
@@ -287,46 +335,6 @@ void load()
 
 
 	//scene.Add(aiTank02);
-
-	//Commands
-	auto& input = dae::InputManager::GetInstance();
-	unsigned controller = input.AddController();
-
-	auto pCommand = input.AddCommand<dae::Movement>(controller, tronTank02.get(), ControllerXbox::ControllerInputs::DPAD_UP, dae::InputManager::KeyPress::HOLD);
-	pCommand->SetDirectionAndSpeed(glm::vec2{ 0.f, -1.f }, speed); // - in y is up 
-
-	pCommand = input.AddCommand<dae::Movement>(controller, tronTank02.get(), ControllerXbox::ControllerInputs::DPAD_DOWN, dae::InputManager::KeyPress::HOLD);
-	pCommand->SetDirectionAndSpeed(glm::vec2{ 0.f, 1.f }, speed);
-
-	pCommand = input.AddCommand<dae::Movement>(controller, tronTank02.get(), ControllerXbox::ControllerInputs::DPAD_LEFT, dae::InputManager::KeyPress::HOLD);
-	pCommand->SetDirectionAndSpeed(glm::vec2{ -1.f, 0.f }, speed);
-
-	pCommand = input.AddCommand<dae::Movement>(controller, tronTank02.get(), ControllerXbox::ControllerInputs::DPAD_RIGHT, dae::InputManager::KeyPress::HOLD);
-	pCommand->SetDirectionAndSpeed(glm::vec2{ 1.f, 0.f }, speed);
-
-	pCommand = input.AddCommand<dae::Movement>(tronTank01.get(), SDL_SCANCODE_W, dae::InputManager::KeyPress::HOLD);
-	pCommand->SetDirectionAndSpeed(glm::vec2{ 0.f, -1.f }, speed);
-
-	pCommand = input.AddCommand<dae::Movement>(tronTank01.get(), SDL_SCANCODE_S, dae::InputManager::KeyPress::HOLD);
-	pCommand->SetDirectionAndSpeed(glm::vec2{ 0.f, 1.f }, speed);
-
-	pCommand = input.AddCommand<dae::Movement>(tronTank01.get(), SDL_SCANCODE_A, dae::InputManager::KeyPress::HOLD);
-	pCommand->SetDirectionAndSpeed(glm::vec2{ -1.f, 0.f }, speed);
-
-	pCommand = input.AddCommand<dae::Movement>(tronTank01.get(), SDL_SCANCODE_D, dae::InputManager::KeyPress::HOLD);
-	pCommand->SetDirectionAndSpeed(glm::vec2{ 1.f, 0.f }, speed);
-
-	auto pShoot = input.AddCommand<dae::Shoot>(aimTronTank01.get(), SDL_SCANCODE_LEFT, dae::InputManager::KeyPress::SINGLEPRESS);
-	pShoot->SetDirection(glm::vec2{ -1,0 });
-
-	pShoot = input.AddCommand<dae::Shoot>(aimTronTank01.get(), SDL_SCANCODE_RIGHT, dae::InputManager::KeyPress::SINGLEPRESS);
-	pShoot->SetDirection(glm::vec2{ 1,0 });
-
-	pShoot = input.AddCommand<dae::Shoot>(aimTronTank01.get(), SDL_SCANCODE_UP, dae::InputManager::KeyPress::SINGLEPRESS);
-	pShoot->SetDirection(glm::vec2{ 0,-1 });
-
-	pShoot = input.AddCommand<dae::Shoot>(aimTronTank01.get(), SDL_SCANCODE_DOWN, dae::InputManager::KeyPress::SINGLEPRESS);
-	pShoot->SetDirection(glm::vec2{ 0,1 });
 
 
 	//input.AddCommand <dae::Damage>(tronTank02.get(), SDL_SCANCODE_F, dae::InputManager::KeyPress::SINGLEPRESS);

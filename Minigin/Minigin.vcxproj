@@ -220,6 +220,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" "$(OutputP
     <ClInclude Include="ControllerXbox.h" />
     <ClInclude Include="Decorator.h" />
     <ClInclude Include="Font.h" />
+    <ClInclude Include="Gamemode.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Idle.h" />
     <ClInclude Include="InputManager.h" />
@@ -250,6 +251,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" "$(OutputP
     <ClCompile Include="ControllerXbox.cpp" />
     <ClCompile Include="Decorator.cpp" />
     <ClCompile Include="Font.cpp" />
+    <ClCompile Include="Gamemode.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Idle.cpp" />
     <ClCompile Include="InputManager.cpp" />
