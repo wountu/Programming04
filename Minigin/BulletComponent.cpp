@@ -71,3 +71,8 @@ bool dae::BulletComponent::GetDestroy() const
 {
 	return m_Destroy;
 }
+
+void dae::BulletComponent::Destroy()
+{
+	m_Destroy = true;
+}

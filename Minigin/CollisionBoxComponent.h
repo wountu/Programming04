@@ -43,11 +43,16 @@ namespace dae
 		GameObject* GetOverlappingGameObject();
 
 		GameObject* GetParent() const;
+
+		void SetActive(bool active);
+		bool IsActive() const;
 	private:
 		GameObject* m_Parent{ nullptr };
 		GameObject* m_CollidingObject{};
 		CollisionBox m_CollisionBox{};
 		std::shared_ptr<TransformComponent> m_Transform{};
+
+		bool m_Active{ false };
 
 		int m_Inset{}; //How much the box needs to inset to the given collisionbox
 	};

@@ -32,11 +32,8 @@ dae::CollisionBoxComponent* dae::CollisionDetector::BoxColliding(CollisionBoxCom
 	{
 		for (const auto& boxComp : m_pWallBoxes)
 		{
-			if (boxComp == boxToCheck || !boxComp->GetParent()->GetActive())
+			if (boxComp == boxToCheck || !boxComp->GetParent()->GetActive() || !boxComp->IsActive())
 				continue;
-
-			//)
-			//if()
 
 			auto box = boxComp->GetBox();
 			auto otherBox = boxToCheck->GetBox();

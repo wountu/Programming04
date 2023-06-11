@@ -42,9 +42,6 @@ void dae::SceneManager::SetActiveScene(std::shared_ptr<Scene> scene)
 
 void dae::SceneManager::SetNextLevelActive()
 {
-	//m_ActiveScene->Deactivate();
-	//m_ActiveScene = m_scenes[1];
-	//m_ActiveScene->Activate();
 	size_t newLevelIdx{};
 	for (size_t idx{}; idx < m_scenes.size(); ++idx)
 	{

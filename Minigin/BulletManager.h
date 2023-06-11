@@ -23,6 +23,7 @@ namespace dae
 		virtual void Render() const override;
 
 		void SpawnBullet(glm::vec2 dir);
+		void DestroyAllBullets();
 	private:
 		GameObject* m_Parent{ nullptr };
 		TransformComponent* m_Transform{ nullptr };

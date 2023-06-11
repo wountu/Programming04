@@ -92,3 +92,16 @@ bool dae::AIComponent::GetCanShoot() const
 {
 	return m_CanShoot;
 }
+
+void dae::AIComponent::Reset()
+{
+	m_CanShoot = false;
+	m_TimeSinceLastBullet = 0.f;
+
+	m_PlayerState->OnExit();
+	delete m_PlayerState;
+	auto idle = new Idle();
+	idle->Initialize(1.f, this);
+	m_PlayerState = idle;
+	m_PlayerState->OnEnter();
+}

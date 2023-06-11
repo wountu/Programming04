@@ -16,6 +16,9 @@ void dae::Scene::Activate()
 	for (const auto& object : m_objects)
 	{
 		object->SetActive(true);
+		auto objectCol = object->GetComponent<CollisionBoxComponent>();
+		if (objectCol)
+			objectCol->SetActive(true);
 	}
 }
 
@@ -26,6 +29,9 @@ void dae::Scene::Deactivate()
 	for (const auto& object : m_objects)
 	{
 		object->SetActive(false);
+		auto objectCol = object->GetComponent<CollisionBoxComponent>();
+		if (objectCol)
+			objectCol->SetActive(false);
 	}
 }
 

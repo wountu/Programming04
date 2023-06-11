@@ -72,4 +72,14 @@ namespace dae
 		return m_Parent;
 	}
 
+	void CollisionBoxComponent::SetActive(bool active)
+	{
+		m_Active = active;
+	}
+
+	bool CollisionBoxComponent::IsActive() const
+	{
+		return m_Active;
+	}
+
 }

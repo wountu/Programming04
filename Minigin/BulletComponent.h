@@ -21,6 +21,7 @@ namespace dae
 		virtual void Render() const override;
 
 		bool GetDestroy() const;
+		void Destroy();
 	private:
 		GameObject* m_Parent{ nullptr };
 		TransformComponent* m_Transform{ nullptr };

@@ -35,6 +35,8 @@ namespace dae
 
 		void Shot();
 		bool GetCanShoot() const;
+
+		void Reset();
 	private:
 		GameObject* m_Parent{ nullptr };
 

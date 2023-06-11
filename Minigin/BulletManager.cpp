@@ -98,3 +98,9 @@ void dae::BulletManager::SpawnBullet(glm::vec2 dir)
 
 	std::cout << "Spawn in bullet" << "\n";
 }
+
+void dae::BulletManager::DestroyAllBullets()
+{
+	for (const auto& bullet : m_pBullets)
+		bullet->GetComponent<BulletComponent>()->Destroy();
+}
