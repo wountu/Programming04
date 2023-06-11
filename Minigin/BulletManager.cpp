@@ -52,7 +52,6 @@ void dae::BulletManager::SpawnBullet(glm::vec2 dir)
 
 	//GameObject
 	std::shared_ptr<GameObject> bullet = std::make_unique<GameObject>();
-	//bullet->SetParent(m_Parent->shared_from_this(), false);
 	
 	//Transform
 	auto transform = bullet->AddComponent<TransformComponent>();
@@ -64,7 +63,7 @@ void dae::BulletManager::SpawnBullet(glm::vec2 dir)
 
 	auto bulletPos = parentTransform->GetWorldPosition() + allignedWithGun;
 
-	transform->Initialize(bulletPos, parentTransform->GetAngle(), bullet);
+	transform->Initialize(bulletPos, parentTransform->GetAngle(), bullet, true);
 	transform->SetDirection(dir);
 
 	//Render
@@ -86,6 +85,7 @@ void dae::BulletManager::SpawnBullet(glm::vec2 dir)
 	//Initialize the gameobject
 	bullet->Initialize();
 	bullet->SetTag(m_Parent->GetParent()->GetTag());
+	bullet->SetParent(m_Parent->shared_from_this(), false);
 
 	//Store bullet
 	m_pBullets.emplace_back(bullet);

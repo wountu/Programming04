@@ -123,6 +123,9 @@
     <ClInclude Include="Turn.h">
       <Filter>FSM</Filter>
     </ClInclude>
+    <ClInclude Include="Shoot.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -195,6 +198,9 @@
       <Filter>FSM</Filter>
     </ClCompile>
     <ClCompile Include="Turn.cpp">
+      <Filter>FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="Shoot.cpp">
       <Filter>FSM</Filter>
     </ClCompile>
   </ItemGroup>

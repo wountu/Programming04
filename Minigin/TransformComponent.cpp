@@ -4,12 +4,14 @@
 
 namespace dae
 {
-	void TransformComponent::Initialize(const glm::vec2& pos, float angle, std::shared_ptr<GameObject> parent)
+	void TransformComponent::Initialize(const glm::vec2& pos, float angle, std::shared_ptr<GameObject> parent, bool keepWorldPos)
 	{
 		m_Angle = angle;
 
 		m_Parent = parent.get();
 		m_Collision = m_Parent->GetComponent<CollisionBoxComponent>();
+
+		m_KeepWorldPos = keepWorldPos;
 
 		m_LocalPosition = pos;
 		SetPositionDirty();
@@ -84,10 +86,18 @@ namespace dae
 		for (const auto& child : children)
 		{
 			auto trans = child->GetComponent<TransformComponent>();
-			trans->SetPositionDirty();
+			if (trans && !trans->GetKeepWorldPos())
+			{
+				trans->SetPositionDirty();
+			}
 		}
 
 		m_DirtyFlag = true;
+	}
+
+	bool TransformComponent::GetKeepWorldPos() const
+	{
+		return m_KeepWorldPos;
 	}
 
 	void TransformComponent::CollisionUpdate()
@@ -97,10 +107,11 @@ namespace dae
 			auto collisionBox = m_Collision->GetOverlappingGameObject();
 			const int replaceOffsetWidth{ 2 }; //The distance to set the collision from the other collision
 
-			if (collisionBox)
+			if (collisionBox && collisionBox->GetTag() != dae::Bullet)
 			{
+				std::cout << collisionBox->GetTag() << "\n";
 				auto otherBox = collisionBox->GetComponent<CollisionBoxComponent>()->GetBox();
-				auto parentBox = m_Parent->GetComponent<CollisionBoxComponent>()->GetBox();
+   				auto parentBox = m_Parent->GetComponent<CollisionBoxComponent>()->GetBox();
 
 				//Left collision
 				if (m_Direction.x == -1 && otherBox._leftTop.x < parentBox._leftTop.x) //if we go to the left and enter the other box on the right
@@ -149,7 +160,7 @@ namespace dae
 	{
 		if (m_DirtyFlag)
 		{
-			if (m_Parent->GetParent() == nullptr)
+			if (m_Parent->GetParent() == nullptr || m_KeepWorldPos)
 				m_WorldPosition = m_LocalPosition;
 
 			else

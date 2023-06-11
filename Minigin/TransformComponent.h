@@ -15,7 +15,7 @@ namespace dae
 		TransformComponent(TransformComponent&& other) = delete;
 		TransformComponent& operator=(TransformComponent&& other) = delete;
 
-		virtual void Initialize(const glm::vec2& pos, float angle, std::shared_ptr<GameObject> parent);
+		virtual void Initialize(const glm::vec2& pos, float angle, std::shared_ptr<GameObject> parent, bool keepWorldPos = false);
 
 		virtual void Update() override;
 
@@ -32,18 +32,20 @@ namespace dae
 
 		void SetPositionDirty();
 
-		void CollisionUpdate();
+		bool GetKeepWorldPos() const;
 	private:
 		glm::vec2 m_WorldPosition{};
 		glm::vec2 m_LocalPosition{};
 		glm::vec2 m_Direction{};
 		float m_Angle{};
-
+		
+		bool m_KeepWorldPos{ false };
 		bool m_DirtyFlag{};
 
 		GameObject* m_Parent{ nullptr };
 
 		void UpdateWorldPos();
+		void CollisionUpdate();
 		
 		std::shared_ptr<CollisionBoxComponent> m_Collision{ nullptr };
 	};

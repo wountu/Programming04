@@ -18,7 +18,7 @@ void dae::BulletComponent::Update()
 	const float speed{ 200.f };
 	auto& timeClass = TimeClass::GetInstance();
 
-	auto oldPos = m_Transform->GetLocalPosition();
+	auto oldPos = m_Transform->GetWorldPosition();
 
 	auto offset = (speed * m_Transform->GetDirection() * timeClass.GetElapsed());
 
@@ -35,10 +35,12 @@ void dae::BulletComponent::Update()
 		{
 			auto overlapTag = overlap->GetTag();
 
-			if (overlapTag != dae::Static && overlapTag != m_Parent->GetTag())
+			if (overlapTag != dae::Static && overlapTag != m_Parent->GetTag() && overlapTag!=dae::Bullet)
 			{
 				m_Destroy = true;
-				overlap->GetComponent<HealthComponent>()->LoseHealth();
+				auto health = overlap->GetComponent<HealthComponent>();
+				if (health)
+					health->LoseHealth();
 			}
 
 			else if (overlapTag == dae::Static)

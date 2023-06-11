@@ -151,20 +151,18 @@ void load()
 	box._leftTop.x = transformTronTank01->GetLocalPosition().x;
 	box._leftTop.y = transformTronTank01->GetLocalPosition().y;
 
-	tankCollision->Initialize(tronTank01, box, 10);
+	tankCollision->Initialize(tronTank01, box, 5);
 	tronTank01->SetTag(dae::Player1);
 
 	scene.Add(tronTank01);
 
 	//Trontank aim
 	auto aimTronTank01 = std::make_shared<dae::GameObject>(); 
-	auto aimComponent = aimTronTank01->AddComponent<dae::AimComponent>();
 	auto aimTransform = aimTronTank01->AddComponent<dae::TransformComponent>();
 	auto bulletManager = aimTronTank01->AddComponent<dae::BulletManager>();
 	auto renderCompAim = aimTronTank01->AddComponent<dae::RenderComponent>();
 
 	aimTronTank01->Initialize();
-	aimComponent->Initialize(aimTronTank01);
 	aimTransform->Initialize(glm::vec2{}, tronTank01->GetComponent<dae::TransformComponent>()->GetAngle(), aimTronTank01);
 	bulletManager->Initialize(aimTronTank01);
 	texture = dae::ResourceManager::GetInstance().LoadTexture("BlueTankGun.png");
@@ -197,7 +195,7 @@ void load()
 	box._height = static_cast<float>(texture->GetSize().y);
 	box._leftTop = transformTronTank01->GetLocalPosition();
 
-	tankCollision->Initialize(tronTank02, box, 10);
+	tankCollision->Initialize(tronTank02, box, 5);
 	tronTank02->SetTag(dae::Player2);
 
 	scene.Add(tronTank02);
@@ -205,33 +203,82 @@ void load()
 	const float speed{ 100.f };
 
 	//AI
+	const auto aiTexture = dae::ResourceManager::GetInstance().LoadTexture("GreenTank.png");
+
 	auto aiTank01 = std::make_shared <dae::GameObject>();
 	auto transformAITank01 = aiTank01->AddComponent <dae::TransformComponent>();
 	auto renderCompAITank01 = aiTank01->AddComponent<dae::RenderComponent>();
 	auto healthAITank01 = aiTank01->AddComponent<dae::HealthComponent>();
 	auto AI1TankCollision = aiTank01->AddComponent<dae::CollisionBoxComponent>();
 	auto visionAi1 = aiTank01->AddComponent<dae::VisionComponent>();
-	auto ai01 = aiTank01->AddComponent<dae::AIComponent>();
 
 	aiTank01->Initialize();
 	aiTank01->SetTag(dae::AI);
 	transformAITank01->Initialize(glm::vec2(400, 390), 0.f, aiTank01);
 	transformAITank01->SetDirection(glm::vec2{ -1, 0 });
-	texture = dae::ResourceManager::GetInstance().LoadTexture("GreenTank.png");
-	renderCompAITank01->Initialize(texture, aiTank01);
+	renderCompAITank01->Initialize(aiTexture, aiTank01);
 	healthAITank01->Initialize(1, glm::vec2(400, 390), aiTank01);
-	ai01->Initialize(speed / 2.f, aiTank01);
 
-	box._width = static_cast<float>(texture->GetSize().x);
-	box._height = static_cast<float>(texture->GetSize().y);
+	box._width = static_cast<float>(aiTexture->GetSize().x);
+	box._height = static_cast<float>(aiTexture->GetSize().y);
 	box._leftTop.x = transformTronTank01->GetLocalPosition().x;
 	box._leftTop.y = transformTronTank01->GetLocalPosition().y;
 
-	AI1TankCollision->Initialize(aiTank01, box, 10);
-	visionAi1->Initialize(aiTank01, 500, { texture->GetSize().x / 2, texture->GetSize().y / 2 });
+	AI1TankCollision->Initialize(aiTank01, box, 5);
+	visionAi1->Initialize(aiTank01, 500, { aiTexture->GetSize().x / 2, aiTexture->GetSize().y / 2 });
 
 
+	//Aim
+	auto aimAI01 = std::make_shared<dae::GameObject>();
+	auto aimTransformAI01 = aimAI01->AddComponent<dae::TransformComponent>();
+	auto renderCompAimAI01 = aimAI01->AddComponent<dae::RenderComponent>();
+	auto bulletManagerAI01 = aimAI01->AddComponent<dae::BulletManager>();
+
+	aimAI01->Initialize();
+	aimAI01->SetParent(aiTank01, false);
+	aimAI01->SetTag(dae::AI);
+	aimTransformAI01->Initialize(glm::vec2{}, aiTank01->GetComponent<dae::TransformComponent>()->GetAngle(), aimAI01);
+	texture = dae::ResourceManager::GetInstance().LoadTexture("GreenTankGun.png");
+	renderCompAimAI01->Initialize(texture, aimAI01);
+	bulletManagerAI01->Initialize(aimAI01);
+
+	auto ai01 = aiTank01->AddComponent<dae::AIComponent>();
+	ai01->Initialize(speed / 2.f, aiTank01, bulletManagerAI01);
+
+
+	scene.Add(aimAI01);
 	scene.Add(aiTank01);
+
+
+
+
+	//auto aiTank02 = std::make_shared <dae::GameObject>();
+	//auto transformAITank02 = aiTank02->AddComponent <dae::TransformComponent>();
+	//auto renderCompAITank02 = aiTank02->AddComponent<dae::RenderComponent>();
+	//auto healthAITank02 = aiTank02->AddComponent<dae::HealthComponent>();
+	//auto AI2TankCollision = aiTank02->AddComponent<dae::CollisionBoxComponent>();	
+	//auto visionAi2 = aiTank02->AddComponent<dae::VisionComponent>();
+
+	//aiTank02->Initialize();
+	//aiTank02->SetTag(dae::AI);
+	//transformAITank02->Initialize(glm::vec2(330, 60), 0.f, aiTank02);
+	//transformAITank02->SetDirection(glm::vec2{ 0, 1 });	
+	//renderCompAITank02->Initialize(aiTexture, aiTank02);
+	//healthAITank02->Initialize(1, glm::vec2(320, 70), aiTank02);
+
+	//box._width = static_cast<float>(aiTexture->GetSize().x);
+	//box._height = static_cast<float>(aiTexture->GetSize().y);
+	//box._leftTop.x = transformTronTank01->GetLocalPosition().x;
+	//box._leftTop.y = transformTronTank01->GetLocalPosition().y;
+
+	//AI2TankCollision->Initialize(aiTank02, box, 10);
+	//visionAi2->Initialize(aiTank02, 500, { aiTexture->GetSize().x / 2, aiTexture->GetSize().y / 2 });
+
+	//auto ai02 = aiTank02->AddComponent<dae::AIComponent>();
+	//ai02->Initialize(speed / 2.f, aiTank02);
+
+
+	//scene.Add(aiTank02);
 
 	//Commands
 	auto& input = dae::InputManager::GetInstance();

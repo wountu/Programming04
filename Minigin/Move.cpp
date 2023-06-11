@@ -4,6 +4,7 @@
 #include "TimeClass.h"
 #include "CollisionDetector.h"
 #include "Turn.h"
+#include "Shoot.h"
 
 namespace dae
 {
@@ -18,33 +19,45 @@ namespace dae
 
 	void Move::OnEnter()
 	{
-		//m_Transform->SetDirection(glm::vec2(-1, 0));
 	}
 
 	PlayerState* Move::HandleInput()
 	{
-		m_Transform->ChangeLocalPosition(m_Transform->GetLocalPosition() + (m_Transform->GetDirection() * m_Speed * TimeClass::GetInstance().GetElapsed()));
+		m_Transform->ChangeLocalPosition(m_Transform->GetWorldPosition() + (m_Transform->GetDirection() * m_Speed * TimeClass::GetInstance().GetElapsed()));
 
 		auto collidingBoxes = CollisionDetector::GetInstance().BoxesCollidingWithRay(m_Vision->GetStartVision(), m_Vision->GetEndVision(), m_Vision->GetDirection());
 		float distSqrd{ FLT_MAX };
-
-		std::cout << collidingBoxes.size() << "\n";
+		CollisionBoxComponent* closestBox{};
+		//std::cout << collidingBoxes.size() << "\n";
 		
 		for(const auto& box : collidingBoxes)
 		{
-			glm::vec2 boxToRay{ m_Transform->GetLocalPosition() - box->GetBox()._leftTop };
-			float newDistSqrd = (boxToRay.x * boxToRay.x) + (boxToRay.y + boxToRay.y);
-			if (abs(newDistSqrd) < abs(distSqrd))
+			glm::vec2 boxToRay{ m_Vision->GetStartVision() - box->GetBox()._leftTop };
+			float newDistSqrd = (boxToRay.x * boxToRay.x) + (boxToRay.y * boxToRay.y);
+			if (newDistSqrd < distSqrd)
 			{
+				closestBox = box;
 				distSqrd = newDistSqrd;
 			}
 		}
 
+		if (!closestBox)
+			return nullptr;
+
+		if (closestBox->GetParent()->GetTag() != dae::AI && closestBox->GetParent()->GetTag() != dae::Static && m_AI->GetCanShoot()) //Found a possible target to shoot 
+		{
+			m_AI->SetTargetDir(closestBox->GetParent()->GetComponent<TransformComponent>()->GetWorldPosition() - m_Transform->GetWorldPosition());
+			auto shoot = new ShootAI();
+			shoot->Initialize(m_AI);
+			return shoot;
+			//std::cout << "Target in sight // ";
+		}
+
 		//std::cout << distSqrd << "\n";
 
-		if (abs(distSqrd) < 500)
+		if (distSqrd < 500)
 		{
-			std::cout << "turn" << "\n";
+			//std::cout << "turn" << "\n";
 			auto turn = new Turn();
 			turn->Initialize(m_AI, m_AI->GetTransform());
 			return turn;
