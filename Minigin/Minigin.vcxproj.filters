@@ -40,6 +40,9 @@
     <Filter Include="FSM">
       <UniqueIdentifier>{bd63438f-c25d-47a1-ad72-c3a01f3c0cdc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Prefab">
+      <UniqueIdentifier>{34c4cd05-faa5-40ac-b1dc-179fae15f355}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
@@ -116,6 +119,9 @@
     </ClInclude>
     <ClInclude Include="TransformComponent.h">
       <Filter>Framework\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BasePrefab.h">
+      <Filter>Framework\Prefab</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

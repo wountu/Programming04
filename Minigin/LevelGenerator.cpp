@@ -150,11 +150,19 @@ namespace dae
                                         tile.tileType = TileType::WALL;
                                         tile.walkable = false;
                                         break;
+
+
                                     case 2:
                                         tile.tileType = TileType::PATH;
                                         tile.walkable = true;
                                         tile.hasDot = true;
                                         break;
+
+
+                                    case 3:
+                                        break;
+
+
                                     case 4:
                                         tile.tileType = TileType::PATH;
                                         tile.walkable = true;

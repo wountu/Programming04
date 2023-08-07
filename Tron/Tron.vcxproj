@@ -213,6 +213,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" /R/Y</Comm
     <ClInclude Include="..\Minigin\ScoreObserver.h" />
     <ClInclude Include="..\Minigin\Shoot.h" />
     <ClInclude Include="..\Minigin\Turn.h" />
+    <ClInclude Include="PacmanPrefab.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

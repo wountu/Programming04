@@ -215,6 +215,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" "$(OutputP
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BaseComponent.h" />
+    <ClInclude Include="BasePrefab.h" />
     <ClInclude Include="CollisionBoxComponent.h" />
     <ClInclude Include="CollisionDetector.h" />
     <ClInclude Include="ControllerXbox.h" />

@@ -39,6 +39,7 @@
 #include "ScoreObserver.h"
 #include "Gamemode.h"
 #include "LoadScenes.h"
+#include "PacmanPrefab.h"
 
 void load()
 {
@@ -120,6 +121,11 @@ void load()
 		}
 	}
 	
+	std::unique_ptr<PacmanPrefab> pacmanPrefab = std::make_unique<PacmanPrefab>();
+	pacmanPrefab->SetTexture(resourceMan.LoadTexture("pacman.png"));
+	scene->Add(pacmanPrefab->Create(glm::vec2(20, 20)));
+
+
 	//dae::LevelGenerator::GetInstance().("Level/level.json");
 
 

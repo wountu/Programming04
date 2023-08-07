@@ -31,6 +31,9 @@
     <Filter Include="FSM">
       <UniqueIdentifier>{c6dda694-2a42-4353-8b87-20b54ebcf64f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Prefabs">
+      <UniqueIdentifier>{c83ac7f5-8f72-42b9-afe1-51692d261a5b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Tron.cpp">
@@ -136,6 +139,9 @@
     </ClInclude>
     <ClInclude Include="..\Minigin\Turn.h">
       <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="PacmanPrefab.h">
+      <Filter>Prefabs</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
