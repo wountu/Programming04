@@ -20,6 +20,63 @@
 
 namespace dae
 {
+	/*void CreateLevel(Scene* pScene, LevelData* pLevelData)
+	{
+		auto pathWayTexture = dae::ResourceManager::GetInstance().LoadTexture("Level/Textures/path.png");
+		auto wallTexture = dae::ResourceManager::GetInstance().LoadTexture("level/Textures/wall.png");
+		auto voidTexture = dae::ResourceManager::GetInstance().LoadTexture("level/Textures/void.png");
+
+		for (const auto& pathWay : pLevelData->pathWays)
+		{
+			auto block = std::make_shared<dae::GameObject>();
+			auto render = block->AddComponent<dae::RenderComponent>();
+			auto transform = block->AddComponent<dae::TransformComponent>();
+
+			block->Initialize();
+			transform->Initialize(pathWay.LeftTop, 0.f, block);
+			render->Initialize(pathWayTexture, block);
+
+
+			pScene->Add(block);
+		}
+
+		for (const auto& wall : pLevelData->walls)
+		{
+			auto block = std::make_shared<dae::GameObject>();
+			auto render = block->AddComponent<dae::RenderComponent>();
+			auto transform = block->AddComponent<dae::TransformComponent>();
+			auto collison = block->AddComponent<dae::CollisionBoxComponent>();
+
+			dae::CollisionBox colBox;
+			colBox._leftTop = wall.LeftTop;
+			colBox._height = static_cast<float>(wall.Height);
+			colBox._width = static_cast<float>(wall.Width);
+
+			collison->Initialize(block, colBox, 0);
+			block->Initialize();
+			transform->Initialize(wall.LeftTop, 0.f, block);
+			render->Initialize(wallTexture, block);
+
+
+
+
+			pScene->Add(block);
+		}
+
+		for (const auto& activeVoid : pLevelData->Void)
+		{
+			auto block = std::make_shared<dae::GameObject>();
+			auto render = block->AddComponent<dae::RenderComponent>();
+			auto transform = block->AddComponent<dae::TransformComponent>();
+
+			block->Initialize();
+			transform->Initialize(activeVoid.LeftTop, 0.f, block);
+			render->Initialize(voidTexture, block);
+
+			pScene->Add(block);
+		}
+	}*/
+
 	class SceneLoader final : public Singleton<SceneLoader>
 	{
 	public:
@@ -30,7 +87,64 @@ namespace dae
 		SceneLoader(Gamemode&& other) = delete;
 		SceneLoader& operator=(SceneLoader&& other) = delete;
 
-		void LoadScene1(Gamemode::GameModeEnum)
+		/*void LoadLevel(Scene* pScene, LevelData* pLevelData)
+		{
+			auto pathWayTexture = dae::ResourceManager::GetInstance().LoadTexture("Level/Textures/path.png");
+			auto wallTexture = dae::ResourceManager::GetInstance().LoadTexture("level/Textures/wall.png");
+			auto voidTexture = dae::ResourceManager::GetInstance().LoadTexture("level/Textures/void.png");
+
+			for (const auto& pathWay : pLevelData->pathWays)
+			{
+				auto block = std::make_shared<dae::GameObject>();
+				auto render = block->AddComponent<dae::RenderComponent>();
+				auto transform = block->AddComponent<dae::TransformComponent>();
+
+				block->Initialize();
+				transform->Initialize(pathWay.LeftTop, 0.f, block);
+				render->Initialize(pathWayTexture, block);
+
+				
+				pScene->Add(block);
+			}
+
+			for (const auto& wall : pLevelData->walls)
+			{
+				auto block = std::make_shared<dae::GameObject>();
+				auto render = block->AddComponent<dae::RenderComponent>();
+				auto transform = block->AddComponent<dae::TransformComponent>();
+				auto collison = block->AddComponent<dae::CollisionBoxComponent>();
+
+				dae::CollisionBox colBox;
+				colBox._leftTop = wall.LeftTop;
+				colBox._height = static_cast<float>(wall.Height);
+				colBox._width = static_cast<float>(wall.Width);
+
+				collison->Initialize(block, colBox, 0);
+				block->Initialize();
+				transform->Initialize(wall.LeftTop, 0.f, block);
+				render->Initialize(wallTexture, block);
+
+
+
+
+				pScene->Add(block);
+			}
+
+			for (const auto& activeVoid : pLevelData->Void)
+			{
+				auto block = std::make_shared<dae::GameObject>();
+				auto render = block->AddComponent<dae::RenderComponent>();
+				auto transform = block->AddComponent<dae::TransformComponent>();
+
+				block->Initialize();
+				transform->Initialize(activeVoid.LeftTop, 0.f, block);
+				render->Initialize(voidTexture, block);
+
+				pScene->Add(block);
+			}
+		}*/
+
+		void LoadScene1()
 		{
 			auto pathWayTexture = dae::ResourceManager::GetInstance().LoadTexture("Level/Textures/path.png");
 			auto wallTexture = dae::ResourceManager::GetInstance().LoadTexture("level/Textures/wall.png");
@@ -39,9 +153,9 @@ namespace dae
 			static const auto scene = dae::SceneManager::GetInstance().CreateScene("1st scene");
 
 			auto& level = dae::LevelGenerator::GetInstance();
-			level.LoadLevel("Level/LevelLayout0.csv");
+			std::unique_ptr<LevelData> pLevelData = level.LoadLevel("Level/LevelLayout0.csv");
 
-			for (const auto& pathWay : level.GetPathWay())
+			for (const auto& pathWay : pLevelData->pathWays)
 			{
 				auto block = std::make_shared<dae::GameObject>();
 				auto render = block->AddComponent<dae::RenderComponent>();
@@ -55,7 +169,7 @@ namespace dae
 				scene->Add(block);
 			}
 
-			for (const auto& wall : level.GetWalls())
+			for (const auto& wall : pLevelData->walls)
 			{
 				auto block = std::make_shared<dae::GameObject>();
 				auto render = block->AddComponent<dae::RenderComponent>();
@@ -78,7 +192,7 @@ namespace dae
 				scene->Add(block);
 			}
 
-			for (const auto& activeVoid : level.GetVoid())
+			for (const auto& activeVoid : pLevelData->Void)
 			{
 				auto block = std::make_shared<dae::GameObject>();
 				auto render = block->AddComponent<dae::RenderComponent>();
@@ -106,8 +220,6 @@ namespace dae
 			fps->Initialize(fpsGameobject);
 
 			scene->Add(fpsGameobject);
-
-
 		}
 
 		void LoadScene2(Gamemode::GameModeEnum)

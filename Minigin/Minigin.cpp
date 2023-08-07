@@ -93,7 +93,7 @@ void dae::Minigin::Run(const std::function<void()>& load)
 	const float desiredFps{ 144.f };
 	const int frameTimeMs{ int(1000 / desiredFps) };
 
-	m_pTimeClass->Initialize();
+	//m_pTimeClass->Initialize();
 
 	while (doContinue)
 	{

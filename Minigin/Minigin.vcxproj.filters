@@ -96,14 +96,8 @@
     <ClInclude Include="SoundEffectSystem.h">
       <Filter>Framework\Audio</Filter>
     </ClInclude>
-    <ClInclude Include="Decorator.h">
-      <Filter>Framework\Audio</Filter>
-    </ClInclude>
     <ClInclude Include="CollisionDetector.h">
       <Filter>Framework\Engine\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LevelGenerator.h">
-      <Filter>Framework\Level</Filter>
     </ClInclude>
     <ClInclude Include="VisionComponent.h">
       <Filter>Framework\Components\AI</Filter>
@@ -111,23 +105,17 @@
     <ClInclude Include="PlayerState.h">
       <Filter>FSM</Filter>
     </ClInclude>
-    <ClInclude Include="Move.h">
-      <Filter>FSM</Filter>
+    <ClInclude Include="CollisionBoxComponent.h">
+      <Filter>Framework\Components</Filter>
     </ClInclude>
-    <ClInclude Include="AIComonent.h">
-      <Filter>Framework\Components\AI</Filter>
+    <ClInclude Include="RenderComponent.h">
+      <Filter>Framework\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Idle.h">
-      <Filter>FSM</Filter>
+    <ClInclude Include="TextObject.h">
+      <Filter>Framework\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Turn.h">
-      <Filter>FSM</Filter>
-    </ClInclude>
-    <ClInclude Include="Shoot.h">
-      <Filter>FSM</Filter>
-    </ClInclude>
-    <ClInclude Include="Gamemode.h">
-      <Filter>Framework\Engine\Header Files</Filter>
+    <ClInclude Include="TransformComponent.h">
+      <Filter>Framework\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -179,35 +167,23 @@
     <ClCompile Include="SoundEffectSystem.cpp">
       <Filter>Framework\Audio</Filter>
     </ClCompile>
-    <ClCompile Include="Decorator.cpp">
-      <Filter>Framework\Audio</Filter>
-    </ClCompile>
     <ClCompile Include="CollisionDetector.cpp">
       <Filter>Framework\Engine\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LevelGenerator.cpp">
-      <Filter>Framework\Level</Filter>
     </ClCompile>
     <ClCompile Include="VisionComponent.cpp">
       <Filter>Framework\Components\AI</Filter>
     </ClCompile>
-    <ClCompile Include="Move.cpp">
-      <Filter>FSM</Filter>
+    <ClCompile Include="CollisionBoxComponent.cpp">
+      <Filter>Framework\Components</Filter>
     </ClCompile>
-    <ClCompile Include="AIComonent.cpp">
-      <Filter>Framework\Components\AI</Filter>
+    <ClCompile Include="RenderComponent.cpp">
+      <Filter>Framework\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Idle.cpp">
-      <Filter>FSM</Filter>
+    <ClCompile Include="TextObject.cpp">
+      <Filter>Framework\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Turn.cpp">
-      <Filter>FSM</Filter>
-    </ClCompile>
-    <ClCompile Include="Shoot.cpp">
-      <Filter>FSM</Filter>
-    </ClCompile>
-    <ClCompile Include="Gamemode.cpp">
-      <Filter>Framework\Engine\Source Files</Filter>
+    <ClCompile Include="TransformComponent.cpp">
+      <Filter>Framework\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

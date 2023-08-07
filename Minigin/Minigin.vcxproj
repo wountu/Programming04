@@ -214,62 +214,54 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" "$(OutputP
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AIComonent.h" />
     <ClInclude Include="BaseComponent.h" />
+    <ClInclude Include="CollisionBoxComponent.h" />
     <ClInclude Include="CollisionDetector.h" />
     <ClInclude Include="ControllerXbox.h" />
-    <ClInclude Include="Decorator.h" />
     <ClInclude Include="Font.h" />
-    <ClInclude Include="Gamemode.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="Idle.h" />
     <ClInclude Include="InputManager.h" />
-    <ClInclude Include="LevelGenerator.h" />
     <ClInclude Include="Minigin.h" />
-    <ClInclude Include="Move.h" />
     <ClInclude Include="Observer.h" />
+    <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="ServiceLocator.h" />
-    <ClInclude Include="Shoot.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="SoundEffectSystem.h" />
     <ClInclude Include="SoundSystem.h" />
     <ClInclude Include="PlayerState.h" />
+    <ClInclude Include="TextObject.h" />
     <ClInclude Include="Texture2D.h" />
     <ClInclude Include="TimeClass.h" />
     <ClInclude Include="Transform.h" />
-    <ClInclude Include="Turn.h" />
+    <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="VisionComponent.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AIComonent.cpp" />
     <ClCompile Include="BaseComponent.cpp" />
+    <ClCompile Include="CollisionBoxComponent.cpp" />
     <ClCompile Include="CollisionDetector.cpp" />
     <ClCompile Include="ControllerXbox.cpp" />
-    <ClCompile Include="Decorator.cpp" />
     <ClCompile Include="Font.cpp" />
-    <ClCompile Include="Gamemode.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="Idle.cpp" />
     <ClCompile Include="InputManager.cpp" />
-    <ClCompile Include="LevelGenerator.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Minigin.cpp" />
-    <ClCompile Include="Move.cpp" />
+    <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="ServiceLocator.cpp" />
-    <ClCompile Include="Shoot.cpp" />
     <ClCompile Include="SoundEffectSystem.cpp" />
+    <ClCompile Include="TextObject.cpp" />
     <ClCompile Include="Texture2D.cpp" />
     <ClCompile Include="TimeClass.cpp" />
     <ClCompile Include="Transform.cpp" />
-    <ClCompile Include="Turn.cpp" />
+    <ClCompile Include="TransformComponent.cpp" />
     <ClCompile Include="VisionComponent.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

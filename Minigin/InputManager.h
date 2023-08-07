@@ -22,6 +22,7 @@ namespace dae
 		unsigned AddController();
 		template<typename T> T* AddCommand(unsigned controllerIdx, GameObject* pObject, ControllerXbox::ControllerInputs inputToPress, KeyPress keypress); //For xbox
 		template<typename T> T* AddCommand(GameObject* pObject, SDL_Scancode key, KeyPress keypress); //For keyboard
+		template<typename T> T* RemoveCommand(T* command);
 	private:
 		using ControllerKey = std::pair<unsigned, ControllerXbox::ControllerInputs>;
 		using ControllerCommandsMap = std::pair<ControllerKey, std::unique_ptr<Command>>;
@@ -72,4 +73,5 @@ namespace dae
 
 		return returnValue;
 	}
+
 }

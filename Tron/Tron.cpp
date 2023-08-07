@@ -48,6 +48,8 @@ void load()
 	std::cout << "Tank 02 to move use DPAD on XBOX \n";
 	std::cout << "Tank 02 to shoot press v(plays only sound for now) \n";
 
+	auto& sceneManager = dae::SceneManager::GetInstance();
+
 	//Gamemode
 	auto gameMode = dae::Gamemode::GameModeEnum::SINGLE_PLAYER;
 	dae::Gamemode::GetInstance().SetGameMode(gameMode);
@@ -56,7 +58,7 @@ void load()
 	dae::ServiceLocator::RegisterSoundSystem(std::make_unique<dae::SoundEffectSystem>());
 
 	//Main Menu
-	static const auto mainMenu = dae::SceneManager::GetInstance().CreateScene("Main menu");
+	static const auto mainMenu = sceneManager.CreateScene("Main menu");
 
 	//Gamemode text
 	std::shared_ptr<dae::GameObject> gameModeText = std::make_shared<dae::GameObject>();
@@ -81,8 +83,15 @@ void load()
 	dae::InputManager::GetInstance().AddCommand <dae::Start>(gamemodePicker.get(), SDL_SCANCODE_SPACE, dae::InputManager::KeyPress::SINGLEPRESS);
 
 	mainMenu->Add(gamemodePicker);
-	
-	dae::SceneManager::GetInstance().SetActiveScene(mainMenu);
+
+	sceneManager.SetActiveScene(mainMenu);
+
+	std::unique_ptr<dae::LevelData> pLevel = dae::LevelGenerator::GetInstance().LoadLevel("Level/LevelLayout2.csv");
+	auto scene = sceneManager.CreateScene("1st Scene");
+
+	dae::GridGenerator::GetInstance().CreateGrid("Level/level.txt", glm::vec2(16, 16));
+	//dae::LevelGenerator::GetInstance().("Level/level.json");
+
 
 	//Commands
     //auto& input = dae::InputManager::GetInstance();

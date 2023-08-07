@@ -25,6 +25,12 @@
     <Filter Include="Scenes">
       <UniqueIdentifier>{3698fc84-cb98-4d13-aeaf-c1de0c6d1362}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Managers">
+      <UniqueIdentifier>{cb5cadc8-b115-4504-8058-8daf21653b6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FSM">
+      <UniqueIdentifier>{c6dda694-2a42-4353-8b87-20b54ebcf64f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Tron.cpp">
@@ -33,16 +39,10 @@
     <ClCompile Include="..\Minigin\BulletComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="..\Minigin\BulletManager.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
     <ClCompile Include="..\Minigin\fpsCounter.cpp">
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="..\Minigin\HealthComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Minigin\RenderComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="..\Minigin\RotateComponent.cpp">
@@ -51,20 +51,8 @@
     <ClCompile Include="..\Minigin\ScoreComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="..\Minigin\TextObject.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Minigin\TransformComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
     <ClCompile Include="..\Minigin\Command.cpp">
       <Filter>Input</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Minigin\CollisionBoxComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="AimComponent.cpp">
-      <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="..\Minigin\HealthObserver.cpp">
       <Filter>Observers</Filter>
@@ -72,12 +60,33 @@
     <ClCompile Include="..\Minigin\ScoreObserver.cpp">
       <Filter>Observers</Filter>
     </ClCompile>
+    <ClCompile Include="..\Minigin\BulletManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Minigin\AIComonent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Minigin\Gamemode.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Minigin\LevelGenerator.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Minigin\Idle.cpp">
+      <Filter>FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Minigin\Move.cpp">
+      <Filter>FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Minigin\Shoot.cpp">
+      <Filter>FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Minigin\Turn.cpp">
+      <Filter>FSM</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Minigin\BulletComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Minigin\BulletManager.h">
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="..\Minigin\fpsCounter.h">
@@ -86,29 +95,14 @@
     <ClInclude Include="..\Minigin\HealthComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\Minigin\RenderComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
     <ClInclude Include="..\Minigin\RotateComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="..\Minigin\ScoreComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\Minigin\TextObject.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Minigin\TransformComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
     <ClInclude Include="..\Minigin\Command.h">
       <Filter>Input</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Minigin\CollisionBoxComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="AimComponent.h">
-      <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="..\Minigin\HealthObserver.h">
       <Filter>Observers</Filter>
@@ -118,6 +112,30 @@
     </ClInclude>
     <ClInclude Include="..\Minigin\LoadScenes.h">
       <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Minigin\BulletManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Minigin\AIComonent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Minigin\Gamemode.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Minigin\LevelGenerator.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Minigin\Idle.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Minigin\Move.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Minigin\Shoot.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Minigin\Turn.h">
+      <Filter>FSM</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

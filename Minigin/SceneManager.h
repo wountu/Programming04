@@ -3,6 +3,7 @@
 #include <string>
 #include <memory>
 #include "Singleton.h"
+#include "LevelGenerator.h"
 
 namespace dae
 {
@@ -11,6 +12,7 @@ namespace dae
 	{
 	public:
 		std::shared_ptr<Scene> CreateScene(const std::string& name);
+		std::shared_ptr<Scene> CreateScene(const std::string& name, LevelData* pLevelData);
 
 		void Update();
 		void FixedUpdate(float timeStep);
