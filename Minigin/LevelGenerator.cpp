@@ -1,5 +1,9 @@
 #include "LevelGenerator.h"
 #include "ResourceManager.h"
+#include "TransformComponent.h"
+#include "RenderComponent.h"
+#include "CollisionBoxComponent.h"
+
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -112,14 +116,11 @@ namespace dae
                     std::getline(ss, number, ',');
 
                     width = std::stoi(number);
-                    std::cout << "Found width: " << number << "\n";
                 }
                 if (text == "height")
                 {
                     std::string number{};
                     std::getline(ss, number, ',');
-
-                    std::cout << "Found height: " << number <<  "\n";
                 }
                 if (text == "grid")
                 {
@@ -127,8 +128,6 @@ namespace dae
                     while (std::getline(file, gridLine))
                     {
                         std::stringstream ssGridLine{ gridLine };
-
-                        //ssGridLine.get(catchSs);
 
                         std::string number{};
                         while (std::getline(ssGridLine, number, ','))
@@ -148,19 +147,23 @@ namespace dae
                                     switch (parsedNmbr)
                                     {
                                     case 1: 
+                                        tile.tileType = TileType::WALL;
                                         tile.walkable = false;
                                         break;
                                     case 2:
+                                        tile.tileType = TileType::PATH;
                                         tile.walkable = true;
+                                        tile.hasDot = true;
                                         break;
+                                    case 4:
+                                        tile.tileType = TileType::PATH;
+                                        tile.walkable = true;
                                     default:
                                         tile.walkable = true;
                                         break;
                                     }
                                   
                                     grid.push_back(tile);
-                                    //std::cout << number[idx] << "\n";
-                                    //intGrid.push_back(parsedNmbr);
                                     break;
                                 }
                             }
@@ -176,6 +179,41 @@ namespace dae
     void GridGenerator::SetTileDimensions(glm::vec2 tileDimensions)
     {
         m_TileDimensions = tileDimensions;
+    }
+
+    void GridGenerator::LinkTextureToTile(TileType tileType, std::shared_ptr<Texture2D> pTexture)
+    {
+        m_TextureMaps.emplace(tileType, pTexture);
+    }
+
+    std::vector<std::shared_ptr<GameObject>> GridGenerator::CreateGameObjects(std::vector<Tile> grid)
+    {
+        std::vector<std::shared_ptr<GameObject>> gridGO{};
+
+        for (const auto& tile : grid)
+        {
+            auto tileGO = std::make_shared<GameObject>();
+            tileGO->Initialize();
+            tileGO->SetTag(Static);
+
+            auto transform = tileGO->AddComponent<TransformComponent>();
+            transform->Initialize(tile.LeftTop, 0.f, tileGO);
+
+            auto texture = m_TextureMaps.at(tile.tileType);
+            auto render = tileGO->AddComponent<RenderComponent>();
+            render->Initialize(texture, tileGO);
+
+            if (tile.tileType == TileType::WALL)
+            {
+                auto collision = tileGO->AddComponent<CollisionBoxComponent>();
+                auto collBox = CollisionBox(tile.LeftTop, static_cast<float>(tile.Width), static_cast<float>(tile.Height));
+                collision->Initialize(tileGO, collBox, 0);
+            }
+
+            gridGO.push_back(tileGO);
+        }
+
+        return gridGO;
     }
 }
 

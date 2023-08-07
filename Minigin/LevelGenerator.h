@@ -4,18 +4,31 @@
 #include <vector>
 #include <glm/vec2.hpp>
 #include <memory>
+#include <map>
 
 #include "Singleton.h"
+#include "Texture2D.h"
+#include "GameObject.h"
 
 namespace dae
 {
+	enum class TileType
+	{
+		WALL,
+		PATH,
+	};
+
+
 	struct Tile
 	{
 		Tile() = default;
+
 		glm::vec2 LeftTop;
 		int Width;
 		int Height;
 		bool walkable;
+		bool hasDot;
+		TileType tileType;
 	};
 
 	struct Block
@@ -36,7 +49,6 @@ namespace dae
 	{
 	public:
 		GridGenerator() = default;
-		//GridGenerator(glm::vec2 tileDimensions);
 		~GridGenerator() = default;
 
 		GridGenerator(const GridGenerator& other) = delete;
@@ -46,9 +58,13 @@ namespace dae
 
 		std::vector<Tile> CreateGrid(const std::string& levelPathName, glm::vec2 tileDimensions);
 		void SetTileDimensions(glm::vec2 tileDimensions);
+		void LinkTextureToTile(TileType tileType, std::shared_ptr<Texture2D> pTexture);
 
+		std::vector<std::shared_ptr<GameObject>> CreateGameObjects(std::vector<Tile> grid);
 	private:
 		glm::vec2 m_TileDimensions{};
+		using textureMap = std::map<TileType, std::shared_ptr<Texture2D>>;
+		textureMap m_TextureMaps{};
 	};
 
 	class LevelGenerator final : public Singleton<LevelGenerator>

@@ -8,6 +8,7 @@ namespace dae
 	{
 	public:
 		void Add(std::shared_ptr<GameObject> object);
+		void Add(std::vector<std::shared_ptr<GameObject>> objects);
 		void Remove(std::shared_ptr<GameObject> object);
 		void RemoveAll();
 

@@ -89,7 +89,37 @@ void load()
 	std::unique_ptr<dae::LevelData> pLevel = dae::LevelGenerator::GetInstance().LoadLevel("Level/LevelLayout2.csv");
 	auto scene = sceneManager.CreateScene("1st Scene");
 
-	dae::GridGenerator::GetInstance().CreateGrid("Level/level.txt", glm::vec2(16, 16));
+	auto& resourceMan = dae::ResourceManager::GetInstance();
+	auto& gridGen = dae::GridGenerator::GetInstance();
+
+	auto pathTexture = resourceMan.LoadTexture("path.png");
+	auto wallTexture = resourceMan.LoadTexture("wall.png");
+	auto dotTexture = resourceMan.LoadTexture("pill.png");
+
+	gridGen.LinkTextureToTile(dae::TileType::PATH, pathTexture);
+	gridGen.LinkTextureToTile(dae::TileType::WALL, wallTexture);
+
+	auto grid = gridGen.CreateGrid("Level/level.txt", glm::vec2(pathTexture->GetSize().x, pathTexture->GetSize().y));
+	scene->Add(gridGen.CreateGameObjects(grid));
+
+	for (const auto& tile : grid)
+	{
+		if (tile.hasDot)
+		{
+			auto dot = std::make_shared<dae::GameObject>();
+			dot->Initialize();
+			dot->SetTag(dae::Dot);
+
+			auto transform = dot->AddComponent<dae::TransformComponent>();
+			transform->Initialize(tile.LeftTop, 0.f, dot);
+
+			auto render = dot->AddComponent<dae::RenderComponent>();
+			render->Initialize(dotTexture, dot);
+
+			scene->Add(dot);
+		}
+	}
+	
 	//dae::LevelGenerator::GetInstance().("Level/level.json");
 
 

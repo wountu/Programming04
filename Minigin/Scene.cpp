@@ -41,6 +41,15 @@ void Scene::Add(std::shared_ptr<GameObject> object)
 	m_objects.emplace_back(std::move(object));
 }
 
+void dae::Scene::Add(std::vector<std::shared_ptr<GameObject>> objects)
+{
+	for (const auto& object : objects)
+	{
+		object->SetActive(m_Active);
+		m_objects.emplace_back(std::move(object));
+	}
+}
+
 void Scene::Remove(std::shared_ptr<GameObject> object)
 {
 	m_objects.erase(std::remove(m_objects.begin(), m_objects.end(), object), m_objects.end());

@@ -23,7 +23,8 @@ namespace dae
 		Bullet,
 		UI,
 		AI,
-		Recognizer
+		Recognizer,
+		Dot
 	};
 
 	// todo: this should become final.
