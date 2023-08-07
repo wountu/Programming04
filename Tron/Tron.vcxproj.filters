@@ -87,6 +87,9 @@
     <ClCompile Include="..\Minigin\Turn.cpp">
       <Filter>FSM</Filter>
     </ClCompile>
+    <ClCompile Include="..\Minigin\PlayerComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Minigin\BulletComponent.h">
@@ -142,6 +145,15 @@
     </ClInclude>
     <ClInclude Include="PacmanPrefab.h">
       <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="DotPrefab.h">
+      <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Minigin\MainPlayerPrefab.h">
+      <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Minigin\PlayerComponent.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -154,20 +154,21 @@ namespace dae
 
                                     case 2:
                                         tile.tileType = TileType::PATH;
-                                        tile.walkable = true;
                                         tile.hasDot = true;
                                         break;
 
-
                                     case 3:
+                                        tile.tileType = TileType::PATH;
+                                        tile.hasBigDot = true;
                                         break;
-
 
                                     case 4:
                                         tile.tileType = TileType::PATH;
-                                        tile.walkable = true;
-                                    default:
-                                        tile.walkable = true;
+                                        break;
+
+                                    case 7:
+                                        tile.tileType = TileType::PATH;
+                                        tile.isSpawnPoint = true;
                                         break;
                                     }
                                   

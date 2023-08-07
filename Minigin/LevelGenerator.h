@@ -26,8 +26,10 @@ namespace dae
 		glm::vec2 LeftTop;
 		int Width;
 		int Height;
-		bool walkable;
+		bool walkable = true;
 		bool hasDot;
+		bool hasBigDot;
+		bool isSpawnPoint;
 		TileType tileType;
 	};
 

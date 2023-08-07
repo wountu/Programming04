@@ -40,6 +40,8 @@
 #include "Gamemode.h"
 #include "LoadScenes.h"
 #include "PacmanPrefab.h"
+#include "DotPrefab.h"
+#include "MainPlayerPrefab.h"
 
 void load()
 {
@@ -95,7 +97,6 @@ void load()
 
 	auto pathTexture = resourceMan.LoadTexture("path.png");
 	auto wallTexture = resourceMan.LoadTexture("wall.png");
-	auto dotTexture = resourceMan.LoadTexture("pill.png");
 
 	gridGen.LinkTextureToTile(dae::TileType::PATH, pathTexture);
 	gridGen.LinkTextureToTile(dae::TileType::WALL, wallTexture);
@@ -107,23 +108,25 @@ void load()
 	{
 		if (tile.hasDot)
 		{
-			auto dot = std::make_shared<dae::GameObject>();
-			dot->Initialize();
-			dot->SetTag(dae::Dot);
+			auto dotPrefab = std::make_unique<DotPrefab>();
+			dotPrefab->SetTexture(resourceMan.LoadTexture("pill.png"));
+			scene->Add(dotPrefab->Create(tile.LeftTop));
+		}
 
-			auto transform = dot->AddComponent<dae::TransformComponent>();
-			transform->Initialize(tile.LeftTop, 0.f, dot);
+		if (tile.hasBigDot)
+		{
+			auto dotPrefab = std::make_unique<DotPrefab>();
+			dotPrefab->SetTexture(resourceMan.LoadTexture("boost.png"));
+			scene->Add(dotPrefab->Create(tile.LeftTop));
+		}
 
-			auto render = dot->AddComponent<dae::RenderComponent>();
-			render->Initialize(dotTexture, dot);
-
-			scene->Add(dot);
+		if (tile.isSpawnPoint)
+		{
+			auto pacmanPrefab = std::make_unique<MainPlayerPrefab>();
+			pacmanPrefab->SetTexture(resourceMan.LoadTexture("pacman.png"));
+			scene->Add(pacmanPrefab->Create(tile.LeftTop));
 		}
 	}
-	
-	std::unique_ptr<PacmanPrefab> pacmanPrefab = std::make_unique<PacmanPrefab>();
-	pacmanPrefab->SetTexture(resourceMan.LoadTexture("pacman.png"));
-	scene->Add(pacmanPrefab->Create(glm::vec2(20, 20)));
 
 
 	//dae::LevelGenerator::GetInstance().("Level/level.json");
