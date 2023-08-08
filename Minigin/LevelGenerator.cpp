@@ -102,7 +102,6 @@ namespace dae
         std::ifstream file(fullPath);
         assert(file.is_open() && "Failed to open the file given in the loadlevel!");
 
-        int width{};
         std::string line{};
         while (std::getline(file, line))
         {
@@ -115,12 +114,14 @@ namespace dae
                     std::string number{};
                     std::getline(ss, number, ',');
 
-                    width = std::stoi(number);
+                    m_GridWidth = std::stoi(number);
                 }
                 if (text == "height")
                 {
                     std::string number{};
                     std::getline(ss, number, ',');
+
+                    m_GridHeight = std::stoi(number);
                 }
                 if (text == "grid")
                 {
@@ -139,8 +140,8 @@ namespace dae
                                     Tile tile{};
                                     tile.Width = static_cast<int>(tileDimensions.x);
                                     tile.Height = static_cast<int>(tileDimensions.y);
-                                    tile.LeftTop.x = ((m_Grid.size()) % width) * tileDimensions.x;
-                                    tile.LeftTop.y = static_cast<float>((m_Grid.size() / (width)) * tileDimensions.y);
+                                    tile.LeftTop.x = ((m_Grid.size()) % m_GridWidth) * tileDimensions.x;
+                                    tile.LeftTop.y = static_cast<float>((m_Grid.size() / (m_GridWidth)) * tileDimensions.y);
 
                                     int parsedNmbr{ static_cast<int>(number[idx] - '0') };
                                     
@@ -226,9 +227,30 @@ namespace dae
 
         return gridGO;
     }
+
     std::vector<Tile> GridGenerator::GetGrid() const
     {
         return m_Grid;
+    }
+
+    int GridGenerator::GetIdxFromPos(glm::vec2 pos)
+    {
+        const int tileWidth = m_Grid[0].Width;
+        const int tileHeight = m_Grid[0].Height;
+        int x = static_cast<int>(pos.x / tileWidth);
+        int y = static_cast<int>(pos.y / tileHeight);
+
+        return x + (y * m_GridWidth);
+    }
+
+    int GridGenerator::GetGridWidth() const
+    {
+        return m_GridWidth;
+    }
+
+    int GridGenerator::GetGridHeight() const
+    {
+        return m_GridHeight;
     }
 }
 

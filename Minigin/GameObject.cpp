@@ -115,7 +115,17 @@ bool dae::GameObject::GetActive() const
 	return m_Active;
 }
 
-void dae::GameObject::Update()
+void dae::GameObject::Destroy()
+{
+	m_destroy = true;
+}
+
+bool dae::GameObject::ShouldDestroy() const
+{
+	return m_destroy;
+}
+
+void dae::GameObject::Update()	
 {
 	if(m_Active)
 	{
@@ -149,9 +159,9 @@ void dae::GameObject::Render() const
 
 void dae::GameObject::RemoveAllComponents()
 {
-	while (m_components.size() != 0)
+	for(auto& component : m_components)
 	{
-		m_components.pop_back();
+		component.reset();
 	}
 }
 

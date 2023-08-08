@@ -7,6 +7,7 @@ namespace dae
 	class ScoreObserver final : public Observer
 	{
 	public:
+		ScoreObserver() = default;
 		ScoreObserver(glm::vec2 pos, int score);
 		~ScoreObserver() = default;
 
@@ -14,6 +15,8 @@ namespace dae
 		ScoreObserver& operator=(const ScoreObserver& other) = delete;
 		ScoreObserver(ScoreObserver&& other) = delete;
 		ScoreObserver& operator=(ScoreObserver&& other) = delete;
+
+		void Initialize(glm::vec2 pos, int score);
 
 		virtual void HandleEvent(GameObject* actor, Event event) override;
 		virtual void OnSubjectDestroy() override;

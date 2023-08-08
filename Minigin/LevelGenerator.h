@@ -65,7 +65,12 @@ namespace dae
 		std::vector<std::shared_ptr<GameObject>> CreateGameObjects();
 
 		std::vector<Tile> GetGrid() const;
+		int GetIdxFromPos(glm::vec2 pos);
+
+		int GetGridWidth() const;
+		int GetGridHeight() const;
 	private:
+		int m_GridWidth{}, m_GridHeight{};
 		std::vector<Tile> m_Grid{};
 		glm::vec2 m_TileDimensions{};
 		using textureMap = std::map<TileType, std::shared_ptr<Texture2D>>;

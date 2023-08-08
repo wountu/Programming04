@@ -188,6 +188,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" /R/Y</Comm
     <ClCompile Include="..\Minigin\AIComonent.cpp" />
     <ClCompile Include="..\Minigin\BulletComponent.cpp" />
     <ClCompile Include="..\Minigin\BulletManager.cpp" />
+    <ClCompile Include="..\Minigin\CollectableComponent.cpp" />
     <ClCompile Include="..\Minigin\Command.cpp" />
     <ClCompile Include="..\Minigin\fpsCounter.cpp" />
     <ClCompile Include="..\Minigin\Gamemode.cpp" />
@@ -208,7 +209,9 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" /R/Y</Comm
     <ClInclude Include="..\Minigin\AIComonent.h" />
     <ClInclude Include="..\Minigin\BulletComponent.h" />
     <ClInclude Include="..\Minigin\BulletManager.h" />
+    <ClInclude Include="..\Minigin\CollectableComponent.h" />
     <ClInclude Include="..\Minigin\Command.h" />
+    <ClInclude Include="..\Minigin\DotsPrefab.h" />
     <ClInclude Include="..\Minigin\fpsCounter.h" />
     <ClInclude Include="..\Minigin\Gamemode.h" />
     <ClInclude Include="..\Minigin\HealthComponent.h" />
@@ -224,8 +227,6 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" /R/Y</Comm
     <ClInclude Include="..\Minigin\ScoreObserver.h" />
     <ClInclude Include="..\Minigin\Shoot.h" />
     <ClInclude Include="..\Minigin\Turn.h" />
-    <ClInclude Include="DotPrefab.h" />
-    <ClInclude Include="PacmanPrefab.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

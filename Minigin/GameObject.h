@@ -68,6 +68,9 @@ namespace dae
 
 		void SetActive(bool active);
 		bool GetActive() const;
+
+		void Destroy();
+		bool ShouldDestroy() const;
 	private:
 		//Children
 		void AddChild(GameObject* pChild);
@@ -93,6 +96,8 @@ namespace dae
 
 		//Active
 		bool m_Active{ false };
+
+		bool m_destroy{};
 	};
 
 	template<typename T>

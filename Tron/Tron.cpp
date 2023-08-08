@@ -40,7 +40,7 @@
 #include "Gamemode.h"
 #include "LoadScenes.h"
 #include "PacmanPrefab.h"
-#include "DotPrefab.h"
+#include "DotsPrefab.h"
 #include "MainPlayerPrefab.h"
 #include "Command.h"
 
@@ -109,23 +109,29 @@ void load()
 	{
 		if (tile.hasDot)
 		{
-			auto dotPrefab = std::make_unique<DotPrefab>();
+			auto dotPrefab = std::make_unique<DotsPrefab>();
 			dotPrefab->SetTexture(resourceMan.LoadTexture("pill.png"));
 			scene->Add(dotPrefab->Create(tile.LeftTop));
 		}
 
 		if (tile.hasBigDot)
 		{
-			auto dotPrefab = std::make_unique<DotPrefab>();
+			auto dotPrefab = std::make_unique<DotsPrefab>();
 			dotPrefab->SetTexture(resourceMan.LoadTexture("boost.png"));
 			scene->Add(dotPrefab->Create(tile.LeftTop));
 		}
 
 		if (tile.isSpawnPoint)
 		{
+			//Create the GO
 			auto pacmanPrefab = std::make_unique<MainPlayerPrefab>();
 			pacmanPrefab->SetTexture(resourceMan.LoadTexture("pacman.png"));
-			scene->Add(pacmanPrefab->Create(tile.LeftTop));
+			auto pacman = pacmanPrefab->Create(tile.LeftTop);
+			scene->Add(pacman);
+
+			auto scoreObserver = new dae::ScoreObserver(glm::vec2(475, 20), 0);
+			pacman->GetComponent<dae::ScoreComponent>()->AddObserver(scoreObserver);
+
 			pacmanPrefab->SetMovementKeys(SDL_SCANCODE_LEFT, SDL_SCANCODE_RIGHT, SDL_SCANCODE_UP, SDL_SCANCODE_DOWN);
 		}
 	}

@@ -66,6 +66,17 @@ void Scene::Update()
 	{
 		object->Update();
 	}
+
+	
+	for (auto object : m_objects)
+	{
+		if (object->ShouldDestroy())
+		{
+			m_objects.erase(std::remove(m_objects.begin(), m_objects.end(), object));
+			object->RemoveAllComponents();
+			object.reset();
+		}
+	}
 }
 
 void Scene::Render() const

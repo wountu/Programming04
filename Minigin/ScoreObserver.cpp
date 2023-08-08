@@ -16,6 +16,18 @@ dae::ScoreObserver::ScoreObserver(glm::vec2 pos, int score)
 	m_Text->SetPos(pos);
 }
 
+void dae::ScoreObserver::Initialize(glm::vec2 pos, int score)
+{
+	m_Text = std::make_unique<TextObject>();
+
+	m_ScoreDisplay = "Score: " + std::to_string(score);
+	m_Score = score;
+
+	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 12);
+	m_Text->Initialize(m_ScoreDisplay, font, nullptr);
+	m_Text->SetPos(pos);
+}
+
 void dae::ScoreObserver::HandleEvent(GameObject* actor, Event event)
 {
 	switch (event)

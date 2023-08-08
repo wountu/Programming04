@@ -25,3 +25,8 @@ void dae::RenderComponent::Render() const
 	renderer.SetRenderAngle(m_transform->GetAngle());
 	renderer.RenderTexture(*m_texture);
 }
+
+std::shared_ptr<dae::Texture2D> dae::RenderComponent::GetTexture() const
+{
+	return m_texture;
+}

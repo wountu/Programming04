@@ -50,7 +50,6 @@ namespace dae
 	{
 		m_Angle = angle;
 
-
 		m_Direction.x = cos(glm::radians(m_Angle));
 		m_Direction.y = sin(glm::radians(m_Angle));
 
