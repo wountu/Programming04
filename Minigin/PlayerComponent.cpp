@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "TimeClass.h"
 
+
 dae::PlayerComponent::~PlayerComponent()
 {
 }
@@ -10,6 +11,8 @@ void dae::PlayerComponent::Initialize(std::shared_ptr<GameObject> parent, const 
 {
 	m_Transform = parent->GetComponent<TransformComponent>();
 	m_MovementSpeed = movementSpeed;
+	m_Grid = GridGenerator::GetInstance().GetGrid();
+	assert(!m_Grid.empty() && "The player needs the grid to be generated before creating the player(playercomponent)");
 }
 
 void dae::PlayerComponent::Update()

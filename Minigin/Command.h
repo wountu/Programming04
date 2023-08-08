@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "glm/vec2.hpp"
 
-#include "PacmanComponent.h"
+#include "PlayerComponent.h"
 
 namespace dae
 {
@@ -95,14 +95,15 @@ namespace dae
 	class ChangeDir final : public Command
 	{
 	public:
-		ChangeDir(GameObject* parent, glm::vec2 dir);
+		ChangeDir(GameObject* parent);
+		void SetDir(glm::vec2 dir);
+
 		virtual ~ChangeDir() = default;
 
 		void Execute() override;
 	private:
-		GameObject* m_Parent;
 		glm::vec2 m_Dir;
-		PacmanComponent* m_Pacman;
+		PlayerComponent* m_Player;
 	};
 }
 

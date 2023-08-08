@@ -23,14 +23,14 @@ namespace dae
 	{
 		Tile() = default;
 
-		glm::vec2 LeftTop;
-		int Width;
-		int Height;
+		glm::vec2 LeftTop{};
+		int Width{};
+		int Height{};
 		bool walkable = true;
-		bool hasDot;
-		bool hasBigDot;
-		bool isSpawnPoint;
-		TileType tileType;
+		bool hasDot{};
+		bool hasBigDot{};
+		bool isSpawnPoint{};
+		TileType tileType{};
 	};
 
 	struct Block
@@ -62,8 +62,11 @@ namespace dae
 		void SetTileDimensions(glm::vec2 tileDimensions);
 		void LinkTextureToTile(TileType tileType, std::shared_ptr<Texture2D> pTexture);
 
-		std::vector<std::shared_ptr<GameObject>> CreateGameObjects(std::vector<Tile> grid);
+		std::vector<std::shared_ptr<GameObject>> CreateGameObjects();
+
+		std::vector<Tile> GetGrid() const;
 	private:
+		std::vector<Tile> m_Grid{};
 		glm::vec2 m_TileDimensions{};
 		using textureMap = std::map<TileType, std::shared_ptr<Texture2D>>;
 		textureMap m_TextureMaps{};

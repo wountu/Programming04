@@ -42,6 +42,7 @@
 #include "PacmanPrefab.h"
 #include "DotPrefab.h"
 #include "MainPlayerPrefab.h"
+#include "Command.h"
 
 void load()
 {
@@ -102,7 +103,7 @@ void load()
 	gridGen.LinkTextureToTile(dae::TileType::WALL, wallTexture);
 
 	auto grid = gridGen.CreateGrid("Level/level.txt", glm::vec2(pathTexture->GetSize().x, pathTexture->GetSize().y));
-	scene->Add(gridGen.CreateGameObjects(grid));
+	scene->Add(gridGen.CreateGameObjects());
 
 	for (const auto& tile : grid)
 	{
@@ -125,6 +126,7 @@ void load()
 			auto pacmanPrefab = std::make_unique<MainPlayerPrefab>();
 			pacmanPrefab->SetTexture(resourceMan.LoadTexture("pacman.png"));
 			scene->Add(pacmanPrefab->Create(tile.LeftTop));
+			pacmanPrefab->SetMovementKeys(SDL_SCANCODE_LEFT, SDL_SCANCODE_RIGHT, SDL_SCANCODE_UP, SDL_SCANCODE_DOWN);
 		}
 	}
 

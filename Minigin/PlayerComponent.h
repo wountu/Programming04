@@ -3,6 +3,7 @@
 
 #include "BaseComponent.h"
 #include "TransformComponent.h"
+#include "LevelGenerator.h"
 
 namespace dae
 {
@@ -23,6 +24,8 @@ namespace dae
 	private:
 		glm::vec2 m_Direction{};
 		std::shared_ptr<TransformComponent> m_Transform{};
+
+		std::vector<Tile> m_Grid{};
 
 		float m_MovementSpeed{};
 	};

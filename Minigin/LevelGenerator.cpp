@@ -139,8 +139,8 @@ namespace dae
                                     Tile tile{};
                                     tile.Width = static_cast<int>(tileDimensions.x);
                                     tile.Height = static_cast<int>(tileDimensions.y);
-                                    tile.LeftTop.x = ((grid.size()) % width) * tileDimensions.x;
-                                    tile.LeftTop.y = static_cast<float>((grid.size() / (width)) * tileDimensions.y);
+                                    tile.LeftTop.x = ((m_Grid.size()) % width) * tileDimensions.x;
+                                    tile.LeftTop.y = static_cast<float>((m_Grid.size() / (width)) * tileDimensions.y);
 
                                     int parsedNmbr{ static_cast<int>(number[idx] - '0') };
                                     
@@ -172,7 +172,7 @@ namespace dae
                                         break;
                                     }
                                   
-                                    grid.push_back(tile);
+                                    m_Grid.push_back(tile);
                                     break;
                                 }
                             }
@@ -182,7 +182,7 @@ namespace dae
             }
         }
 
-        return grid;
+        return m_Grid;
     }
 
     void GridGenerator::SetTileDimensions(glm::vec2 tileDimensions)
@@ -195,11 +195,13 @@ namespace dae
         m_TextureMaps.emplace(tileType, pTexture);
     }
 
-    std::vector<std::shared_ptr<GameObject>> GridGenerator::CreateGameObjects(std::vector<Tile> grid)
+    std::vector<std::shared_ptr<GameObject>> GridGenerator::CreateGameObjects()
     {
         std::vector<std::shared_ptr<GameObject>> gridGO{};
 
-        for (const auto& tile : grid)
+        assert(!m_Grid.empty() && "First the grid needs to be created before turning in it into GO's");
+
+        for (const auto& tile : m_Grid)
         {
             auto tileGO = std::make_shared<GameObject>();
             tileGO->Initialize();
@@ -223,6 +225,10 @@ namespace dae
         }
 
         return gridGO;
+    }
+    std::vector<Tile> GridGenerator::GetGrid() const
+    {
+        return m_Grid;
     }
 }
 

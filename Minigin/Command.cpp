@@ -98,15 +98,18 @@ namespace dae
 		Gamemode::GetInstance().StartGame();
 	}
 
-	ChangeDir::ChangeDir(GameObject* /*parent*/, glm::vec2 /*dir*/)
+	ChangeDir::ChangeDir(GameObject* parent)
 	{
-		//m_Pacman = parent->GetComponent<dae::Pac
-		//m_Parent = parent;
-		//m_Dir = dir;
+		m_Player = parent->GetComponent<dae::PlayerComponent>().get();
+	}
+
+	void ChangeDir::SetDir(glm::vec2 dir)
+	{
+		m_Dir = dir;
 	}
 
 	void ChangeDir::Execute()
 	{
-		//m_Pacman
+		m_Player->SetDirection(m_Dir);
 	}
 }

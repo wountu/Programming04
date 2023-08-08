@@ -37,13 +37,13 @@ namespace dae
 	{
 		//Debug render
 
-		//SDL_Rect rect;
-		//rect.x = static_cast<int>(m_CollisionBox._leftTop.x);
-		//rect.y = static_cast<int>(m_CollisionBox._leftTop.y);
-		//rect.w = static_cast<int>(m_CollisionBox._width);
-		//rect.h = static_cast<int>(m_CollisionBox._height);
+		SDL_Rect rect;
+		rect.x = static_cast<int>(m_CollisionBox._leftTop.x);
+		rect.y = static_cast<int>(m_CollisionBox._leftTop.y);
+		rect.w = static_cast<int>(m_CollisionBox._width);
+		rect.h = static_cast<int>(m_CollisionBox._height);
 
-		//SDL_RenderDrawRect(Renderer::GetInstance().GetSDLRenderer(), &rect);
+		SDL_RenderDrawRect(Renderer::GetInstance().GetSDLRenderer(), &rect);
 	}
 
 	void CollisionBoxComponent::CheckCollision()
