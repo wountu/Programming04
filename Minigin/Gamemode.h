@@ -1,11 +1,12 @@
 #pragma once
 #include "Singleton.h"
 #include "GameObject.h"
+#include "Observer.h"
 
 #include <vector>
 namespace dae
 {
-	class Gamemode final : public Singleton<Gamemode>
+	class Gamemode final : public Singleton<Gamemode>, public Observer
 	{
 	public:
 		enum GameModeEnum
@@ -22,6 +23,12 @@ namespace dae
 		Gamemode& operator=(const Gamemode& other) = delete;
 		Gamemode(Gamemode&& other) = delete;
 		Gamemode& operator=(Gamemode&& other) = delete;
+
+		virtual void HandleEvent(GameObject* actor, Event event) override;
+		virtual void OnSubjectDestroy() override;
+
+		virtual void Render() const override;
+		virtual void Update() override;
 
 		void SetGameMode(GameModeEnum gameMode);
 		GameModeEnum GetGameMode() const;

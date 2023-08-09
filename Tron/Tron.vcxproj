@@ -196,6 +196,8 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" /R/Y</Comm
     <ClCompile Include="..\Minigin\HealthObserver.cpp" />
     <ClCompile Include="..\Minigin\Idle.cpp" />
     <ClCompile Include="..\Minigin\LevelGenerator.cpp" />
+    <ClCompile Include="..\Minigin\MainmenuComponent.cpp" />
+    <ClCompile Include="..\Minigin\MainMenuObserver.cpp" />
     <ClCompile Include="..\Minigin\Move.cpp" />
     <ClCompile Include="..\Minigin\PlayerComponent.cpp" />
     <ClCompile Include="..\Minigin\RotateComponent.cpp" />
@@ -219,6 +221,8 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" /R/Y</Comm
     <ClInclude Include="..\Minigin\Idle.h" />
     <ClInclude Include="..\Minigin\LevelGenerator.h" />
     <ClInclude Include="..\Minigin\LoadScenes.h" />
+    <ClInclude Include="..\Minigin\MainmenuComponent.h" />
+    <ClInclude Include="..\Minigin\MainMenuObserver.h" />
     <ClInclude Include="..\Minigin\MainPlayerPrefab.h" />
     <ClInclude Include="..\Minigin\Move.h" />
     <ClInclude Include="..\Minigin\PlayerComponent.h" />

@@ -7,6 +7,8 @@ namespace dae
 	public:
 		enum Event
 		{
+			Mainmenu_Changed,
+			Mainmenu_Picked,
 			Health_Lost,
 			Health_Died,
 			Score_Add,

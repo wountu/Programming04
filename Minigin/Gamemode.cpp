@@ -6,6 +6,29 @@
 #include "fstream"
 #include "GameObject.h"
 
+
+void dae::Gamemode::HandleEvent(GameObject*, Event event)
+{
+	switch (event)
+	{
+	case dae::Observer::Event::Mainmenu_Picked:
+		StartGame();
+		break;
+	}
+}
+
+void dae::Gamemode::OnSubjectDestroy()
+{
+}
+
+void dae::Gamemode::Render() const
+{
+}
+
+void dae::Gamemode::Update()
+{
+}
+
 void dae::Gamemode::SetGameMode(Gamemode::GameModeEnum gameMode)
 {
 	m_GameMode = gameMode;

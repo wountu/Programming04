@@ -27,7 +27,6 @@ void dae::PlayerComponent::Update()
 
 	if (m_NewDirection != m_Direction && CheckForTurn()) //Needs to turn when arrived at the middle of the tile
 	{
-		std::cout << "Turn\n";
 		Turn();
 	}
 
@@ -199,7 +198,6 @@ bool dae::PlayerComponent::CheckForTurn()
 
 	if (dist < turnRadius)
 	{
-		std::cout << "Turn\n";
 		return true;
 	}
 	
@@ -208,7 +206,6 @@ bool dae::PlayerComponent::CheckForTurn()
 
 void dae::PlayerComponent::Turn()
 {
-	std::cout << "Turn\n";
 	m_Direction = m_NewDirection;
 	m_Transform->SetDirection(m_Direction);
 }

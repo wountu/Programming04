@@ -43,6 +43,8 @@
 #include "DotsPrefab.h"
 #include "MainPlayerPrefab.h"
 #include "Command.h"
+#include "MainmenuComponent.h"
+#include "MainMenuObserver.h"
 
 void load()
 {
@@ -65,28 +67,32 @@ void load()
 	static const auto mainMenu = sceneManager.CreateScene("Main menu");
 
 	//Gamemode text
-	std::shared_ptr<dae::GameObject> gameModeText = std::make_shared<dae::GameObject>();
-	gameModeText->Initialize();
+	std::shared_ptr<dae::GameObject> menu = std::make_shared<dae::GameObject>();
+	menu->Initialize();
 
-	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-	auto text = gameModeText->AddComponent<dae::TextObject>();
-	text->Initialize("Gamemode: ", font, gameModeText);
-	text->SetPos({ 200, 100 });
+	auto menuComponent = menu->AddComponent<dae::MainmenuComponent>();
+	menuComponent->Initialize(menu, dae::Menu::SINGLE);
+	
+	auto menuObserver = std::make_shared<dae::MainMenuObserver>();
+	menuObserver->Initialize(glm::vec2(200, 100), menuComponent->GetMenuText());
+	menuComponent->AddObserver(menuObserver);
 
-	mainMenu->Add(gameModeText);
+	dae::InputManager::GetInstance().AddCommand<dae::NextGamemode>(menu.get(), SDL_SCANCODE_RIGHT, dae::InputManager::KeyPress::SINGLEPRESS);
+	//dae::InputManager::GetInstance().AddCommand <dae::Start>(gamemodePicker.get(), SDL_SCANCODE_SPACE, dae::InputManager::KeyPress::SINGLEPRESS);
+
+
+
+	mainMenu->Add(menu);
 
 	//Gamemode picker
-	std::shared_ptr<dae::GameObject> gamemodePicker = std::make_shared<dae::GameObject>();
-	gamemodePicker->Initialize();
+	//std::shared_ptr<dae::GameObject> gamemodePicker = std::make_shared<dae::GameObject>();
+	//gamemodePicker->Initialize();
 
-	text = gamemodePicker->AddComponent<dae::TextObject>();
-	text->Initialize("Single player", font, gamemodePicker);
-	text->SetPos({ 200, 200 });
+	//text = gamemodePicker->AddComponent<dae::TextObject>();
+	//text->Initialize("Single player", font, gamemodePicker);
+	//text->SetPos({ 200, 200 });
 
-	dae::InputManager::GetInstance().AddCommand<dae::NextGamemode>(gamemodePicker.get(), SDL_SCANCODE_E, dae::InputManager::KeyPress::SINGLEPRESS);
-	dae::InputManager::GetInstance().AddCommand <dae::Start>(gamemodePicker.get(), SDL_SCANCODE_SPACE, dae::InputManager::KeyPress::SINGLEPRESS);
-
-	mainMenu->Add(gamemodePicker);
+	//menumainMenu->Add(gamemodePicker);
 
 	sceneManager.SetActiveScene(mainMenu);
 
