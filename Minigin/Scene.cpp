@@ -62,21 +62,18 @@ void Scene::RemoveAll()
 
 void Scene::Update()
 {
+	//Update
 	for(auto& object : m_objects)
 	{
 		object->Update();
 	}
 
-	
-	for (auto object : m_objects)
-	{
-		if (object->ShouldDestroy())
+	//Remove objects from container
+	m_objects.erase(std::remove_if(m_objects.begin(), m_objects.end(), [](const std::shared_ptr<GameObject>& object)
 		{
-			m_objects.erase(std::remove(m_objects.begin(), m_objects.end(), object));
-			object->RemoveAllComponents();
-			object.reset();
-		}
-	}
+			return object->ShouldDestroy();
+		}),
+		m_objects.end());
 }
 
 void Scene::Render() const

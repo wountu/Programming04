@@ -23,7 +23,7 @@ public:
 
 		auto collision = dot->AddComponent<dae::CollisionBoxComponent>();
 		collision->Initialize(dot, dae::CollisionBox(pos, static_cast<float>(m_Texture->GetSize().x)
-			, static_cast<float>(m_Texture->GetSize().y)), 0);
+			, static_cast<float>(m_Texture->GetSize().y)), 3);
 
 		auto collectable = dot->AddComponent<dae::CollectableComponent>();
 		collectable->Initialize(dot, m_DotScore);

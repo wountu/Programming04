@@ -28,8 +28,11 @@ namespace dae
 		bool CanGoDown(int idx);
 	private:
 		bool CheckUpcomingCollision();
+		bool CheckForTurn(); //Will return true when in the middle of the tile(To turn in)
+		void Turn();
 
-		glm::vec2 m_Direction{};
+		glm::vec2 m_Direction{}; //Current direction
+		glm::vec2 m_NewDirection{}; //Direction to take once the player arrived at the turn
 		std::shared_ptr<TransformComponent> m_Transform{};
 		std::shared_ptr<Texture2D> m_Texture{};
 

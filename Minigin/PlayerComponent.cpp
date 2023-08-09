@@ -25,7 +25,13 @@ void dae::PlayerComponent::Update()
 	m_Transform->ChangeLocalPosition(m_Transform->GetWorldPosition() +
 		(m_Direction * m_MovementSpeed * TimeClass::GetInstance().GetElapsed()));
 
-	if (CheckUpcomingCollision())
+	if (m_NewDirection != m_Direction && CheckForTurn()) //Needs to turn when arrived at the middle of the tile
+	{
+		std::cout << "Turn\n";
+		Turn();
+	}
+
+	if (CheckUpcomingCollision() && CheckForTurn())
 	{
 		m_Direction.x = 0;
 		m_Direction.y = 0;
@@ -49,26 +55,26 @@ void dae::PlayerComponent::SetDirection(glm::vec2 dir)
 
 	if (dir.x == -1 && CanGoLeft(idx))
 	{
-		m_Direction = dir;
-		m_Transform->SetDirection(m_Direction);
+		m_NewDirection = dir;
+		//m_Transform->SetDirection(m_Direction);
 	}
 
 	if (dir.x == 1 && CanGoRight(idx))
 	{
-		m_Direction = dir;
-		m_Transform->SetDirection(m_Direction);
+		m_NewDirection = dir;
+		//m_Transform->SetDirection(m_Direction);
 	}
 
-	if (dir.y == 1)
+	if (dir.y == 1 && CanGoDown(idx))
 	{
-		m_Direction = dir;
-		m_Transform->SetDirection(m_Direction);
+		m_NewDirection = dir;
+		//m_Transform->SetDirection(m_Direction);
 	}
 
-	if (dir.y == -1)
+	if (dir.y == -1 && CanGoUp(idx))
 	{
-		m_Direction = dir;
-		m_Transform->SetDirection(m_Direction);
+		m_NewDirection = dir;
+		//m_Transform->SetDirection(m_Direction);
 	}
 }
 
@@ -153,14 +159,14 @@ bool dae::PlayerComponent::CheckUpcomingCollision()
 		else return true;
 	}
 
-	if (m_Direction.y == 1)
+	if (m_Direction.y == -1)
 	{
 		if (CanGoUp(idx))
 			return false;
 		else return true;
 	}
 
-	if (m_Direction.y == -1)
+	if (m_Direction.y == 1)
 	{
 		if (CanGoDown(idx))
 			return false;
@@ -168,4 +174,41 @@ bool dae::PlayerComponent::CheckUpcomingCollision()
 	}
 
 	return false;
+}
+
+bool dae::PlayerComponent::CheckForTurn()
+{
+	const int turnRadius{ 1 }; //The radius the player can be from the turning point to turn in
+
+	auto pos = m_Transform->GetWorldPosition(); //Players pos
+
+	glm::vec2 middlePos{ pos }; // To find the right tile he is standing on
+	middlePos.x += m_Texture->GetSize().x / 2.f;
+	middlePos.y += m_Texture->GetSize().y / 2.f;
+
+	//Find the right tile
+	int idx = GridGenerator::GetInstance().GetIdxFromPos(middlePos);
+	dae::Tile node = m_Grid[idx];
+
+	//Middle point of turning node
+	glm::vec2 nodeMiddle{};
+	nodeMiddle.x = node.LeftTop.x + node.Width / 2.f;
+	nodeMiddle.y = node.LeftTop.y + node.Height / 2.f;
+
+	float dist = glm::distance(middlePos, nodeMiddle);
+
+	if (dist < turnRadius)
+	{
+		std::cout << "Turn\n";
+		return true;
+	}
+	
+	return false;
+}
+
+void dae::PlayerComponent::Turn()
+{
+	std::cout << "Turn\n";
+	m_Direction = m_NewDirection;
+	m_Transform->SetDirection(m_Direction);
 }

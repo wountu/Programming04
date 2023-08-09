@@ -111,6 +111,7 @@ void load()
 		{
 			auto dotPrefab = std::make_unique<DotsPrefab>();
 			dotPrefab->SetTexture(resourceMan.LoadTexture("pill.png"));
+			dotPrefab->SetDotScore(10);
 			scene->Add(dotPrefab->Create(tile.LeftTop));
 		}
 
@@ -118,6 +119,7 @@ void load()
 		{
 			auto dotPrefab = std::make_unique<DotsPrefab>();
 			dotPrefab->SetTexture(resourceMan.LoadTexture("boost.png"));
+			dotPrefab->SetDotScore(50);
 			scene->Add(dotPrefab->Create(tile.LeftTop));
 		}
 
@@ -129,12 +131,18 @@ void load()
 			auto pacman = pacmanPrefab->Create(tile.LeftTop);
 			scene->Add(pacman);
 
+			//Observers
 			auto scoreObserver = new dae::ScoreObserver(glm::vec2(475, 20), 0);
 			pacman->GetComponent<dae::ScoreComponent>()->AddObserver(scoreObserver);
 
+			//Keybinds
 			pacmanPrefab->SetMovementKeys(SDL_SCANCODE_LEFT, SDL_SCANCODE_RIGHT, SDL_SCANCODE_UP, SDL_SCANCODE_DOWN);
+			unsigned int idx = dae::InputManager::GetInstance().AddController();
+			pacmanPrefab->SetMovementButtons(ControllerXbox::ControllerInputs::DPAD_LEFT, ControllerXbox::ControllerInputs::DPAD_RIGHT, ControllerXbox::ControllerInputs::DPAD_UP, ControllerXbox::ControllerInputs::DPAD_DOWN, idx);
 		}
 	}
+
+
 
 
 	//dae::LevelGenerator::GetInstance().("Level/level.json");

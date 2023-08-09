@@ -63,6 +63,26 @@ public:
 		command->SetDir(glm::vec2(0, 1));
 	}
 
+	void SetMovementButtons(ControllerXbox::ControllerInputs left, ControllerXbox::ControllerInputs right
+		, ControllerXbox::ControllerInputs up, ControllerXbox::ControllerInputs down, unsigned int controller)
+	{
+		assert(m_PlayerGO && "The player GO isn't created yet, first create(Create()) the object then the SetMovementButtons");
+
+		auto& input = dae::InputManager::GetInstance();
+
+		auto command = input.AddCommand<dae::ChangeDir>(controller, m_PlayerGO.get(), left, dae::InputManager::KeyPress::SINGLEPRESS);
+		command->SetDir(glm::vec2(-1, 0));
+
+		command = input.AddCommand<dae::ChangeDir>(controller, m_PlayerGO.get(), right, dae::InputManager::KeyPress::SINGLEPRESS);
+		command->SetDir(glm::vec2(1, 0));
+
+		command = input.AddCommand<dae::ChangeDir>(controller, m_PlayerGO.get(), up, dae::InputManager::KeyPress::SINGLEPRESS);
+		command->SetDir(glm::vec2(0, -1));
+
+		command = input.AddCommand<dae::ChangeDir>(controller, m_PlayerGO.get(), down, dae::InputManager::KeyPress::SINGLEPRESS);
+		command->SetDir(glm::vec2(0, 1));
+	}
+
 private:
 	std::shared_ptr<dae::Texture2D> m_Texture{};
 	std::shared_ptr<dae::GameObject> m_PlayerGO{};
