@@ -1,3 +1,5 @@
+#include "InputManager.h"
+#include "InputManager.h"
 #include <SDL.h>
 #include "InputManager.h"
 //#include "XInput.h"
@@ -5,6 +7,7 @@
 bool dae::InputManager::ProcessInput()
 {
 	m_PressKeys.clear();
+	AddInput();
 
 	SDL_Event e;
 	while (SDL_PollEvent(&e)) {
@@ -95,9 +98,39 @@ bool dae::InputManager::ProcessInput()
 		}
 	}
 
+
 	DisableInput();
 
 	return true;
+}
+
+void dae::InputManager::AddInput()
+{
+	//for (const auto& command : m_ConsoleCommandsTypeToAdd)
+	//{
+	//	m_ConsoleCommandsType.insert(std::move(command));
+	//}
+
+	//m_ConsoleCommandsType.insert(std::make_move_iterator(m_ConsoleCommandsTypeToAdd.begin()), std::make_move_iterator(m_ConsoleCommandsTypeToAdd.end()));
+
+	//for (const auto& command : m_ConsoleCommandsTypeToAdd)
+	//{
+	//	m_ConsoleCommandsType.insert(std::make_pair(command.first, std::move(command.second)));
+	//}
+
+	//for (auto& command : m_HoldKeyboardCommandsToAdd)
+	//{
+	//	m_HoldKeyboardCommands.insert(std::move(command));
+	//}
+
+	//for (auto& command : m_PressKeyboardCommandsToAdd)
+	//{
+	//	m_PressKeyboardCommands.insert(std::move(command));
+	//}
+
+	//m_ConsoleCommandsTypeToAdd.clear();
+	//m_HoldKeyboardCommandsToAdd.clear();
+	//m_PressKeyboardCommandsToAdd.clear();
 }
 
 void dae::InputManager::DisableInput()
@@ -145,4 +178,6 @@ unsigned dae::InputManager::AddController()
 void dae::InputManager::RemoveCommand(Command* command)
 {
 	m_CommandsToDisable.emplace_back(command);
-} 
+}
+
+

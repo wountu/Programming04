@@ -5,6 +5,7 @@
 #include "LoadScenes.h"
 #include "fstream"
 #include "GameObject.h"
+#include "MainPlayerPrefab.h"
 
 void dae::Gamemode::HandleEvent(GameObject* parent, Event event)
 {
@@ -319,6 +320,30 @@ void dae::Gamemode::GameDone()
 void dae::Gamemode::LoadPLayersAndEnemies()
 {
 	auto scene = SceneManager::GetInstance().GetActiveScene();
+
+	auto grid = dae::GridGenerator::GetInstance().GetGrid();
+	
+	for (const auto& tile : grid)
+	{
+		if (tile.isSpawnPoint)
+		{
+			//Create the GO
+			auto pacmanPrefab = std::make_unique<MainPlayerPrefab>();
+			pacmanPrefab->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("pacman.png"));
+			auto pacman = pacmanPrefab->Create(tile.LeftTop);
+			scene->Add(pacman);
+
+			//Observers
+			auto scoreObserver = new dae::ScoreObserver(glm::vec2(475, 20), 0);
+			pacman->GetComponent<dae::ScoreComponent>()->AddObserver(scoreObserver);
+
+			//Keybinds
+			pacmanPrefab->SetMovementKeys(SDL_SCANCODE_LEFT, SDL_SCANCODE_RIGHT, SDL_SCANCODE_UP, SDL_SCANCODE_DOWN);
+			unsigned int idx = dae::InputManager::GetInstance().AddController();
+			pacmanPrefab->SetMovementButtons(ControllerXbox::ControllerInputs::DPAD_LEFT, ControllerXbox::ControllerInputs::DPAD_RIGHT, ControllerXbox::ControllerInputs::DPAD_UP, ControllerXbox::ControllerInputs::DPAD_DOWN, idx);
+		}
+	}
+
 
 //
 //#pragma region TRONTANK01

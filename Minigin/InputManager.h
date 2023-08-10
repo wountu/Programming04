@@ -23,8 +23,10 @@ namespace dae
 		unsigned AddController();
 		template<typename T> T* AddCommand(unsigned controllerIdx, GameObject* pObject, ControllerXbox::ControllerInputs inputToPress, KeyPress keypress); //For xbox
 		template<typename T> T* AddCommand(GameObject* pObject, SDL_Scancode key, KeyPress keypress); //For keyboard
+		
 		void RemoveCommand(Command* command);
 	private:
+		void AddInput();
 		void DisableInput();
 
 		using ControllerKey = std::pair<unsigned, ControllerXbox::ControllerInputs>;
@@ -35,8 +37,12 @@ namespace dae
 		ControllerCommandsMap m_ConsoleCommands{};
 		ControllerCommandType m_ConsoleCommandsType{};
 
+		ControllerCommandType m_ConsoleCommandsTypeToAdd{};
+
 		KeyboardCommandsMap m_HoldKeyboardCommands{};
 		KeyboardCommandsMap m_PressKeyboardCommands{};
+
+		KeyboardCommandsMap m_KeyboardCommandsToAdd{};
 
 		std::vector<std::unique_ptr<ControllerXbox>> m_Controllers{};
 		std::vector<SDL_Scancode> m_HoldKeys{};
@@ -72,9 +78,9 @@ namespace dae
 		T* returnValue = command.get();
 
 		if (keypress == KeyPress::HOLD)
-			m_HoldKeyboardCommands.insert({ key , std::move(command) });
+			m_HoldKeyboardCommands[key] = std::move(command);
 		else if (keypress == KeyPress::SINGLEPRESS)
-			m_PressKeyboardCommands.insert({ key, std::move(command) });
+			m_PressKeyboardCommands[key] = std::move(command);
 
 		return returnValue;
 	}
