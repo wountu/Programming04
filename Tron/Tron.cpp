@@ -117,10 +117,41 @@ void load()
 			scene->Add(dotPrefab->Create(tile.LeftTop));
 		}
 
+		//if (tile.isSpawnPoint)
+		//{
+		//	//Create the GO
+		//	auto pacmanPrefab = std::make_unique<MainPlayerPrefab>();
+		//	pacmanPrefab->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("pacman.png"));
+		//	auto pacman = pacmanPrefab->Create(tile.LeftTop);
+		//	scene->Add(pacman);
+
+		//	//Observers
+		//	auto scoreObserver = new dae::ScoreObserver(glm::vec2(475, 20), 0);
+		//	pacman->GetComponent<dae::ScoreComponent>()->AddObserver(scoreObserver);
+
+		//	//Keybinds
+		//	pacmanPrefab->SetMovementKeys(SDL_SCANCODE_LEFT, SDL_SCANCODE_RIGHT, SDL_SCANCODE_UP, SDL_SCANCODE_DOWN);
+		//	unsigned int idx = dae::InputManager::GetInstance().AddController();
+		//	pacmanPrefab->SetMovementButtons(ControllerXbox::ControllerInputs::DPAD_LEFT, ControllerXbox::ControllerInputs::DPAD_RIGHT, ControllerXbox::ControllerInputs::DPAD_UP, ControllerXbox::ControllerInputs::DPAD_DOWN, idx);
+		//}
 	}
 
+	//FPS Counter
+	auto fps = std::make_shared<dae::GameObject>();
+	fps->Initialize();
+	fps->SetTag(dae::UI);
 
+	auto transform = fps->AddComponent<dae::TransformComponent>();
+	transform->Initialize(glm::vec2(600, 10), 0.f, fps);
 
+	auto text = fps->AddComponent<dae::TextObject>();
+	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 12);
+	text->Initialize("fps: ", font, fps);
+
+	auto fpsComp = fps->AddComponent<dae::fpsCounter>();
+	fpsComp->Initialize(fps);
+
+	scene->Add(fps);
 
 	//dae::LevelGenerator::GetInstance().("Level/level.json");
 

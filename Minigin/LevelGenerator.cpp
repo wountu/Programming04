@@ -215,12 +215,12 @@ namespace dae
             auto render = tileGO->AddComponent<RenderComponent>();
             render->Initialize(texture, tileGO);
 
-            if (tile.tileType == TileType::WALL)
-            {
-                auto collision = tileGO->AddComponent<CollisionBoxComponent>();
-                auto collBox = CollisionBox(tile.LeftTop, static_cast<float>(tile.Width), static_cast<float>(tile.Height));
-                collision->Initialize(tileGO, collBox, 0);
-            }
+            //if (tile.tileType == TileType::WALL)
+            //{
+            //    auto collision = tileGO->AddComponent<CollisionBoxComponent>();
+            //    auto collBox = CollisionBox(tile.LeftTop, static_cast<float>(tile.Width), static_cast<float>(tile.Height));
+            //    collision->Initialize(tileGO, collBox, 0);
+            //}
 
             gridGO.push_back(tileGO);
         }

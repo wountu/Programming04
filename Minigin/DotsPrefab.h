@@ -12,7 +12,7 @@ public:
 	{
 		auto dot = std::make_shared<dae::GameObject>();
 		dot->Initialize();
-		dot->SetTag(dae::Player1);
+		dot->SetTag(dae::Dot);
 
 		auto transform = dot->AddComponent<dae::TransformComponent>();
 		transform->Initialize(pos, 0.f, dot);

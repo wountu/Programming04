@@ -53,12 +53,13 @@ dae::CollisionBoxComponent* dae::CollisionDetector::BoxColliding(CollisionBoxCom
 		if (boxComp == boxToCheck || !boxComp->IsActive())
 			continue;
 
-
 		auto box = boxComp->GetBox();
 		auto otherBox = boxToCheck->GetBox();
 
 		glm::vec2 rightBottomBox = { box._leftTop.x + box._width, box._leftTop.y + box._height };
 		glm::vec2 rightBottomOtherBox = { otherBox._leftTop.x + otherBox._width, otherBox._leftTop.y + otherBox._height };
+
+		//if(rightBottomOtherBox.x )
 
 		//if (std::abs(box._leftTop.x - otherBox._leftTop.x) >= 100)
 		//	continue;

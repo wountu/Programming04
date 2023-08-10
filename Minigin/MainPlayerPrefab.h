@@ -31,7 +31,8 @@ public:
 		pacmanComp->Initialize(m_PlayerGO, 50.f);
 
 		auto collision = m_PlayerGO->AddComponent<dae::CollisionBoxComponent>();
-		collision->Initialize(m_PlayerGO, dae::CollisionBox::CollisionBox(pos, static_cast<float>(m_Texture->GetSize().x), static_cast<float>(m_Texture->GetSize().y)), 0);
+ 		collision->Initialize(m_PlayerGO, dae::CollisionBox::CollisionBox(pos, static_cast<float>(m_Texture->GetSize().x), static_cast<float>(m_Texture->GetSize().y)), 0);
+		collision->SetActive(true);
 
 		auto score = m_PlayerGO->AddComponent<dae::ScoreComponent>();
 		score->Initialize(m_PlayerGO);

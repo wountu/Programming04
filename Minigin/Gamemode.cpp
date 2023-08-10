@@ -715,9 +715,9 @@ void dae::Gamemode::LoadPLayersAndEnemies()
 //	}
 //#pragma endregion AI
 
-	auto pacman = std::make_shared<GameObject>();
-	pacman->Initialize();
-	pacman->SetTag(Tag::Player1);
+	//auto pacman = std::make_shared<GameObject>();
+	//pacman->Initialize();
+	//pacman->SetTag(Tag::Player1);
 
 	//auto transform = pacman->AddComponent<TransformComponent>();
 	//transform->Initialize()
