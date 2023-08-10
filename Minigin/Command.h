@@ -81,6 +81,18 @@ namespace dae
 		GameObject* m_Parent{};
 	};
 
+	class PreviousGamemode final : public Command
+	{
+	public:
+		PreviousGamemode(GameObject* parent);
+		virtual ~PreviousGamemode() = default;
+
+		void Execute() override;
+	private:
+		GameObject* m_Parent{};
+	};
+
+	class MainmenuComponent;
 	class Start final : public Command
 	{
 	public:
@@ -89,7 +101,7 @@ namespace dae
 
 		void Execute() override;
 	private:
-		GameObject* m_Parent;
+		MainmenuComponent* m_Menu;
 	};
 
 	class ChangeDir final : public Command
@@ -102,7 +114,7 @@ namespace dae
 
 		void Execute() override;
 	private:
-		glm::vec2 m_Dir;
+		glm::vec2 m_Dir{};
 		PlayerComponent* m_Player;
 	};
 }

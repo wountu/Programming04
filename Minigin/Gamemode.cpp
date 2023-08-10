@@ -87,6 +87,7 @@ void dae::Gamemode::StartGame()
 {
 	if (!m_GameStarted)
 	{
+		//InputManager::GetInstance().RemoveCommand()
 		m_GameStarted = true;
 		//dae::SceneLoader::GetInstance().LoadScene1();
 		//dae::SceneLoader::GetInstance().LoadScene2(m_GameMode);

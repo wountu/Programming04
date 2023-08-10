@@ -4,6 +4,7 @@
 #include "Singleton.h"
 #include "ControllerXbox.h"
 #include "Command.h"
+#include "SDL.h"
 
 namespace dae
 {
@@ -22,8 +23,10 @@ namespace dae
 		unsigned AddController();
 		template<typename T> T* AddCommand(unsigned controllerIdx, GameObject* pObject, ControllerXbox::ControllerInputs inputToPress, KeyPress keypress); //For xbox
 		template<typename T> T* AddCommand(GameObject* pObject, SDL_Scancode key, KeyPress keypress); //For keyboard
-		template<typename T> T* RemoveCommand(T* command);
+		void RemoveCommand(Command* command);
 	private:
+		void DisableInput();
+
 		using ControllerKey = std::pair<unsigned, ControllerXbox::ControllerInputs>;
 		using ControllerCommandsMap = std::pair<ControllerKey, std::unique_ptr<Command>>;
 		using ControllerCommandType = std::map<ControllerCommandsMap, KeyPress>;
@@ -40,6 +43,8 @@ namespace dae
 		std::vector<SDL_Scancode> m_PressKeys{};
 
 		std::vector< ControllerXbox::ControllerInputs> m_PressButtons{};
+
+		std::vector<Command*> m_CommandsToDisable{};
 	};
 
 
@@ -73,5 +78,10 @@ namespace dae
 
 		return returnValue;
 	}
+
+	//void InputManager::RemoveCommand(Command* command)
+	//{
+
+	//}
 
 }

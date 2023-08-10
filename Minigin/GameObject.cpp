@@ -58,7 +58,6 @@ void dae::GameObject::RemoveChild(std::shared_ptr<GameObject> child)
 	{
 		m_children.erase(std::remove(m_children.begin(), m_children.end(), child.get()), m_children.end());
 	}
-
 }
 
 void dae::GameObject::SetPositionDirty()

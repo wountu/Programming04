@@ -6,7 +6,7 @@ void dae::MainMenuObserver::Initialize(glm::vec2 pos, std::string startText)
 {
 	m_Text = std::make_unique<TextObject>();
 
-	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 12);
+	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 24);
 	m_Text->Initialize(startText, font, nullptr);
 	m_Text->SetPos(pos);
 }

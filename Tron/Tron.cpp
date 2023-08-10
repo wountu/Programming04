@@ -66,7 +66,6 @@ void load()
 	//Main Menu
 	static const auto mainMenu = sceneManager.CreateScene("Main menu");
 
-	//Gamemode text
 	std::shared_ptr<dae::GameObject> menu = std::make_shared<dae::GameObject>();
 	menu->Initialize();
 
@@ -74,27 +73,14 @@ void load()
 	menuComponent->Initialize(menu, dae::Menu::SINGLE);
 	
 	auto menuObserver = std::make_shared<dae::MainMenuObserver>();
-	menuObserver->Initialize(glm::vec2(200, 100), menuComponent->GetMenuText());
+	menuObserver->Initialize(glm::vec2(220, 150), menuComponent->GetMenuText());
 	menuComponent->AddObserver(menuObserver);
-
-	dae::InputManager::GetInstance().AddCommand<dae::NextGamemode>(menu.get(), SDL_SCANCODE_RIGHT, dae::InputManager::KeyPress::SINGLEPRESS);
-	//dae::InputManager::GetInstance().AddCommand <dae::Start>(gamemodePicker.get(), SDL_SCANCODE_SPACE, dae::InputManager::KeyPress::SINGLEPRESS);
-
-
 
 	mainMenu->Add(menu);
 
-	//Gamemode picker
-	//std::shared_ptr<dae::GameObject> gamemodePicker = std::make_shared<dae::GameObject>();
-	//gamemodePicker->Initialize();
-
-	//text = gamemodePicker->AddComponent<dae::TextObject>();
-	//text->Initialize("Single player", font, gamemodePicker);
-	//text->SetPos({ 200, 200 });
-
-	//menumainMenu->Add(gamemodePicker);
-
 	sceneManager.SetActiveScene(mainMenu);
+
+	//Level 01
 
 	std::unique_ptr<dae::LevelData> pLevel = dae::LevelGenerator::GetInstance().LoadLevel("Level/LevelLayout2.csv");
 	auto scene = sceneManager.CreateScene("1st Scene");
@@ -141,10 +127,10 @@ void load()
 			auto scoreObserver = new dae::ScoreObserver(glm::vec2(475, 20), 0);
 			pacman->GetComponent<dae::ScoreComponent>()->AddObserver(scoreObserver);
 
-			//Keybinds
-			pacmanPrefab->SetMovementKeys(SDL_SCANCODE_LEFT, SDL_SCANCODE_RIGHT, SDL_SCANCODE_UP, SDL_SCANCODE_DOWN);
-			unsigned int idx = dae::InputManager::GetInstance().AddController();
-			pacmanPrefab->SetMovementButtons(ControllerXbox::ControllerInputs::DPAD_LEFT, ControllerXbox::ControllerInputs::DPAD_RIGHT, ControllerXbox::ControllerInputs::DPAD_UP, ControllerXbox::ControllerInputs::DPAD_DOWN, idx);
+			////Keybinds
+			//pacmanPrefab->SetMovementKeys(SDL_SCANCODE_LEFT, SDL_SCANCODE_RIGHT, SDL_SCANCODE_UP, SDL_SCANCODE_DOWN);
+			//unsigned int idx = dae::InputManager::GetInstance().AddController();
+			//pacmanPrefab->SetMovementButtons(ControllerXbox::ControllerInputs::DPAD_LEFT, ControllerXbox::ControllerInputs::DPAD_RIGHT, ControllerXbox::ControllerInputs::DPAD_UP, ControllerXbox::ControllerInputs::DPAD_DOWN, idx);
 		}
 	}
 

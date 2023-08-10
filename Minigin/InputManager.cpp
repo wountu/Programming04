@@ -95,7 +95,35 @@ bool dae::InputManager::ProcessInput()
 		}
 	}
 
+	DisableInput();
+
 	return true;
+}
+
+void dae::InputManager::DisableInput()
+{
+	//Disable commands
+	for (auto& command : m_CommandsToDisable)
+	{
+		for (auto it = m_ConsoleCommandsType.begin(); it != m_ConsoleCommandsType.end(); ++it)
+		{
+			if (it->first.second.get() == command)
+			{
+				it = m_ConsoleCommandsType.erase(it);
+				break;
+			}
+		}
+
+		for (auto it = m_PressKeyboardCommands.begin(); it != m_PressKeyboardCommands.end(); ++it)
+		{
+			if (it->second.get() == command)
+			{
+				it = m_PressKeyboardCommands.erase(it);
+				break;
+			}
+		}
+	}
+	m_CommandsToDisable.clear();
 }
 
 unsigned dae::InputManager::AddController()
@@ -104,3 +132,18 @@ unsigned dae::InputManager::AddController()
 	m_Controllers.push_back(std::make_unique<ControllerXbox>(index));
 	return index;
 }
+
+void dae::InputManager::RemoveCommand(Command* command)
+{
+
+
+	//for (auto& controllercommand : m_ConsoleCommandsType)
+	//{
+	//	if (controllercommand.first.second.get() == command)
+	//	{
+	//		m_ConsoleCommandsType.erase(controllercommand);
+	//	}
+	//}
+
+	m_CommandsToDisable.emplace_back(command);
+} 

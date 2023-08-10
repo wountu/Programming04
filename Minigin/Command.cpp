@@ -68,37 +68,26 @@ namespace dae
 	void NextGamemode::Execute()
 	{
 		m_Parent->GetComponent<MainmenuComponent>()->GoNext();
-		
-		//auto gameMode = Gamemode::GetInstance().GetGameMode();
-		//auto text = m_Parent->GetComponent<TextObject>();
-		//dae::Gamemode::GameModeEnum newGameMode{};
-		//switch (gameMode)
-		//{
-		//case dae::Gamemode::SINGLE_PLAYER:
-		//	newGameMode = dae::Gamemode::COOP;
-		//	text->SetText("Coop");
-		//	break;
-		//case dae::Gamemode::COOP:
-		//	newGameMode = dae::Gamemode::VERSUS;
-		//	text->SetText("Versus");
-		//	break;
-		//case dae::Gamemode::VERSUS:
-		//	newGameMode = dae::Gamemode::SINGLE_PLAYER;
-		//	text->SetText("SinglePlayer");
-		//	break;
-		//}
-
-		//Gamemode::GetInstance().SetGameMode(newGameMode);
 	}
 
-	Start::Start(GameObject* parent)
+	PreviousGamemode::PreviousGamemode(GameObject* parent)
 	{
 		m_Parent = parent;
 	}
 
+	void PreviousGamemode::Execute()
+	{
+		m_Parent->GetComponent<MainmenuComponent>()->GoPrevious();
+	}
+
+	Start::Start(GameObject* parent)
+	{
+		m_Menu = parent->GetComponent<MainmenuComponent>().get();
+	}
+
 	void Start::Execute()
 	{
-		Gamemode::GetInstance().StartGame();
+		m_Menu->StartGame();
 	}
 
 	ChangeDir::ChangeDir(GameObject* parent)
