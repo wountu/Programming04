@@ -38,6 +38,7 @@ namespace dae
 		void RemoveObserver(std::shared_ptr<Observer> observer);
 
 		std::string GetMenuText() const;
+		Menu GetMenu() const;
 
 	private:
 		void DisableCommands();

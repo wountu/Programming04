@@ -56,9 +56,10 @@ void load()
 
 	auto& sceneManager = dae::SceneManager::GetInstance();
 
-	//Gamemode
-	auto gameMode = dae::Gamemode::GameModeEnum::SINGLE_PLAYER;
-	dae::Gamemode::GetInstance().SetGameMode(gameMode);
+	////Gamemode
+	auto gameMode = std::make_shared<dae::Gamemode>();
+	//auto gameMode = dae::Gamemode::GameModeEnum::SINGLE_PLAYER;
+	//dae::Gamemode::GetInstance().SetGameMode(gameMode);
 
 	//Sound
 	dae::ServiceLocator::RegisterSoundSystem(std::make_unique<dae::SoundEffectSystem>());
@@ -75,6 +76,7 @@ void load()
 	auto menuObserver = std::make_shared<dae::MainMenuObserver>();
 	menuObserver->Initialize(glm::vec2(220, 150), menuComponent->GetMenuText());
 	menuComponent->AddObserver(menuObserver);
+	menuComponent->AddObserver(gameMode);
 
 	mainMenu->Add(menu);
 

@@ -60,6 +60,9 @@ void dae::MainmenuComponent::GoPrevious()
 void dae::MainmenuComponent::StartGame()
 {
 	DisableCommands();
+
+	for (const auto& observer : m_Observers)
+		observer->HandleEvent(m_Parent, Observer::Mainmenu_Picked);
 }
 
 void dae::MainmenuComponent::AddObserver(std::shared_ptr<Observer> observer)
@@ -88,5 +91,10 @@ std::string dae::MainmenuComponent::GetMenuText() const
 	default :
 		return "SINGLE PLAYER";
 	}
+}
+
+dae::Menu dae::MainmenuComponent::GetMenu() const
+{
+	return m_CurrentMenu;
 }
 

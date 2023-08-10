@@ -2,11 +2,13 @@
 #include "Singleton.h"
 #include "GameObject.h"
 #include "Observer.h"
+#include "MainmenuComponent.h"
 
 #include <vector>
+
 namespace dae
 {
-	class Gamemode final : public Singleton<Gamemode>, public Observer
+	class Gamemode final : public Observer
 	{
 	public:
 		enum GameModeEnum
@@ -30,8 +32,8 @@ namespace dae
 		virtual void Render() const override;
 		virtual void Update() override;
 
-		void SetGameMode(GameModeEnum gameMode);
-		GameModeEnum GetGameMode() const;
+		//void SetGameMode(GameModeEnum gameMode);
+		//GameModeEnum GetGameMode() const;
 
 		void AddPlayer(std::shared_ptr<GameObject> player);
 		void PlayerDied(std::shared_ptr<GameObject> player);
@@ -46,7 +48,8 @@ namespace dae
 
 		void GameDone();
 	private:
-		GameModeEnum m_GameMode{ };
+		Menu m_GameMode{};
+		//GameModeEnum m_GameMode{ };
 		bool m_GameStarted{ false };
 
 		std::vector<std::shared_ptr<GameObject>> m_Players;

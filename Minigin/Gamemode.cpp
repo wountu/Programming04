@@ -6,12 +6,12 @@
 #include "fstream"
 #include "GameObject.h"
 
-
-void dae::Gamemode::HandleEvent(GameObject*, Event event)
+void dae::Gamemode::HandleEvent(GameObject* parent, Event event)
 {
 	switch (event)
 	{
 	case dae::Observer::Event::Mainmenu_Picked:
+		m_GameMode = parent->GetComponent<MainmenuComponent>()->GetMenu();
 		StartGame();
 		break;
 	}
@@ -29,15 +29,15 @@ void dae::Gamemode::Update()
 {
 }
 
-void dae::Gamemode::SetGameMode(Gamemode::GameModeEnum gameMode)
-{
-	m_GameMode = gameMode;
-}
-
-dae::Gamemode::GameModeEnum dae::Gamemode::GetGameMode() const
-{
-	return m_GameMode;
-}
+//void dae::Gamemode::SetGameMode(Gamemode::GameModeEnum gameMode)
+//{
+//	m_GameMode = gameMode;
+//}
+//
+//dae::Gamemode::GameModeEnum dae::Gamemode::GetGameMode() const
+//{
+//	return m_GameMode;
+//}
 
 void dae::Gamemode::AddPlayer(std::shared_ptr<GameObject> player)
 {
@@ -47,13 +47,13 @@ void dae::Gamemode::AddPlayer(std::shared_ptr<GameObject> player)
 
 void dae::Gamemode::PlayerDied(std::shared_ptr<GameObject> player)
 {
-	m_ActivePlayers.erase(std::remove(m_ActivePlayers.begin(), m_ActivePlayers.end(), player), m_ActivePlayers.end());
-	if (m_ActivePlayers.empty() && m_GameMode != dae::Gamemode::VERSUS)
-	{
-		GameDone();
-	}
-	if (m_GameMode == dae::Gamemode::VERSUS)
-		GoNextLevel();
+	//m_ActivePlayers.erase(std::remove(m_ActivePlayers.begin(), m_ActivePlayers.end(), player), m_ActivePlayers.end());
+	//if (m_ActivePlayers.empty() && m_GameMode != dae::Gamemode::VERSUS)
+	//{
+	//	GameDone();
+	//}
+	//if (m_GameMode == dae::Gamemode::VERSUS)
+	//	GoNextLevel();
 }
 
 std::vector<std::shared_ptr<dae::GameObject>> dae::Gamemode::GetPlayer() const
@@ -69,13 +69,13 @@ void dae::Gamemode::AddEnemy(std::shared_ptr<GameObject> player)
 
 void dae::Gamemode::EnemyDied(std::shared_ptr<GameObject> enemy)
 {
-	m_ActiveEnemies.erase(std::remove(m_ActiveEnemies.begin(), m_ActiveEnemies.end(), enemy), m_ActiveEnemies.end());
-	enemy->GetComponent<CollisionBoxComponent>()->SetActive(false);
-	if (m_ActiveEnemies.empty() && m_GameMode != dae::Gamemode::VERSUS)
-	{
-		std::cout << "Enemies defeated\n";
-		GoNextLevel();
-	}
+	//m_ActiveEnemies.erase(std::remove(m_ActiveEnemies.begin(), m_ActiveEnemies.end(), enemy), m_ActiveEnemies.end());
+	//enemy->GetComponent<CollisionBoxComponent>()->SetActive(false);
+	//if (m_ActiveEnemies.empty() && m_GameMode != dae::Gamemode::VERSUS)
+	//{
+	//	std::cout << "Enemies defeated\n";
+	//	GoNextLevel();
+	//}
 }
 
 std::vector<std::shared_ptr<dae::GameObject>> dae::Gamemode::GetEnemies() const

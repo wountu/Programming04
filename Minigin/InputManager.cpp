@@ -122,6 +122,15 @@ void dae::InputManager::DisableInput()
 				break;
 			}
 		}
+
+		for (auto it = m_HoldKeyboardCommands.begin(); it != m_HoldKeyboardCommands.end(); ++it)
+		{
+			if (it->second.get() == command)
+			{
+				it = m_HoldKeyboardCommands.erase(it);
+				break;
+			}
+		}
 	}
 	m_CommandsToDisable.clear();
 }
@@ -135,15 +144,5 @@ unsigned dae::InputManager::AddController()
 
 void dae::InputManager::RemoveCommand(Command* command)
 {
-
-
-	//for (auto& controllercommand : m_ConsoleCommandsType)
-	//{
-	//	if (controllercommand.first.second.get() == command)
-	//	{
-	//		m_ConsoleCommandsType.erase(controllercommand);
-	//	}
-	//}
-
 	m_CommandsToDisable.emplace_back(command);
 } 
