@@ -83,63 +83,34 @@ void load()
 
 	sceneManager.SetActiveScene(mainMenu);
 
-	//Level 01
+	//Level01
+	//dae::LoadLevel("Level/level01.txt", gameMode);
+	
+	//LevelLoader::LoadLevel("Level/level01.txt", gameMode);
 
-	std::unique_ptr<dae::LevelData> pLevel = dae::LevelGenerator::GetInstance().LoadLevel("Level/LevelLayout2.csv");
-	auto scene = sceneManager.CreateScene("1st Scene");
+	//dae::LevelLoader::GetInstance().LoadLevel("Level/level01.txt", gameMode);
+	dae::LevelLoader::GetInstance().LoadLevel("Level/level02.txt", gameMode);
+	//dae::LevelLoader::GetInstance().LoadLevel("Level/level03.txt", gameMode);
 
-	auto& resourceMan = dae::ResourceManager::GetInstance();
-	auto& gridGen = dae::GridGenerator::GetInstance();
+	//Level02
+	//
+	// 
+	////FPS Counter
+	//auto fps = std::make_shared<dae::GameObject>();
+	//fps->Initialize();
+	//fps->SetTag(dae::UI);
 
-	auto pathTexture = resourceMan.LoadTexture("path.png");
-	auto wallTexture = resourceMan.LoadTexture("wall.png");
+	//auto transform = fps->AddComponent<dae::TransformComponent>();
+	//transform->Initialize(glm::vec2(600, 10), 0.f, fps);
 
-	gridGen.LinkTextureToTile(dae::TileType::PATH, pathTexture);
-	gridGen.LinkTextureToTile(dae::TileType::WALL, wallTexture);
+	//auto text = fps->AddComponent<dae::TextObject>();
+	//auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 12);
+	//text->Initialize("fps: ", font, fps);
 
-	auto grid = gridGen.CreateGrid("Level/level.txt", glm::vec2(pathTexture->GetSize().x, pathTexture->GetSize().y));
-	scene->Add(gridGen.CreateGameObjects());
+	//auto fpsComp = fps->AddComponent<dae::fpsCounter>();
+	//fpsComp->Initialize(fps);
 
-	auto collectableObserver = std::make_shared<dae::CollectablesObserver>();
-	collectableObserver->AddObserver(gameMode);
-
-	for (const auto& tile : grid)
-	{
-		if (tile.hasDot)
-		{
-			auto dotPrefab = std::make_unique<DotsPrefab>();
-			dotPrefab->SetTexture(resourceMan.LoadTexture("pill.png"));
-			dotPrefab->SetDotScore(10);
-			dotPrefab->SetDotObserver(collectableObserver);
-			scene->Add(dotPrefab->Create(tile.LeftTop));
-		}
-
-		if (tile.hasBigDot)
-		{
-			auto dotPrefab = std::make_unique<DotsPrefab>();
-			dotPrefab->SetTexture(resourceMan.LoadTexture("boost.png"));
-			dotPrefab->SetDotScore(50);
-			dotPrefab->SetDotObserver(collectableObserver);
-			scene->Add(dotPrefab->Create(tile.LeftTop));
-		}
-	}
-
-	//FPS Counter
-	auto fps = std::make_shared<dae::GameObject>();
-	fps->Initialize();
-	fps->SetTag(dae::UI);
-
-	auto transform = fps->AddComponent<dae::TransformComponent>();
-	transform->Initialize(glm::vec2(600, 10), 0.f, fps);
-
-	auto text = fps->AddComponent<dae::TextObject>();
-	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 12);
-	text->Initialize("fps: ", font, fps);
-
-	auto fpsComp = fps->AddComponent<dae::fpsCounter>();
-	fpsComp->Initialize(fps);
-
-	scene->Add(fps);
+	//scene->Add(fps);
 
 	//dae::LevelGenerator::GetInstance().("Level/level.json");
 
