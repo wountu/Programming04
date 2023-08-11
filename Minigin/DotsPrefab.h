@@ -4,6 +4,8 @@
 #include "TransformComponent.h"
 #include "CollisionBoxComponent.h"
 #include "CollectableComponent.h"
+#include "CollectablesObserver.h"
+#include "CollectablesObserver.h"
 
 class DotsPrefab final : public BasePrefab
 {
@@ -12,7 +14,7 @@ public:
 	{
 		auto dot = std::make_shared<dae::GameObject>();
 		dot->Initialize();
-		dot->SetTag(dae::Dot);
+		dot->SetTag(dae::Collectable);
 
 		auto transform = dot->AddComponent<dae::TransformComponent>();
 		transform->Initialize(pos, 0.f, dot);
@@ -25,7 +27,9 @@ public:
 		collision->Initialize(dot, dae::CollisionBox(pos, static_cast<float>(m_Texture->GetSize().x)
 			, static_cast<float>(m_Texture->GetSize().y)), 3);
 
+		assert(m_Observer.get() != nullptr && "dot prefab needs the collectableObserver(use SetObserver)");
 		auto collectable = dot->AddComponent<dae::CollectableComponent>();
+		collectable->AddObserver(m_Observer);
 		collectable->Initialize(dot, m_DotScore);
 
 		return dot;
@@ -42,7 +46,13 @@ public:
 		m_DotScore = score;
 	}
 
+	void SetDotObserver(std::shared_ptr<dae::CollectablesObserver> observer)
+	{
+		m_Observer = observer;
+	}
+
 private:
+	std::shared_ptr<dae::CollectablesObserver> m_Observer;
 	std::shared_ptr<dae::Texture2D> m_Texture{};
 	int m_DotScore{ 10 };
 };

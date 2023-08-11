@@ -99,6 +99,9 @@
     <ClCompile Include="..\Minigin\MainMenuObserver.cpp">
       <Filter>Observers</Filter>
     </ClCompile>
+    <ClCompile Include="..\Minigin\CollectablesObserver.cpp">
+      <Filter>Observers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Minigin\BulletComponent.h">
@@ -168,6 +171,9 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="..\Minigin\MainMenuObserver.h">
+      <Filter>Observers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Minigin\CollectablesObserver.h">
       <Filter>Observers</Filter>
     </ClInclude>
   </ItemGroup>

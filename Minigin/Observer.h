@@ -12,6 +12,9 @@ namespace dae
 			Health_Lost,
 			Health_Died,
 			Score_Add,
+			Collectable_Added,
+			Collectable_Removed,
+			Collectables_Pickedup
 		};
 
 		virtual ~Observer() = default;

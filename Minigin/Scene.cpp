@@ -38,7 +38,10 @@ void dae::Scene::Deactivate()
 void Scene::Add(std::shared_ptr<GameObject> object)
 {
 	object->SetActive(m_Active);
-	m_objects.emplace_back(std::move(object));
+	m_objects.emplace_back(object);
+
+	if (object->GetTag() == dae::Collectable)
+		m_Collectibles.emplace_back(object);
 }
 
 void dae::Scene::Add(std::vector<std::shared_ptr<GameObject>> objects)
@@ -46,7 +49,11 @@ void dae::Scene::Add(std::vector<std::shared_ptr<GameObject>> objects)
 	for (const auto& object : objects)
 	{
 		object->SetActive(m_Active);
-		m_objects.emplace_back(std::move(object));
+		m_objects.emplace_back(object);
+
+
+		if (object->GetTag() == dae::Collectable)
+			m_Collectibles.emplace_back(object);
 	}
 }
 
@@ -82,5 +89,10 @@ void Scene::Render() const
 	{
 		object->Render();
 	}
+}
+
+int dae::Scene::GetCollectiblesLeft()
+{
+	return static_cast<int>(m_Collectibles.size());
 }
 

@@ -45,6 +45,7 @@
 #include "Command.h"
 #include "MainmenuComponent.h"
 #include "MainMenuObserver.h"
+#include "CollectablesObserver.h"
 
 void load()
 {
@@ -99,6 +100,9 @@ void load()
 	auto grid = gridGen.CreateGrid("Level/level.txt", glm::vec2(pathTexture->GetSize().x, pathTexture->GetSize().y));
 	scene->Add(gridGen.CreateGameObjects());
 
+	auto collectableObserver = std::make_shared<dae::CollectablesObserver>();
+	collectableObserver->AddObserver(gameMode);
+
 	for (const auto& tile : grid)
 	{
 		if (tile.hasDot)
@@ -106,6 +110,7 @@ void load()
 			auto dotPrefab = std::make_unique<DotsPrefab>();
 			dotPrefab->SetTexture(resourceMan.LoadTexture("pill.png"));
 			dotPrefab->SetDotScore(10);
+			dotPrefab->SetDotObserver(collectableObserver);
 			scene->Add(dotPrefab->Create(tile.LeftTop));
 		}
 
@@ -114,26 +119,9 @@ void load()
 			auto dotPrefab = std::make_unique<DotsPrefab>();
 			dotPrefab->SetTexture(resourceMan.LoadTexture("boost.png"));
 			dotPrefab->SetDotScore(50);
+			dotPrefab->SetDotObserver(collectableObserver);
 			scene->Add(dotPrefab->Create(tile.LeftTop));
 		}
-
-		//if (tile.isSpawnPoint)
-		//{
-		//	//Create the GO
-		//	auto pacmanPrefab = std::make_unique<MainPlayerPrefab>();
-		//	pacmanPrefab->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("pacman.png"));
-		//	auto pacman = pacmanPrefab->Create(tile.LeftTop);
-		//	scene->Add(pacman);
-
-		//	//Observers
-		//	auto scoreObserver = new dae::ScoreObserver(glm::vec2(475, 20), 0);
-		//	pacman->GetComponent<dae::ScoreComponent>()->AddObserver(scoreObserver);
-
-		//	//Keybinds
-		//	pacmanPrefab->SetMovementKeys(SDL_SCANCODE_LEFT, SDL_SCANCODE_RIGHT, SDL_SCANCODE_UP, SDL_SCANCODE_DOWN);
-		//	unsigned int idx = dae::InputManager::GetInstance().AddController();
-		//	pacmanPrefab->SetMovementButtons(ControllerXbox::ControllerInputs::DPAD_LEFT, ControllerXbox::ControllerInputs::DPAD_RIGHT, ControllerXbox::ControllerInputs::DPAD_UP, ControllerXbox::ControllerInputs::DPAD_DOWN, idx);
-		//}
 	}
 
 	//FPS Counter

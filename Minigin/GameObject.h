@@ -24,7 +24,7 @@ namespace dae
 		UI,
 		AI,
 		Recognizer,
-		Dot
+		Collectable
 	};
 
 	// todo: this should become final.

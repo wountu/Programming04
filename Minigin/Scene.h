@@ -15,6 +15,8 @@ namespace dae
 		void Update();
 		void Render() const;
 
+		int GetCollectiblesLeft();
+
 		Scene(const std::string& name);
 		~Scene();
 		Scene(const Scene& other) = delete;
@@ -28,6 +30,8 @@ namespace dae
 	private: 
 		std::string m_name;
 		std::vector < std::shared_ptr<GameObject>> m_objects{};
+
+		std::vector<std::shared_ptr<GameObject>> m_Collectibles{};
 
 		static unsigned int m_idCounter; 
 		bool m_Active{ false };
