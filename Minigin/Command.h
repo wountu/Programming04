@@ -117,6 +117,19 @@ namespace dae
 		glm::vec2 m_Dir{};
 		PlayerComponent* m_Player;
 	};
+
+	class NextLevel final : public Command
+	{
+	public:
+		NextLevel(GameObject* parent);
+		void SetGameMode(Gamemode* gameMode);
+
+		virtual ~NextLevel() = default;
+
+		void Execute() override;
+	private:
+		Gamemode* m_GameMode;
+	};
 }
 
 

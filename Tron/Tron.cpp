@@ -49,11 +49,11 @@
 
 void load()
 {
-	std::cout << "how to play: \n";
-	std::cout << "Tank 01 to move w a s d : \n";
-	std::cout << "Tank 01 to shoot space (plays only sound for now) \n";
-	std::cout << "Tank 02 to move use DPAD on XBOX \n";
-	std::cout << "Tank 02 to shoot press v(plays only sound for now) \n";
+	//std::cout << "how to play: \n";
+	//std::cout << "Tank 01 to move w a s d : \n";
+	//std::cout << "Tank 01 to shoot space (plays only sound for now) \n";
+	//std::cout << "Tank 02 to move use DPAD on XBOX \n";
+	//std::cout << "Tank 02 to shoot press v(plays only sound for now) \n";
 
 	auto& sceneManager = dae::SceneManager::GetInstance();
 
@@ -87,10 +87,13 @@ void load()
 	//dae::LoadLevel("Level/level01.txt", gameMode);
 	
 	//LevelLoader::LoadLevel("Level/level01.txt", gameMode);
+	
+	auto nextLevelCommand = dae::InputManager::GetInstance().AddCommand<dae::NextLevel>(nullptr, SDL_SCANCODE_F3, dae::InputManager::KeyPress::SINGLEPRESS);
+	nextLevelCommand->SetGameMode(gameMode.get());
 
 	dae::LevelLoader::GetInstance().LoadLevel("Level/level01.txt", gameMode, "Level01");
 	dae::LevelLoader::GetInstance().LoadLevel("Level/level02.txt", gameMode, "Level02");
-	//dae::LevelLoader::GetInstance().LoadLevel("Level/level03.txt", gameMode);
+	dae::LevelLoader::GetInstance().LoadLevel("Level/level03.txt", gameMode, "Level03");
 
 	//Level02
 	//

@@ -27,10 +27,13 @@ namespace dae
 
 	void CollisionBoxComponent::Update()
 	{
-		m_CollisionBox._leftTop = m_Parent->GetComponent<TransformComponent>()->GetWorldPosition(); //Updating it's pos
+		if(m_Active)
+		{
+			m_CollisionBox._leftTop = m_Parent->GetComponent<TransformComponent>()->GetWorldPosition(); //Updating it's pos
 
-		m_CollisionBox._leftTop.x += m_Inset;
-		m_CollisionBox._leftTop.y += m_Inset;
+			m_CollisionBox._leftTop.x += m_Inset;
+			m_CollisionBox._leftTop.y += m_Inset;
+		}
 	}
 
 	void CollisionBoxComponent::Render() const

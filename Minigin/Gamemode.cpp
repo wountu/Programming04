@@ -96,155 +96,158 @@ void dae::Gamemode::StartGame()
 
 void dae::Gamemode::GoNextLevel()
 {
-	m_ActiveEnemies = m_Enemies;
-	m_ActivePlayers = m_Players;
+	SceneManager::GetInstance().SetNextLevelActive();
+	LoadPLayersAndEnemies(SceneManager::GetInstance().GetActiveScene()->GetLevelName());
 
-	++m_CurrentLevel;
-	if (m_CurrentLevel > 3)
-	{
-		SceneManager::GetInstance().SetSceneByIdx(1);
-		m_CurrentLevel = 1;
+	//m_ActiveEnemies = m_Enemies;
+	//m_ActivePlayers = m_Players;
 
-	}
-	else SceneManager::GetInstance().SetNextLevelActive();
+	//++m_CurrentLevel;
+	//if (m_CurrentLevel > 3)
+	//{
+	//	SceneManager::GetInstance().SetSceneByIdx(1);
+	//	m_CurrentLevel = 1;
 
-	for (auto& enemy : m_Enemies)
-	{
-		enemy->GetComponent<CollisionBoxComponent>()->SetActive(true);
-	}
+	//}
+	//else SceneManager::GetInstance().SetNextLevelActive();
 
-	for (auto& player : m_Players)
-	{
-		player->GetComponent<CollisionBoxComponent>()->SetActive(true);
-	}
+	//for (auto& enemy : m_Enemies)
+	//{
+	//	enemy->GetComponent<CollisionBoxComponent>()->SetActive(true);
+	//}
 
-	for (size_t idx{}; idx < m_Players.size(); ++idx)
-	{
-		SceneManager::GetInstance().GetActiveScene()->Add(m_Players[idx]);
-		m_Players[idx]->GetChildren()[0]->GetComponent<BulletManager>()->DestroyAllBullets();
+	//for (auto& player : m_Players)
+	//{
+	//	player->GetComponent<CollisionBoxComponent>()->SetActive(true);
+	//}
 
-		switch (m_CurrentLevel)
-		{
-			case 1:
-				if(idx == 0)
-					m_Players[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(80, 200));
-				if(idx == 1)
-					m_Players[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(42, 0));
+	//for (size_t idx{}; idx < m_Players.size(); ++idx)
+	//{
+	//	SceneManager::GetInstance().GetActiveScene()->Add(m_Players[idx]);
+	//	m_Players[idx]->GetChildren()[0]->GetComponent<BulletManager>()->DestroyAllBullets();
 
-				break;
+	//	switch (m_CurrentLevel)
+	//	{
+	//		case 1:
+	//			if(idx == 0)
+	//				m_Players[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(80, 200));
+	//			if(idx == 1)
+	//				m_Players[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(42, 0));
 
-			case 2:
-				if (idx == 0)
-					m_Players[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(80, 200));
-				if (idx == 1)
-					m_Players[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(42, 0));
+	//			break;
 
-				break;
-			case 3:
-				if (idx == 0)
-					m_Players[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(80, 200));
-				if (idx == 1)
-					m_Players[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(42, 0));
-		}
-	}
+	//		case 2:
+	//			if (idx == 0)
+	//				m_Players[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(80, 200));
+	//			if (idx == 1)
+	//				m_Players[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(42, 0));
 
-	for (size_t idx{}; idx < m_Enemies.size(); ++idx)
-	{
-		SceneManager::GetInstance().GetActiveScene()->Add(m_Enemies[idx]);
-		m_Enemies[idx]->GetChildren()[0]->GetComponent<BulletManager>()->DestroyAllBullets();
+	//			break;
+	//		case 3:
+	//			if (idx == 0)
+	//				m_Players[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(80, 200));
+	//			if (idx == 1)
+	//				m_Players[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(42, 0));
+	//	}
+	//}
+
+	//for (size_t idx{}; idx < m_Enemies.size(); ++idx)
+	//{
+	//	SceneManager::GetInstance().GetActiveScene()->Add(m_Enemies[idx]);
+	//	m_Enemies[idx]->GetChildren()[0]->GetComponent<BulletManager>()->DestroyAllBullets();
 
 
-		switch (m_CurrentLevel)
-		{
-		case 1:
-			if (idx == 0)
-			{
-				m_Enemies[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(400, 390));
-				m_Enemies[idx]->GetComponent<TransformComponent>()->SetDirection(glm::vec2{ -1, 0 });
-				m_Enemies[idx]->GetComponent<AIComponent>()->Reset();
-			}
+	//	switch (m_CurrentLevel)
+	//	{
+	//	case 1:
+	//		if (idx == 0)
+	//		{
+	//			m_Enemies[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(400, 390));
+	//			m_Enemies[idx]->GetComponent<TransformComponent>()->SetDirection(glm::vec2{ -1, 0 });
+	//			m_Enemies[idx]->GetComponent<AIComponent>()->Reset();
+	//		}
 
-			if (idx == 1)
-			{
-				m_Enemies[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(380, 16));
-				m_Enemies[idx]->GetComponent<TransformComponent>()->SetDirection(glm::vec2{ 0, 1 });
-				m_Enemies[idx]->GetComponent<AIComponent>()->Reset();
-			}
+	//		if (idx == 1)
+	//		{
+	//			m_Enemies[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(380, 16));
+	//			m_Enemies[idx]->GetComponent<TransformComponent>()->SetDirection(glm::vec2{ 0, 1 });
+	//			m_Enemies[idx]->GetComponent<AIComponent>()->Reset();
+	//		}
 
-			if (idx == 2)
-			{
-				m_Enemies[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(10, 350));
-				m_Enemies[idx]->GetComponent<TransformComponent>()->SetDirection(glm::vec2{ 0, -1 });
-				m_Enemies[idx]->GetComponent<AIComponent>()->Reset();
-			}
+	//		if (idx == 2)
+	//		{
+	//			m_Enemies[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(10, 350));
+	//			m_Enemies[idx]->GetComponent<TransformComponent>()->SetDirection(glm::vec2{ 0, -1 });
+	//			m_Enemies[idx]->GetComponent<AIComponent>()->Reset();
+	//		}
 
-			if (idx == 3)
-			{
-				m_Enemies[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(220, 155));
-				m_Enemies[idx]->GetComponent<TransformComponent>()->SetDirection(glm::vec2{ 1, 0 });
-				m_Enemies[idx]->GetComponent<AIComponent>()->Reset();
-			}
+	//		if (idx == 3)
+	//		{
+	//			m_Enemies[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(220, 155));
+	//			m_Enemies[idx]->GetComponent<TransformComponent>()->SetDirection(glm::vec2{ 1, 0 });
+	//			m_Enemies[idx]->GetComponent<AIComponent>()->Reset();
+	//		}
 
-			break;
+	//		break;
 
-		case 2:
-			if (idx == 0)
-			{
-				m_Enemies[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(400, 390));
-				m_Enemies[idx]->GetComponent<AIComponent>()->Reset();
-			}
+	//	case 2:
+	//		if (idx == 0)
+	//		{
+	//			m_Enemies[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(400, 390));
+	//			m_Enemies[idx]->GetComponent<AIComponent>()->Reset();
+	//		}
 
-			if (idx == 1)
-			{
-				m_Enemies[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(200, 16));
-				m_Enemies[idx]->GetComponent<TransformComponent>()->SetDirection({ 0, 1 });
-				m_Enemies[idx]->GetComponent<AIComponent>()->Reset();
-			}
+	//		if (idx == 1)
+	//		{
+	//			m_Enemies[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(200, 16));
+	//			m_Enemies[idx]->GetComponent<TransformComponent>()->SetDirection({ 0, 1 });
+	//			m_Enemies[idx]->GetComponent<AIComponent>()->Reset();
+	//		}
 
-			if (idx == 2)
-			{
-				m_Enemies[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(10, 300));
-				m_Enemies[idx]->GetComponent<AIComponent>()->Reset();
-			}
+	//		if (idx == 2)
+	//		{
+	//			m_Enemies[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(10, 300));
+	//			m_Enemies[idx]->GetComponent<AIComponent>()->Reset();
+	//		}
 
-			if (idx == 3)
-			{
-				m_Enemies[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(230, 12));
-				m_Enemies[idx]->GetComponent<TransformComponent>()->SetDirection({ 1,0 });
-				m_Enemies[idx]->GetComponent<AIComponent>()->Reset();
-			}
+	//		if (idx == 3)
+	//		{
+	//			m_Enemies[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(230, 12));
+	//			m_Enemies[idx]->GetComponent<TransformComponent>()->SetDirection({ 1,0 });
+	//			m_Enemies[idx]->GetComponent<AIComponent>()->Reset();
+	//		}
 
-			break;
-		case 3:
-			if (idx == 0)
-			{
-				m_Enemies[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(400, 390));
-				m_Enemies[idx]->GetComponent<AIComponent>()->Reset();
-			}
+	//		break;
+	//	case 3:
+	//		if (idx == 0)
+	//		{
+	//			m_Enemies[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(400, 390));
+	//			m_Enemies[idx]->GetComponent<AIComponent>()->Reset();
+	//		}
 
-			if (idx == 1)
-			{
-				m_Enemies[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(440, 10));
-				m_Enemies[idx]->GetComponent<TransformComponent>()->SetDirection(glm::vec2{-1, 0});
-				m_Enemies[idx]->GetComponent<AIComponent>()->Reset();
-			}
+	//		if (idx == 1)
+	//		{
+	//			m_Enemies[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(440, 10));
+	//			m_Enemies[idx]->GetComponent<TransformComponent>()->SetDirection(glm::vec2{-1, 0});
+	//			m_Enemies[idx]->GetComponent<AIComponent>()->Reset();
+	//		}
 
-			if (idx == 2)
-			{
-				m_Enemies[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(10, 350));
-				m_Enemies[idx]->GetComponent<AIComponent>()->Reset();
-			}
+	//		if (idx == 2)
+	//		{
+	//			m_Enemies[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(10, 350));
+	//			m_Enemies[idx]->GetComponent<AIComponent>()->Reset();
+	//		}
 
-			if (idx == 3)
-			{
-				m_Enemies[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(65, 150));
-				m_Enemies[idx]->GetComponent<TransformComponent>()->SetDirection({ 1,0 });
-				m_Enemies[idx]->GetComponent<AIComponent>()->Reset();
-			}
+	//		if (idx == 3)
+	//		{
+	//			m_Enemies[idx]->GetComponent<TransformComponent>()->ChangeLocalPosition(glm::vec2(65, 150));
+	//			m_Enemies[idx]->GetComponent<TransformComponent>()->SetDirection({ 1,0 });
+	//			m_Enemies[idx]->GetComponent<AIComponent>()->Reset();
+	//		}
 
-			break;
-		}
-	}
+	//		break;
+	//	}
+	//}
 }
 
 void dae::Gamemode::GameDone()
@@ -307,28 +310,39 @@ void dae::Gamemode::GameDone()
 
 void dae::Gamemode::LoadPLayersAndEnemies(std::string levelName)
 {
+	auto grid = dae::GridGenerator::GetInstance().GetGrid();
 	auto scene = SceneManager::GetInstance().GetActiveScene();
 
-	auto grid = dae::GridGenerator::GetInstance().GetGrid();
+	if (m_Player == nullptr)
+	{
+		CreatePlayer();
+	}
+
+	scene->Add(m_Player);
 	
 	for (const auto& tile : grid[levelName])
 	{
 		if (tile.isSpawnPoint)
 		{
-			//Create the GO
-			auto pacmanPrefab = std::make_unique<MainPlayerPrefab>();
-			pacmanPrefab->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("pacman.png"));
-			auto pacman = pacmanPrefab->Create(tile.LeftTop);
-			scene->Add(pacman);
-
-			//Observers
-			auto scoreObserver = new dae::ScoreObserver(glm::vec2(475, 20), 0);
-			pacman->GetComponent<dae::ScoreComponent>()->AddObserver(scoreObserver);
-
-			//Keybinds
-			pacmanPrefab->SetMovementKeys(SDL_SCANCODE_LEFT, SDL_SCANCODE_RIGHT, SDL_SCANCODE_UP, SDL_SCANCODE_DOWN);
-			unsigned int idx = dae::InputManager::GetInstance().AddController();
-			pacmanPrefab->SetMovementButtons(ControllerXbox::ControllerInputs::DPAD_LEFT, ControllerXbox::ControllerInputs::DPAD_RIGHT, ControllerXbox::ControllerInputs::DPAD_UP, ControllerXbox::ControllerInputs::DPAD_DOWN, idx);
+			m_Player->GetComponent<dae::TransformComponent>()->ChangeLocalPosition(tile.LeftTop);
 		}
 	}
+}
+
+void dae::Gamemode::CreatePlayer()
+{
+	//Create the GO
+	auto pacmanPrefab = std::make_unique<MainPlayerPrefab>();
+	pacmanPrefab->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("pacman.png"));
+	m_Player = pacmanPrefab->Create(glm::vec2(0, 0));
+
+	//Observers
+	auto scoreObserver = new dae::ScoreObserver(glm::vec2(475, 20), 0);
+	m_Player->GetComponent<dae::ScoreComponent>()->AddObserver(scoreObserver);
+
+	//Keybinds
+	pacmanPrefab->SetMovementKeys(SDL_SCANCODE_LEFT, SDL_SCANCODE_RIGHT, SDL_SCANCODE_UP, SDL_SCANCODE_DOWN);
+	unsigned int idx = dae::InputManager::GetInstance().AddController();
+	pacmanPrefab->SetMovementButtons(ControllerXbox::ControllerInputs::DPAD_LEFT, ControllerXbox::ControllerInputs::DPAD_RIGHT, ControllerXbox::ControllerInputs::DPAD_UP, ControllerXbox::ControllerInputs::DPAD_DOWN, idx);
+
 }

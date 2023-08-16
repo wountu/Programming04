@@ -5,6 +5,7 @@
 #include "MainmenuComponent.h"
 
 #include <vector>
+#include <memory>
 
 namespace dae
 {
@@ -58,6 +59,9 @@ namespace dae
 		std::vector<std::shared_ptr<GameObject>> m_ActiveEnemies;
 
 		void LoadPLayersAndEnemies(std::string levelName);
+		void CreatePlayer();
+		std::shared_ptr<dae::GameObject> m_Player{ nullptr };
+
 		int m_CurrentLevel{};
 
 		bool m_GameDone{};

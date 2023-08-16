@@ -104,4 +104,17 @@ namespace dae
 	{
 		m_Player->SetDirection(m_Dir);
 	}
+
+	NextLevel::NextLevel(GameObject* ) {};
+
+	void NextLevel::SetGameMode(Gamemode* gameMode)
+	{
+		m_GameMode = gameMode;
+	}
+	
+	void NextLevel::Execute()
+	{
+		m_GameMode->GoNextLevel();
+	}
+
 }

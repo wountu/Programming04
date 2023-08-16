@@ -46,7 +46,7 @@ namespace dae
 			gridGen.LinkTextureToTile(dae::TileType::WALL, wallTexture);
 			gridGen.SetTileDimensions(pathTexture->GetSize());
 
-			GridGenerator::Grid grid = gridGen.CreateGrid("Level/level01.txt", glm::vec2(pathTexture->GetSize().x, pathTexture->GetSize().y), levelName);
+			GridGenerator::Grid grid = gridGen.CreateGrid(level, glm::vec2(pathTexture->GetSize().x, pathTexture->GetSize().y), levelName);
 			scene->Add(gridGen.CreateGameObjects(levelName));
 
 			auto collectableObserver = std::make_shared<dae::CollectablesObserver>();

@@ -1,6 +1,9 @@
 #include "CollectableComponent.h"
 #include "GameObject.h"
 #include "ScoreComponent.h"
+#include "SceneManager.h"
+#include "Scene.h"
+#include "PlayerComponent.h"
 
 dae::CollectableComponent::~CollectableComponent()
 {
@@ -17,10 +20,19 @@ void dae::CollectableComponent::Initialize(std::shared_ptr<GameObject> parent, i
 
 void dae::CollectableComponent::Update()
 {
-	auto overlap = m_CollisionBox->GetOverlappingGameObject();
-	if (overlap != nullptr)
+	if(m_CollisionBox->IsActive())
 	{
-		PickUp(overlap);
+		auto overlap = m_CollisionBox->GetOverlappingGameObject();
+
+		if (overlap != nullptr)
+		{
+			auto player = overlap->GetComponent<PlayerComponent>();
+			if(player != nullptr)
+			{
+				PickUp(overlap);
+			}
+
+		}
 	}
 }
 
@@ -37,9 +49,7 @@ void dae::CollectableComponent::RemoveObserver(std::shared_ptr<Observer> observe
 void dae::CollectableComponent::PickUp(GameObject* overlap)
 {
 	Notify(dae::Observer::Collectable_Removed);
-	if(overlap->GetComponent<dae::ScoreComponent>())
-		overlap->GetComponent<dae::ScoreComponent>()->AddScore(m_CollectableScore);
-
+	overlap->GetComponent<dae::ScoreComponent>()->AddScore(m_CollectableScore);
 	m_Parent->Destroy();
 }
 
