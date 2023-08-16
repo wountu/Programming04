@@ -44,6 +44,9 @@ namespace dae
 		void EnemyDied(std::shared_ptr<GameObject> player);
 		std::vector<std::shared_ptr<GameObject>> GetEnemies() const;
 
+		void AddObserver(Observer* observer);
+		void RemoveObserver(Observer* observer);
+
 		void StartGame();
 		void GoNextLevel();
 
@@ -65,6 +68,9 @@ namespace dae
 		int m_CurrentLevel{};
 
 		bool m_GameDone{};
+
+		std::vector<Observer*> m_pObservers;
+		void Notify(Observer::Event event);
 	};
 
 }

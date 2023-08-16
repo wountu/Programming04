@@ -14,7 +14,8 @@ namespace dae
 			Score_Add,
 			Collectable_Added,
 			Collectable_Removed,
-			Collectables_Pickedup
+			Collectables_Pickedup,
+			Level_Next
 		};
 
 		virtual ~Observer() = default;

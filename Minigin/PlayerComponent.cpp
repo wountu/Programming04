@@ -5,6 +5,7 @@
 #include "SceneManager.h"
 #include "Scene.h"
 
+
 dae::PlayerComponent::~PlayerComponent()
 {
 }
@@ -24,6 +25,10 @@ void dae::PlayerComponent::Initialize(std::shared_ptr<GameObject> parent, const 
 	m_GridWidth = GridGenerator::GetInstance().GetGridWidth();
 }
 
+void dae::PlayerComponent::Render() const
+{
+}
+
 void dae::PlayerComponent::Update()
 {
 	m_Transform->ChangeLocalPosition(m_Transform->GetWorldPosition() +
@@ -39,6 +44,20 @@ void dae::PlayerComponent::Update()
 		m_Direction.x = 0;
 		m_Direction.y = 0;
 	}
+}
+
+void dae::PlayerComponent::HandleEvent(GameObject*, Event event)
+{
+	if (event == dae::Observer::Level_Next)
+	{
+		m_Grid = GridGenerator::GetInstance().GetGrid()[SceneManager::GetInstance().GetActiveScene()->GetLevelName()];
+		m_NewDirection = { 0, 0 };
+		m_Direction = { 0, 0 };
+	}
+}
+
+void dae::PlayerComponent::OnSubjectDestroy()
+{
 }
 
 void dae::PlayerComponent::SetDirection(glm::vec2 dir)

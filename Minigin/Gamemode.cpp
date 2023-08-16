@@ -81,6 +81,16 @@ std::vector<std::shared_ptr<dae::GameObject>> dae::Gamemode::GetEnemies() const
 	return m_Enemies;
 }
 
+void dae::Gamemode::AddObserver(Observer* observer)
+{
+	m_pObservers.emplace_back(observer);
+}
+
+void dae::Gamemode::RemoveObserver(Observer* observer)
+{
+	m_pObservers.erase(std::remove(m_pObservers.begin(), m_pObservers.end(), observer), m_pObservers.end());
+}
+
 void dae::Gamemode::StartGame()
 {
 	if (!m_GameStarted)
@@ -98,6 +108,8 @@ void dae::Gamemode::GoNextLevel()
 {
 	SceneManager::GetInstance().SetNextLevelActive();
 	LoadPLayersAndEnemies(SceneManager::GetInstance().GetActiveScene()->GetLevelName());
+
+	Notify(dae::Observer::Level_Next);
 
 	//m_ActiveEnemies = m_Enemies;
 	//m_ActivePlayers = m_Players;
@@ -316,14 +328,17 @@ void dae::Gamemode::LoadPLayersAndEnemies(std::string levelName)
 	if (m_Player == nullptr)
 	{
 		CreatePlayer();
+		AddObserver(m_Player->GetComponent<PlayerComponent>().get());
 	}
 
 	scene->Add(m_Player);
+	m_Player->GetComponent<CollisionBoxComponent>()->SetActive(true);
 	
 	for (const auto& tile : grid[levelName])
 	{
 		if (tile.isSpawnPoint)
 		{
+
 			m_Player->GetComponent<dae::TransformComponent>()->ChangeLocalPosition(tile.LeftTop);
 		}
 	}
@@ -345,4 +360,12 @@ void dae::Gamemode::CreatePlayer()
 	unsigned int idx = dae::InputManager::GetInstance().AddController();
 	pacmanPrefab->SetMovementButtons(ControllerXbox::ControllerInputs::DPAD_LEFT, ControllerXbox::ControllerInputs::DPAD_RIGHT, ControllerXbox::ControllerInputs::DPAD_UP, ControllerXbox::ControllerInputs::DPAD_DOWN, idx);
 
+}
+
+void dae::Gamemode::Notify(Observer::Event event)
+{
+	for (const auto& observer : m_pObservers)
+	{
+		observer->HandleEvent(nullptr, event);
+	}
 }

@@ -4,10 +4,11 @@
 #include "BaseComponent.h"
 #include "TransformComponent.h"
 #include "LevelGenerator.h"
+#include "Observer.h"
 
 namespace dae
 {
-	class PlayerComponent final : public BaseComponent
+	class PlayerComponent final : public BaseComponent, public Observer
 	{
 	public:
 		PlayerComponent() = default;
@@ -18,15 +19,22 @@ namespace dae
 		PlayerComponent& operator=(PlayerComponent&& other) = delete;
 		
 		virtual void Initialize(std::shared_ptr<GameObject> parent, const float movementSpeed);
+
+		virtual void Render() const override;
 		virtual void Update() override;
+
+		virtual void HandleEvent(GameObject* actor, Event event) override;
+		virtual void OnSubjectDestroy() override;
 
 		void SetDirection(glm::vec2 dir);
 		
+
+	private:
 		bool CanGoLeft(int idx);
 		bool CanGoRight(int idx);
 		bool CanGoUp(int idx);
 		bool CanGoDown(int idx);
-	private:
+
 		bool CheckUpcomingCollision();
 		bool CheckForTurn(); //Will return true when in the middle of the tile(To turn in)
 		void Turn();
