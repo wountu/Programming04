@@ -58,20 +58,23 @@ namespace dae
 		GridGenerator(GridGenerator&& other) = delete;
 		GridGenerator& operator=(GridGenerator&& other) = delete;
 
-		std::vector<Tile> CreateGrid(const std::string& levelPathName, glm::vec2 tileDimensions);
+		using Grid = std::map<std::string, std::vector<Tile>>;
+
+		Grid CreateGrid(const std::string& levelPathName, glm::vec2 tileDimensions, std::string levelName);
 		void SetTileDimensions(glm::vec2 tileDimensions);
 		void LinkTextureToTile(TileType tileType, std::shared_ptr<Texture2D> pTexture);
 
-		std::vector<std::shared_ptr<GameObject>> CreateGameObjects();
+		std::vector<std::shared_ptr<GameObject>> CreateGameObjects(std::string levelName);
 
-		std::vector<Tile> GetGrid() const;
+		Grid GetGrid() const;
 		int GetIdxFromPos(glm::vec2 pos);
 
 		int GetGridWidth() const;
 		int GetGridHeight() const;
+
 	private:
 		int m_GridWidth{}, m_GridHeight{};
-		std::vector<Tile> m_Grid{};
+		Grid m_Grid{};
 		glm::vec2 m_TileDimensions{};
 		using textureMap = std::map<TileType, std::shared_ptr<Texture2D>>;
 		textureMap m_TextureMaps{};

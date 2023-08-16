@@ -93,7 +93,7 @@ namespace dae
         m_TextureDimensions = dimensions;
     }
 
-    std::vector<Tile> GridGenerator::CreateGrid(const std::string& levelPathName, glm::vec2 tileDimensions)
+    GridGenerator::Grid GridGenerator::CreateGrid(const std::string& levelPathName, glm::vec2 tileDimensions, std::string levelName)
     {
         std::vector<Tile> grid{};
         std::vector<int> intGrid{};
@@ -140,8 +140,8 @@ namespace dae
                                     Tile tile{};
                                     tile.Width = static_cast<int>(tileDimensions.x);
                                     tile.Height = static_cast<int>(tileDimensions.y);
-                                    tile.LeftTop.x = ((m_Grid.size()) % m_GridWidth) * tileDimensions.x;
-                                    tile.LeftTop.y = static_cast<float>((m_Grid.size() / (m_GridWidth)) * tileDimensions.y);
+                                    tile.LeftTop.x = ((m_Grid[levelName].size()) % m_GridWidth) * tileDimensions.x;
+                                    tile.LeftTop.y = static_cast<float>((m_Grid[levelName].size() / (m_GridWidth)) * tileDimensions.y);
 
                                     int parsedNmbr{ static_cast<int>(number[idx] - '0') };
                                     
@@ -173,7 +173,7 @@ namespace dae
                                         break;
                                     }
                                   
-                                    m_Grid.push_back(tile);
+                                    m_Grid[levelName].push_back(tile);
                                     break;
                                 }
                             }
@@ -196,13 +196,13 @@ namespace dae
         m_TextureMaps.emplace(tileType, pTexture);
     }
 
-    std::vector<std::shared_ptr<GameObject>> GridGenerator::CreateGameObjects()
+    std::vector<std::shared_ptr<GameObject>> GridGenerator::CreateGameObjects(std::string levelName)
     {
         std::vector<std::shared_ptr<GameObject>> gridGO{};
 
         assert(!m_Grid.empty() && "First the grid needs to be created before turning in it into GO's");
 
-        for (const auto& tile : m_Grid)
+        for (const auto& tile : m_Grid[levelName])
         {
             auto tileGO = std::make_shared<GameObject>();
             tileGO->Initialize();
@@ -228,17 +228,15 @@ namespace dae
         return gridGO;
     }
 
-    std::vector<Tile> GridGenerator::GetGrid() const
+    GridGenerator::Grid GridGenerator::GetGrid() const
     {
         return m_Grid;
     }
 
     int GridGenerator::GetIdxFromPos(glm::vec2 pos)
     {
-        const int tileWidth = m_Grid[0].Width;
-        const int tileHeight = m_Grid[0].Height;
-        int x = static_cast<int>(pos.x / tileWidth);
-        int y = static_cast<int>(pos.y / tileHeight);
+        int x = static_cast<int>(pos.x / m_TileDimensions.x);
+        int y = static_cast<int>(pos.y / m_TileDimensions.y);
 
         return x + (y * m_GridWidth);
     }

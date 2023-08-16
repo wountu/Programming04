@@ -2,6 +2,8 @@
 #include "GameObject.h"
 #include "TimeClass.h"
 #include "RenderComponent.h"
+#include "SceneManager.h"
+#include "Scene.h"
 
 dae::PlayerComponent::~PlayerComponent()
 {
@@ -13,7 +15,9 @@ void dae::PlayerComponent::Initialize(std::shared_ptr<GameObject> parent, const 
 	m_Transform = parent->GetComponent<TransformComponent>();
 	m_MovementSpeed = movementSpeed;
 
-	m_Grid = GridGenerator::GetInstance().GetGrid();
+	auto grids = GridGenerator::GetInstance().GetGrid();
+	m_Grid = grids[SceneManager::GetInstance().GetActiveScene()->GetLevelName()];
+
 	assert(!m_Grid.empty() && "The player needs the grid to be generated before creating the player(playercomponent)");
 
 	m_GridHeight = GridGenerator::GetInstance().GetGridHeight();

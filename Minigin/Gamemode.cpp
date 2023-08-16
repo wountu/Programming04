@@ -88,7 +88,7 @@ void dae::Gamemode::StartGame()
 		m_GameStarted = true;
 		SceneManager::GetInstance().SetNextLevelActive();
 
-		LoadPLayersAndEnemies();
+		LoadPLayersAndEnemies(SceneManager::GetInstance().GetActiveScene()->GetLevelName());
 
 	}
 	
@@ -305,13 +305,13 @@ void dae::Gamemode::GameDone()
 	SceneManager::GetInstance().SetActiveScene(scene);
 }
 
-void dae::Gamemode::LoadPLayersAndEnemies()
+void dae::Gamemode::LoadPLayersAndEnemies(std::string levelName)
 {
 	auto scene = SceneManager::GetInstance().GetActiveScene();
 
 	auto grid = dae::GridGenerator::GetInstance().GetGrid();
 	
-	for (const auto& tile : grid)
+	for (const auto& tile : grid[levelName])
 	{
 		if (tile.isSpawnPoint)
 		{

@@ -37,7 +37,9 @@ void dae::CollectableComponent::RemoveObserver(std::shared_ptr<Observer> observe
 void dae::CollectableComponent::PickUp(GameObject* overlap)
 {
 	Notify(dae::Observer::Collectable_Removed);
-	overlap->GetComponent<dae::ScoreComponent>()->AddScore(m_CollectableScore);
+	if(overlap->GetComponent<dae::ScoreComponent>())
+		overlap->GetComponent<dae::ScoreComponent>()->AddScore(m_CollectableScore);
+
 	m_Parent->Destroy();
 }
 

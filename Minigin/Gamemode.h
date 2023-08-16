@@ -57,7 +57,7 @@ namespace dae
 		std::vector<std::shared_ptr<GameObject>> m_Enemies;
 		std::vector<std::shared_ptr<GameObject>> m_ActiveEnemies;
 
-		void LoadPLayersAndEnemies();
+		void LoadPLayersAndEnemies(std::string levelName);
 		int m_CurrentLevel{};
 
 		bool m_GameDone{};

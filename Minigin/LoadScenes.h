@@ -31,10 +31,10 @@ namespace dae
 	public:
 		LevelLoader() = default;
 
-		void LoadLevel(std::string level, std::shared_ptr<dae::Gamemode> gameMode)
+		void LoadLevel(std::string level, std::shared_ptr<dae::Gamemode> gameMode, std::string levelName)
 		{
 			auto& sceneManager = dae::SceneManager::GetInstance();
-			auto scene = sceneManager.CreateScene("1st Scene");
+			auto scene = sceneManager.CreateScene(levelName);
 
 			auto& resourceMan = dae::ResourceManager::GetInstance();
 			auto& gridGen = dae::GridGenerator::GetInstance();
@@ -44,15 +44,16 @@ namespace dae
 
 			gridGen.LinkTextureToTile(dae::TileType::PATH, pathTexture);
 			gridGen.LinkTextureToTile(dae::TileType::WALL, wallTexture);
+			gridGen.SetTileDimensions(pathTexture->GetSize());
 
-			auto grid = gridGen.CreateGrid("Level/level01.txt", glm::vec2(pathTexture->GetSize().x, pathTexture->GetSize().y));
-			scene->Add(gridGen.CreateGameObjects());
+			GridGenerator::Grid grid = gridGen.CreateGrid("Level/level01.txt", glm::vec2(pathTexture->GetSize().x, pathTexture->GetSize().y), levelName);
+			scene->Add(gridGen.CreateGameObjects(levelName));
 
 			auto collectableObserver = std::make_shared<dae::CollectablesObserver>();
 
 			collectableObserver->AddObserver(gameMode);
 
-			for (const auto& tile : grid)
+			for (const auto& tile :	grid[levelName])
 			{
 				if (tile.hasDot)
 				{

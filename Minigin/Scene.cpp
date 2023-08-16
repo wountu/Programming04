@@ -35,6 +35,11 @@ void dae::Scene::Deactivate()
 	}
 }
 
+std::string dae::Scene::GetLevelName() const
+{
+	return m_name;
+}
+
 void Scene::Add(std::shared_ptr<GameObject> object)
 {
 	object->SetActive(m_Active);
