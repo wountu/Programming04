@@ -29,7 +29,8 @@ namespace dae
 		bool walkable = true;
 		bool hasDot{};
 		bool hasBigDot{};
-		bool isSpawnPoint{};
+		bool isSpawnPointPlayer{};
+		bool isSpawnPointEnemy{};
 		TileType tileType{};
 	};
 

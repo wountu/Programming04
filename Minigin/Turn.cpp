@@ -15,13 +15,15 @@ void dae::Turn::OnEnter()
 {
 }
 
-dae::PlayerState* dae::Turn::HandleInput()
+dae::State* dae::Turn::Update()
 {
-	m_Transform->ChangeAngle(m_Transform->GetAngle() + 90.f);
-	
-	auto move = new Move();
-	move->Initialize(m_AI, m_AI->GetTransform(), m_AI->GetVision(), m_AI->GetTankSpeed());
-	return move;
+	//m_Transform->ChangeAngle(m_Transform->GetAngle() + 90.f);
+	//
+	//auto move = new Move();
+	//move->Initialize(m_AI, m_AI->GetTransform(), m_AI->GetVision(), m_AI->GetTankSpeed());
+	//return move;
+
+	return nullptr;
 }
 
 void dae::Turn::OnExit()

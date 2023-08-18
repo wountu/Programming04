@@ -20,13 +20,14 @@ void dae::Idle::OnEnter()
 {
 }
 
-dae::PlayerState* dae::Idle::HandleInput()
+dae::State* dae::Idle::Update()
 {
 	m_TimeIdle += TimeClass::GetInstance().GetElapsed();
 	if (m_TimeIdle > m_TimeBeingIdle)
 	{
+		const float speed{ 50.f };
 		auto move = new Move();
-		move->Initialize(m_AI, m_AI->GetTransform(), m_AI->GetVision(), m_AI->GetTankSpeed());
+		move->Initialize(m_AI, speed);
 		return move;
 	}
 	return nullptr;

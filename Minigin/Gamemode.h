@@ -38,7 +38,7 @@ namespace dae
 
 		void AddPlayer(std::shared_ptr<GameObject> player);
 		void PlayerDied(std::shared_ptr<GameObject> player);
-		std::vector<std::shared_ptr<GameObject>> GetPlayer() const;
+		//std::vector<std::shared_ptr<GameObject>> GetPlayer() const;
 
 		void AddEnemy(std::shared_ptr<GameObject> player);
 		void EnemyDied(std::shared_ptr<GameObject> player);
@@ -56,14 +56,18 @@ namespace dae
 		//GameModeEnum m_GameMode{ };
 		bool m_GameStarted{ false };
 
-		std::vector<std::shared_ptr<GameObject>> m_Players;
-		std::vector<std::shared_ptr<GameObject>> m_ActivePlayers;
-		std::vector<std::shared_ptr<GameObject>> m_Enemies;
-		std::vector<std::shared_ptr<GameObject>> m_ActiveEnemies;
+		//std::vector<std::shared_ptr<GameObject>> m_Players;
+		//std::vector<std::shared_ptr<GameObject>> m_ActivePlayers;
+		//std::vector<std::shared_ptr<GameObject>> m_Enemies;
+		//std::vector<std::shared_ptr<GameObject>> m_ActiveEnemies;
 
 		void LoadPLayersAndEnemies(std::string levelName);
+
 		void CreatePlayer();
 		std::shared_ptr<dae::GameObject> m_Player{ nullptr };
+
+		std::vector<std::shared_ptr<dae::GameObject>> m_Enemies{};
+		void CreateEnemies();
 
 		int m_CurrentLevel{};
 

@@ -6,6 +6,7 @@
 #include "fstream"
 #include "GameObject.h"
 #include "MainPlayerPrefab.h"
+#include "GhostsPrefab.h"
 
 void dae::Gamemode::HandleEvent(GameObject* parent, Event event)
 {
@@ -46,8 +47,8 @@ void dae::Gamemode::Update()
 
 void dae::Gamemode::AddPlayer(std::shared_ptr<GameObject> player)
 {
-	m_Players.emplace_back(player);
-	player->GetComponent<CollisionBoxComponent>()->SetActive(true);
+	//m_Players.emplace_back(player);
+	//player->GetComponent<CollisionBoxComponent>()->SetActive(true);
 }
 
 void dae::Gamemode::PlayerDied(std::shared_ptr<GameObject> player)
@@ -60,11 +61,11 @@ void dae::Gamemode::PlayerDied(std::shared_ptr<GameObject> player)
 	//if (m_GameMode == dae::Gamemode::VERSUS)
 	//	GoNextLevel();
 }
-
-std::vector<std::shared_ptr<dae::GameObject>> dae::Gamemode::GetPlayer() const
-{
-	return m_Players;
-}
+//
+//std::vector<std::shared_ptr<dae::GameObject>> dae::Gamemode::GetPlayer() const
+//{
+//	//return m_Players;
+//}
 
 void dae::Gamemode::AddEnemy(std::shared_ptr<GameObject> player)
 {
@@ -264,7 +265,7 @@ void dae::Gamemode::GoNextLevel()
 
 void dae::Gamemode::GameDone()
 {
-	std::string pathName{ dae::ResourceManager::GetInstance().GetDataPath() + "HighScores.txt" };
+	/*std::string pathName{ dae::ResourceManager::GetInstance().GetDataPath() + "HighScores.txt" };
 	std::ifstream file(pathName);
 	std::vector<int> highScores{};
 	if (file.is_open())
@@ -317,7 +318,7 @@ void dae::Gamemode::GameDone()
 	}
 
 
-	SceneManager::GetInstance().SetActiveScene(scene);
+	SceneManager::GetInstance().SetActiveScene(scene);*/
 }
 
 void dae::Gamemode::LoadPLayersAndEnemies(std::string levelName)
@@ -325,6 +326,7 @@ void dae::Gamemode::LoadPLayersAndEnemies(std::string levelName)
 	auto grid = dae::GridGenerator::GetInstance().GetGrid();
 	auto scene = SceneManager::GetInstance().GetActiveScene();
 
+	//Players
 	if (m_Player == nullptr)
 	{
 		CreatePlayer();
@@ -336,10 +338,29 @@ void dae::Gamemode::LoadPLayersAndEnemies(std::string levelName)
 	
 	for (const auto& tile : grid[levelName])
 	{
-		if (tile.isSpawnPoint)
+		if (tile.isSpawnPointPlayer)
 		{
-
 			m_Player->GetComponent<dae::TransformComponent>()->ChangeLocalPosition(tile.LeftTop);
+		}
+	}
+
+	//Enemies
+	if (m_Enemies.empty())
+	{
+		CreateEnemies();
+	}
+
+	for (const auto& enemy : m_Enemies)
+	{
+		scene->Add(enemy);
+
+		for (const auto& tile : grid[levelName])
+		{
+			if(tile.isSpawnPointEnemy)
+			{
+				enemy->GetComponent<dae::TransformComponent>()->ChangeLocalPosition(tile.LeftTop);
+				break;
+			}
 		}
 	}
 }
@@ -360,6 +381,13 @@ void dae::Gamemode::CreatePlayer()
 	unsigned int idx = dae::InputManager::GetInstance().AddController();
 	pacmanPrefab->SetMovementButtons(ControllerXbox::ControllerInputs::DPAD_LEFT, ControllerXbox::ControllerInputs::DPAD_RIGHT, ControllerXbox::ControllerInputs::DPAD_UP, ControllerXbox::ControllerInputs::DPAD_DOWN, idx);
 
+}
+
+void dae::Gamemode::CreateEnemies()
+{
+	auto ghostPrefab = std::make_unique<GhostsPrefab>();
+	ghostPrefab->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("ghost1.png"));
+	m_Enemies.push_back(ghostPrefab->Create(glm::vec2()));
 }
 
 void dae::Gamemode::Notify(Observer::Event event)

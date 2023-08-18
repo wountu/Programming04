@@ -105,7 +105,7 @@
     <ClInclude Include="VisionComponent.h">
       <Filter>Framework\Components\AI</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerState.h">
+    <ClInclude Include="State.h">
       <Filter>FSM</Filter>
     </ClInclude>
     <ClInclude Include="CollisionBoxComponent.h">
@@ -190,6 +190,9 @@
     </ClCompile>
     <ClCompile Include="TransformComponent.cpp">
       <Filter>Framework\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="GhostsPrefab.cpp">
+      <Filter>Framework\Engine\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

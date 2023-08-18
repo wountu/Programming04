@@ -1,5 +1,5 @@
 #pragma once
-#include "PlayerState.h"
+#include "State.h"
 #include "AIComonent.h"
 
 #include <glm/vec2.hpp>
@@ -8,7 +8,7 @@
 namespace dae
 {
 	class TransformComponent;
-	class Turn final : public PlayerState
+	class Turn final : public State
 	{
 	public:
 		Turn() = default;
@@ -22,7 +22,7 @@ namespace dae
 		void Initialize(AIComponent* ai, std::shared_ptr<TransformComponent> transform);
 
 		virtual void OnEnter() override;
-		virtual PlayerState* HandleInput() override;
+		virtual State* Update() override;
 		virtual void OnExit() override;
 	private:
 		std::shared_ptr<TransformComponent> m_Transform{};

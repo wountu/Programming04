@@ -176,5 +176,8 @@
     <ClInclude Include="..\Minigin\CollectablesObserver.h">
       <Filter>Observers</Filter>
     </ClInclude>
+    <ClInclude Include="..\Minigin\GhostsPrefab.h">
+      <Filter>Prefabs</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

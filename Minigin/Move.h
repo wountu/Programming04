@@ -1,6 +1,7 @@
 #pragma once
-#include "PlayerState.h"
+#include "State.h"
 #include "AIComonent.h"
+#include "LevelGenerator.h"
 
 #include <glm/vec2.hpp>
 #include <memory>
@@ -9,7 +10,7 @@ namespace dae
 {
 	class TransformComponent;
 	class VisionComponent;
-	class Move final : public PlayerState
+	class Move final : public State
 	{
 	public:
 		Move() = default;
@@ -20,10 +21,10 @@ namespace dae
 		Move(Move&& other) = delete;
 		Move& operator =(Move&& other) = delete;
 
-		void Initialize(AIComponent* ai, std::shared_ptr<TransformComponent> transform, std::shared_ptr<VisionComponent> vision, float speed);
+		void Initialize(AIComponent* ai, float speed);
 
 		virtual void OnEnter() override;
-		virtual PlayerState* HandleInput() override;
+		virtual State* Update() override;
 		virtual void OnExit() override;
 	private:
 		std::shared_ptr<TransformComponent> m_Transform{};
@@ -31,7 +32,22 @@ namespace dae
 		AIComponent* m_AI{};
 
 		glm::vec2 m_Dir{};
+		glm::vec2 m_NewDir{};
 		float m_Speed{};
+
+		int m_GridWidth{};
+		int m_GridHeight{};
+		std::vector<Tile> m_Grid{};
+
+		bool CanGoLeft(int idx);
+		bool CanGoRight(int idx);
+		bool CanGoUp(int idx);
+		bool CanGoDown(int idx);
+		
+		void CheckCollision();
+		void LookForNewDir();
+
+		bool CheckForTurn();
 	};
 }
 

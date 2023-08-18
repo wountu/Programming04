@@ -1,5 +1,5 @@
 #pragma once
-#include "PlayerState.h"
+#include "State.h"
 #include "AIComonent.h"
 #include "BulletManager.h"
 
@@ -9,7 +9,7 @@
 namespace dae
 {
 	class TransformComponent;
-	class ShootAI final : public PlayerState
+	class ShootAI final : public State
 	{
 	public:
 		ShootAI() = default;
@@ -23,7 +23,7 @@ namespace dae
 		void Initialize(AIComponent* ai);
 
 		virtual void OnEnter() override;
-		virtual PlayerState* HandleInput() override;
+		virtual State* Update() override;
 		virtual void OnExit() override;
 	private:
 		AIComponent* m_AI{ nullptr };
