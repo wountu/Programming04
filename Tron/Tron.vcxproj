@@ -205,6 +205,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" /R/Y</Comm
     <ClCompile Include="..\Minigin\ScoreComponent.cpp" />
     <ClCompile Include="..\Minigin\ScoreObserver.cpp" />
     <ClCompile Include="..\Minigin\Shoot.cpp" />
+    <ClCompile Include="..\Minigin\TeleporterComponent.cpp" />
     <ClCompile Include="..\Minigin\Turn.cpp" />
     <ClCompile Include="Tron.cpp" />
   </ItemGroup>
@@ -233,6 +234,8 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" /R/Y</Comm
     <ClInclude Include="..\Minigin\ScoreComponent.h" />
     <ClInclude Include="..\Minigin\ScoreObserver.h" />
     <ClInclude Include="..\Minigin\Shoot.h" />
+    <ClInclude Include="..\Minigin\TeleporterComponent.h" />
+    <ClInclude Include="..\Minigin\TeleporterPrefab.h" />
     <ClInclude Include="..\Minigin\Turn.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

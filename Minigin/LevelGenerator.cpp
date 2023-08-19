@@ -179,6 +179,11 @@ namespace dae
                                         tile.tileType = TileType::PATH;
                                         tile.isSpawnPointPlayer = true;
                                         break;
+
+                                    case 8:
+                                        tile.tileType = TileType::PATH;
+                                        tile.isTeleporter = true;
+                                        break;
                                     }
                                   
                                     m_Grid[levelName].push_back(tile);

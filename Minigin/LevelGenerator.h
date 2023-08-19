@@ -31,6 +31,7 @@ namespace dae
 		bool hasBigDot{};
 		bool isSpawnPointPlayer{};
 		bool isSpawnPointEnemy{};
+		bool isTeleporter{};
 		TileType tileType{};
 	};
 

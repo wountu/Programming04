@@ -102,6 +102,9 @@
     <ClCompile Include="..\Minigin\CollectablesObserver.cpp">
       <Filter>Observers</Filter>
     </ClCompile>
+    <ClCompile Include="..\Minigin\TeleporterComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Minigin\BulletComponent.h">
@@ -178,6 +181,12 @@
     </ClInclude>
     <ClInclude Include="..\Minigin\GhostsPrefab.h">
       <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Minigin\TeleporterPrefab.h">
+      <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Minigin\TeleporterComponent.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

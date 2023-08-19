@@ -22,6 +22,8 @@
 #include "Gamemode.h"
 #include "Scene.h"
 #include "DotsPrefab.h"
+#include "TeleporterPrefab.h"
+
 #include <memory>
 
 namespace dae
@@ -53,6 +55,9 @@ namespace dae
 
 			collectableObserver->AddObserver(gameMode);
 
+			std::shared_ptr<TeleporterComponent> teleporter1 = nullptr;
+			std::shared_ptr<TeleporterComponent> teleporter2 = nullptr;
+
 			for (const auto& tile :	grid[levelName])
 			{
 				if (tile.hasDot)
@@ -71,6 +76,26 @@ namespace dae
 					dotPrefab->SetDotScore(50);
 					dotPrefab->SetDotObserver(collectableObserver);
 					scene->Add(dotPrefab->Create(tile.LeftTop));
+				}
+
+				if (tile.isTeleporter)
+				{
+					auto teleportPrefab = std::make_unique<TeleporterPrefab>();
+					auto teleport = teleportPrefab->Create(tile.LeftTop);
+					scene->Add(teleport);
+
+					if (teleporter1 == nullptr)
+					{
+						teleporter1 = teleport->GetComponent<TeleporterComponent>();
+					}
+
+					else
+					{
+						teleporter2 = teleport->GetComponent<TeleporterComponent>();
+
+						teleporter1->LinkToOtherTeleporter(teleporter2);
+						teleporter2->LinkToOtherTeleporter(teleporter1);
+					}
 				}
 			}
 		}

@@ -45,53 +45,15 @@ namespace dae
 				m_MovingAlongX = false;
 		}
 
+		//Check for new turns
 		CheckCollision();
 		LookForNewDir();
 
+		//Update pos
 		glm::vec2 newPos{ m_Transform->GetWorldPosition() + m_Dir * m_Speed * TimeClass::GetInstance().GetElapsed() };
 		m_Transform->ChangeLocalPosition(newPos);
 
-		//auto collidingBoxes = CollisionDetector::GetInstance().BoxesCollidingWithRay(m_Vision->GetStartVision(), m_Vision->GetEndVision(), m_Vision->GetDirection());
-		//float distSqrd{ FLT_MAX };
-		//CollisionBoxComponent* closestBox{};
-		////std::cout << collidingBoxes.size() << "\n";
-		//
-		//for(const auto& box : collidingBoxes)
-		//{
-		//	if (box->GetParent()->GetTag() == dae::Bullet)
-		//		continue;
-
-		//	glm::vec2 boxToRay{ m_Vision->GetStartVision() - box->GetBox()._leftTop };
-		//	float newDistSqrd = (boxToRay.x * boxToRay.x) + (boxToRay.y * boxToRay.y);
-		//	if (newDistSqrd < distSqrd)
-		//	{
-		//		closestBox = box;
-		//		distSqrd = newDistSqrd;
-		//	}
-		//}
-
-		//if (!closestBox)
-		//	return nullptr;
-
-		//if (closestBox->GetParent()->GetTag() != dae::AI && closestBox->GetParent()->GetTag() != dae::Static && m_AI->GetCanShoot()) //Found a possible target to shoot 
-		//{
-		//	m_AI->SetTargetDir(closestBox->GetParent()->GetComponent<TransformComponent>()->GetWorldPosition() - m_Transform->GetWorldPosition());
-		//	auto shoot = new ShootAI();
-		//	shoot->Initialize(m_AI);
-		//	return shoot;
-		//	//std::cout << "Target in sight // ";
-		//}
-
-		////std::cout << distSqrd << "\n";
-
-		//if (distSqrd < 450)
-		//{
-		//	//std::cout << "turn" << "\n";
-		//	auto turn = new Turn();
-		//	turn->Initialize(m_AI, m_AI->GetTransform());
-		//	return turn;
-		//}
-
+		//Update the grid info
 		int idx = GridGenerator::GetInstance().GetIdxFromPos(m_Transform->GetWorldPosition());
 		if (idx != m_CurrentTileIdx)
 		{
@@ -191,8 +153,6 @@ namespace dae
 
 	void Move::LookForNewDir()
 	{
-		std::cout << m_LastDir.y << "\n";
-
 		auto& gridGen = GridGenerator::GetInstance();
 		int idx = gridGen.GetIdxFromPos(m_Transform->GetWorldPosition());
 
