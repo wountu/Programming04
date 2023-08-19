@@ -37,10 +37,16 @@ namespace dae
 
 		if (m_NewDir != m_Dir && CheckForTurn()) //Needs to turn when arrived at the middle of the tile
 		{
+			m_LastDir = m_Dir; //To not keep going left-right-left
 			m_Dir = m_NewDir;
+			if (m_Dir.x != 0)
+				m_MovingAlongX = true;
+			if (m_Dir.y != 0)
+				m_MovingAlongX = false;
 		}
 
 		CheckCollision();
+		LookForNewDir();
 
 		glm::vec2 newPos{ m_Transform->GetWorldPosition() + m_Dir * m_Speed * TimeClass::GetInstance().GetElapsed() };
 		m_Transform->ChangeLocalPosition(newPos);
@@ -86,6 +92,18 @@ namespace dae
 		//	return turn;
 		//}
 
+		int idx = GridGenerator::GetInstance().GetIdxFromPos(m_Transform->GetWorldPosition());
+		if (idx != m_CurrentTileIdx)
+		{
+			m_LastTileIdx = m_CurrentTileIdx;
+			m_CurrentTileIdx = idx;
+			m_LastTiles.push_back(idx);
+			if (m_LastTiles.size() >= m_NmbrOfTilesToKeep)
+			{
+				m_LastTiles.pop_front();
+			}
+		}
+
 		return nullptr;
 	}
 
@@ -95,12 +113,10 @@ namespace dae
 
 	bool Move::CanGoLeft(int idx)
 	{
-		int leftIdx{};
+		int leftIdx{ idx - 1 };
 
-		if (idx - 1 >= 0)
+		if (leftIdx >= 0 && m_LastTileIdx != leftIdx)
 		{
-			leftIdx = idx - 1;
-
 			if (m_Grid[leftIdx].walkable)
 				return true;
 		}
@@ -110,11 +126,9 @@ namespace dae
 
 	bool Move::CanGoRight(int idx)
 	{
-		int rightIdx{};
-		if ((idx + 1) % m_GridHeight <= m_GridWidth && idx + 1 > 0)
+		int rightIdx{ (idx + 1) };
+		if (rightIdx % m_GridHeight <= m_GridWidth && idx + 1 > 0 && m_LastTileIdx != rightIdx)
 		{
-			rightIdx = idx + 1;
-
 			if (m_Grid[rightIdx].walkable)
 				return true;
 
@@ -125,14 +139,11 @@ namespace dae
 
 	bool Move::CanGoUp(int idx)
 	{
-		int upIdx{};
-		if (idx - m_GridWidth >= 0)
+		int upIdx{ idx - m_GridWidth };
+		if (upIdx >= 0 && m_LastTileIdx != upIdx)
 		{
-			upIdx = idx - m_GridWidth;
-
 			if (m_Grid[upIdx].walkable)
 				return true;
-
 		}
 
 		return false;
@@ -140,11 +151,9 @@ namespace dae
 
 	bool Move::CanGoDown(int idx)
 	{
-		int downIdx{};
-		if (idx + m_GridWidth <= m_GridWidth * m_GridHeight && idx + m_GridWidth > 0)
+		int downIdx{ idx + m_GridWidth };
+		if (downIdx <= m_GridWidth * m_GridHeight && idx + m_GridWidth > 0 && m_LastTileIdx != downIdx)
 		{
-			downIdx = idx + m_GridWidth;
-
 			if (m_Grid[downIdx].walkable)
 				return true;
 		}
@@ -155,26 +164,26 @@ namespace dae
 	void Move::CheckCollision()
 	{
 		auto& gridGen = GridGenerator::GetInstance();
-		int idx = gridGen.GetIdxFromPos(m_Transform->GetWorldPosition());
+		//int idx = gridGen.GetIdxFromPos(m_Transform->GetWorldPosition());
 
 		auto grid = gridGen.GetGrid()[SceneManager::GetInstance().GetActiveScene()->GetLevelName()];
 
-		if (m_Dir.x == 1 && !CanGoRight(idx))
+		if (m_Dir.x == 1 && !CanGoRight(m_CurrentTileIdx))
 		{
 			LookForNewDir();
 		}
 
-		if (m_Dir.x == -1 && !CanGoLeft(idx))
+		if (m_Dir.x == -1 && !CanGoLeft(m_CurrentTileIdx))
 		{
 			LookForNewDir();
 		}
 
-		if (m_Dir.y == -1 && !CanGoUp(idx))
+		if (m_Dir.y == -1 && !CanGoUp(m_CurrentTileIdx))
 		{
 			LookForNewDir();
 		}
 
-		if (m_Dir.y == 1 && !CanGoDown(idx))
+		if (m_Dir.y == 1 && !CanGoDown(m_CurrentTileIdx))
 		{
 			LookForNewDir();
 		}
@@ -182,35 +191,52 @@ namespace dae
 
 	void Move::LookForNewDir()
 	{
+		std::cout << m_LastDir.y << "\n";
+
 		auto& gridGen = GridGenerator::GetInstance();
 		int idx = gridGen.GetIdxFromPos(m_Transform->GetWorldPosition());
 
-		if (CanGoRight(idx))
-		{
-			m_NewDir.x = 1;
-			m_NewDir.y = 0;
-			return;
-		}
+		int possibiltys{};
+		bool canGoUp{};
+		bool canGoDown{};
+		bool canGoRight{};
+		bool canGoLeft{};
 
 		if (CanGoUp(idx))
 		{
+			++possibiltys;
+			canGoUp = true;
 			m_NewDir.y = -1;
 			m_NewDir.x = 0;
-			return;
+		}
+
+		if (CanGoRight(idx))
+		{
+			++possibiltys;
+			canGoRight = true;
+			m_NewDir.x = 1;
+			m_NewDir.y = 0;
 		}
 
 		if (CanGoLeft(idx))
 		{
+			++possibiltys;
+			canGoLeft = true;
 			m_NewDir.x = -1;
 			m_NewDir.y = 0;
-			return;
 		}
 
 		if (CanGoDown(idx))
 		{
+			++possibiltys;
+			canGoDown = true;
 			m_NewDir.y = 1;
 			m_NewDir.x = 0;
 		}
+
+		CheckIfUpcomingTyleVisitedRecently(canGoLeft, canGoRight, canGoUp, canGoDown);
+
+		std::cout << "Possiblitys: " << possibiltys << "\n";
 	}
 
 	bool Move::CheckForTurn()
@@ -234,4 +260,71 @@ namespace dae
 
 		return false;
 	}
+
+	void Move::CheckIfUpcomingTyleVisitedRecently(bool canGoLeft, bool canGoRight, bool canGoUp, bool canGoDown)
+	{
+		if (canGoRight)
+		{
+			int rightIdx{ (m_CurrentTileIdx + 1) };
+			if (std::find(m_LastTiles.begin(), m_LastTiles.end(), rightIdx) != m_LastTiles.end() && (canGoLeft || canGoUp || canGoDown))
+			{
+				m_NewDir.x = 0;
+			}
+			else
+			{
+				m_NewDir.x = 1;
+				m_NewDir.y = 0;
+
+				return;
+			}
+		}
+
+		if (canGoUp)
+		{
+			int upIdx{ m_CurrentTileIdx - m_GridWidth };
+			if (std::find(m_LastTiles.begin(), m_LastTiles.end(), upIdx) != m_LastTiles.end() && (canGoLeft || canGoDown))
+			{
+				m_NewDir.y = 0;
+			}
+			else
+			{
+				m_NewDir.y = -1;
+				m_NewDir.x = 0;
+				return;
+			}
+		}
+
+		if (canGoDown)
+		{
+			int downIdx{ m_CurrentTileIdx + m_GridWidth };
+			if (std::find(m_LastTiles.begin(), m_LastTiles.end(), downIdx) != m_LastTiles.end() && canGoLeft)
+			{
+				m_NewDir.y = 0;
+			}
+			else
+			{
+				m_NewDir.y = 1;
+				m_NewDir.x = 0;
+
+				return;
+			}
+		}
+
+		if (canGoLeft)
+		{
+			int leftIdx{ m_CurrentTileIdx - 1 };
+			if (std::find(m_LastTiles.begin(), m_LastTiles.end(), leftIdx) != m_LastTiles.end())
+			{
+				m_NewDir.x = 0;
+			}
+			else
+			{
+				m_NewDir.x = -1;
+				m_NewDir.y = 0;
+
+				return;
+			}
+		}
+	}
+
 }

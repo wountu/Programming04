@@ -5,6 +5,7 @@
 
 #include <glm/vec2.hpp>
 #include <memory>
+#include <deque>
 
 namespace dae
 {
@@ -34,10 +35,17 @@ namespace dae
 		glm::vec2 m_Dir{};
 		glm::vec2 m_NewDir{};
 		float m_Speed{};
+		bool m_MovingAlongX{ false };
 
 		int m_GridWidth{};
 		int m_GridHeight{};
 		std::vector<Tile> m_Grid{};
+
+		int m_CurrentTileIdx{};
+		int m_LastTileIdx{};
+		glm::vec2 m_LastDir{};
+		std::deque<int> m_LastTiles{};
+		const int m_NmbrOfTilesToKeep{ 50 };
 
 		bool CanGoLeft(int idx);
 		bool CanGoRight(int idx);
@@ -48,6 +56,7 @@ namespace dae
 		void LookForNewDir();
 
 		bool CheckForTurn();
+		void CheckIfUpcomingTyleVisitedRecently(bool canGoLeft, bool canGoRight, bool canGoUp, bool canGoDown);
 	};
 }
 
