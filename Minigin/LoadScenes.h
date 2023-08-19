@@ -93,8 +93,8 @@ namespace dae
 					{
 						teleporter2 = teleport->GetComponent<TeleporterComponent>();
 
-						teleporter1->LinkToOtherTeleporter(teleporter2);
 						teleporter2->LinkToOtherTeleporter(teleporter1);
+						teleporter1->LinkToOtherTeleporter(teleporter2);
 					}
 				}
 			}

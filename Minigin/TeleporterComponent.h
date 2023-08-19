@@ -24,12 +24,16 @@ namespace dae
 
 		void LinkToOtherTeleporter(std::shared_ptr<TeleporterComponent> teleporter);
 		void Teleported(GameObject* object);
+
+		bool IsColliding() const;
 	private:
 		GameObject* m_Parent{ nullptr };
 		TeleporterComponent* m_OtherTeleporter{ nullptr };
 		CollisionBoxComponent* m_Collision{ nullptr };
 
 		GameObject* m_TeleportedObj{ nullptr };
+
+		bool m_IsColliding{};
 	};
 }
 

@@ -195,8 +195,6 @@ namespace dae
 		}
 
 		CheckIfUpcomingTyleVisitedRecently(canGoLeft, canGoRight, canGoUp, canGoDown);
-
-		std::cout << "Possiblitys: " << possibiltys << "\n";
 	}
 
 	bool Move::CheckForTurn()

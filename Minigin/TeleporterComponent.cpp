@@ -14,11 +14,15 @@ void dae::TeleporterComponent::Render() const
 
 void dae::TeleporterComponent::Update()
 {
+	m_IsColliding = false;
+
 	if (m_Collision)
 	{
 		auto overlap = m_Collision->GetOverlappingGameObject();
 		if (overlap)
 		{
+			m_IsColliding = true;
+
 			if (overlap == m_TeleportedObj)
 			{
 				return;
@@ -31,7 +35,11 @@ void dae::TeleporterComponent::Update()
 				m_OtherTeleporter->Teleported(overlap);
 			}
 		}
-		else m_TeleportedObj = nullptr;
+		else
+		{
+			if (!m_OtherTeleporter->IsColliding())
+				m_TeleportedObj = nullptr;
+		}
 	}
 }
 
@@ -48,4 +56,9 @@ void dae::TeleporterComponent::LinkToOtherTeleporter(std::shared_ptr<TeleporterC
 void dae::TeleporterComponent::Teleported(GameObject* object)
 {
 	m_TeleportedObj = object;
+}
+
+bool dae::TeleporterComponent::IsColliding() const
+{
+	return m_IsColliding;
 }
