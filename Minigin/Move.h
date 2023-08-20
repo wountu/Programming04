@@ -45,7 +45,7 @@ namespace dae
 		int m_LastTileIdx{};
 		glm::vec2 m_LastDir{};
 		std::deque<int> m_LastTiles{};
-		const int m_NmbrOfTilesToKeep{ 50 };
+		const size_t m_NmbrOfTilesToKeep{ 50 };
 
 		bool CanGoLeft(int idx);
 		bool CanGoRight(int idx);

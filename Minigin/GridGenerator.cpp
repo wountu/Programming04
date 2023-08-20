@@ -50,7 +50,7 @@ namespace dae
                         std::string number{};
                         while (std::getline(ssGridLine, number, ','))
                         {
-                            for (int idx{ 0 }; idx < number.size(); ++idx)
+                            for (size_t idx{ 0 }; idx < number.size(); ++idx)
                             {
                                 if (number[idx] != '[' && number[idx] != ']' && number[idx] != ' ' && number[idx] != '\t')
                                 {

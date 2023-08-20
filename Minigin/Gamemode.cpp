@@ -287,7 +287,7 @@ void dae::Gamemode::LoadPLayersAndEnemies(std::string levelName)
 		CreateEnemies();
 	}
 
- 	for (int idx{}; idx < m_Enemies.size(); ++idx)
+ 	for (size_t idx{}; idx < m_Enemies.size(); ++idx)
 	{
 		int nmbrOfSpawns{};
 		scene->Add(m_Enemies[idx]);
@@ -297,7 +297,7 @@ void dae::Gamemode::LoadPLayersAndEnemies(std::string levelName)
 			if (tile.isSpawnPointEnemy)
 			{
 				++nmbrOfSpawns;
-				if(nmbrOfSpawns-1 == idx)
+				if(nmbrOfSpawns-1 == static_cast<int>(idx))
 				{
 					m_Enemies[idx]->GetComponent<dae::TransformComponent>()->ChangeLocalPosition(tile.LeftTop);
 					break;
