@@ -12,6 +12,7 @@ namespace dae
 	{
 	public:
 		std::shared_ptr<Scene> CreateScene(const std::string& name);
+		void RemoveScene(const std::string& name);
 
 		void Update();
 		void FixedUpdate(float timeStep);

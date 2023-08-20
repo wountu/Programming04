@@ -83,3 +83,15 @@ std::shared_ptr<dae::Scene> dae::SceneManager::CreateScene(const std::string& na
 	m_scenes.push_back(scene);
 	return scene;
 }
+
+void dae::SceneManager::RemoveScene(const std::string& name)
+{
+	for (const auto& scene : m_scenes)
+	{
+		if (scene->GetLevelName() == name)
+		{
+			m_scenes.erase(std::remove(m_scenes.begin(), m_scenes.end(), scene), m_scenes.end());
+			break;
+		}
+	}
+}

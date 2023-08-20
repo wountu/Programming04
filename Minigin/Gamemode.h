@@ -58,12 +58,6 @@ namespace dae
 		Menu m_GameMode{};
 		//GameModeEnum m_GameMode{ };
 		bool m_GameStarted{ false };
-
-		//std::vector<std::shared_ptr<GameObject>> m_Players;
-		//std::vector<std::shared_ptr<GameObject>> m_ActivePlayers;
-		//std::vector<std::shared_ptr<GameObject>> m_Enemies;
-		//std::vector<std::shared_ptr<GameObject>> m_ActiveEnemies;
-
 		void LoadPLayersAndEnemies(std::string levelName);
 
 		void CreatePlayer();

@@ -67,9 +67,6 @@ void dae::Scene::Add(std::vector<std::shared_ptr<GameObject>> objects)
 
 void Scene::Remove(std::shared_ptr<GameObject> object)
 {
-	if (m_name == "Level02")
-		std::cout << "Destroying something of lvl 02\n";
-
 	m_objects.erase(std::remove(m_objects.begin(), m_objects.end(), object), m_objects.end());
 }
 

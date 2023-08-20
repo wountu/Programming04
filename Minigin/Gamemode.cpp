@@ -15,6 +15,7 @@ void dae::Gamemode::HandleEvent(GameObject* parent, Event event)
 	{
 	case dae::Observer::Event::Mainmenu_Picked:
 		m_GameMode = parent->GetComponent<MainmenuComponent>()->GetMenu();
+		SceneManager::GetInstance().RemoveScene(SceneManager::GetInstance().GetActiveScene()->GetLevelName());
 		StartGame();
 		break;
 	case dae::Observer::Event::Collectables_Pickedup:
@@ -112,8 +113,17 @@ void dae::Gamemode::StartGame()
 
 void dae::Gamemode::GoNextLevel()
 {
-	SceneManager::GetInstance().SetNextLevelActive();
-	LoadPLayersAndEnemies(SceneManager::GetInstance().GetActiveScene()->GetLevelName());
+	auto& sceneMan = SceneManager::GetInstance();
+	auto scene = sceneMan.GetActiveScene();
+	scene->Remove(m_Player);
+
+	for (auto& enemy : m_Enemies)
+	{
+		scene->Remove(enemy);
+	}
+
+	sceneMan.SetNextLevelActive();
+	LoadPLayersAndEnemies(sceneMan.GetActiveScene()->GetLevelName());
 
 	Notify(dae::Observer::Level_Next);
 }
