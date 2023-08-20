@@ -287,19 +287,39 @@ void dae::Gamemode::LoadPLayersAndEnemies(std::string levelName)
 		CreateEnemies();
 	}
 
-	for (const auto& enemy : m_Enemies)
+ 	for (int idx{}; idx < m_Enemies.size(); ++idx)
 	{
-		scene->Add(enemy);
+		int nmbrOfSpawns{};
+		scene->Add(m_Enemies[idx]);
 
 		for (const auto& tile : grid[levelName])
 		{
-			if(tile.isSpawnPointEnemy)
+			if (tile.isSpawnPointEnemy)
 			{
-				enemy->GetComponent<dae::TransformComponent>()->ChangeLocalPosition(tile.LeftTop);
-				break;
+				++nmbrOfSpawns;
+				if(nmbrOfSpawns-1 == idx)
+				{
+					m_Enemies[idx]->GetComponent<dae::TransformComponent>()->ChangeLocalPosition(tile.LeftTop);
+					break;
+				}
 			}
 		}
 	}
+
+
+	//for (const auto& enemy : m_Enemies)
+	//{
+	//	scene->Add(enemy);
+
+	//	for (const auto& tile : grid[levelName])
+	//	{
+	//		if(tile.isSpawnPointEnemy)
+	//		{
+	//			enemy->GetComponent<dae::TransformComponent>()->ChangeLocalPosition(tile.LeftTop);
+	//			break;
+	//		}
+	//	}
+	//}
 }
 
 void dae::Gamemode::CreatePlayer()
@@ -357,6 +377,12 @@ void dae::Gamemode::CreateEnemies()
 {
 	auto ghostPrefab = std::make_unique<GhostsPrefab>();
 	ghostPrefab->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("ghost1.png"));
+	m_Enemies.push_back(ghostPrefab->Create(glm::vec2()));
+
+	ghostPrefab->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("ghost2.png"));
+	m_Enemies.push_back(ghostPrefab->Create(glm::vec2()));
+
+	ghostPrefab->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("ghost3.png"));
 	m_Enemies.push_back(ghostPrefab->Create(glm::vec2()));
 }
 

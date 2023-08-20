@@ -25,10 +25,8 @@ namespace dae
 		virtual void Render() const override;
 
 		GameObject* GetParent() const;
-		VisionComponent* GetVision() const;
 	private:
 		GameObject* m_Parent{ nullptr };
-		VisionComponent* m_Vision{ nullptr };
 
 		State* m_GhostState{ nullptr };
 	};

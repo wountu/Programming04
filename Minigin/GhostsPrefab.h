@@ -25,9 +25,6 @@ public:
 		collision->Initialize(m_Ghost, dae::CollisionBox(pos, static_cast<float>(m_Texture->GetSize().x), static_cast<float>(m_Texture->GetSize().y)), 0);
 		collision->SetActive(true);
 
-		auto vision = m_Ghost->AddComponent<dae::VisionComponent>();
-		vision->Initialize(m_Ghost, 200.f);
-
 		auto ai = m_Ghost->AddComponent<dae::AIComponent>();
 		ai->Initialize(m_Ghost);
 

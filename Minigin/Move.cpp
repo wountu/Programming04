@@ -21,8 +21,6 @@ namespace dae
 
 		m_GridWidth = GridGenerator::GetInstance().GetGridWidth();
 		m_GridHeight = GridGenerator::GetInstance().GetGridHeight();
-
-		m_Vision = m_AI->GetVision();
 	}
 
 	void Move::OnEnter()
@@ -299,6 +297,35 @@ namespace dae
 				return;
 			}
 		}
+
+		if (canGoLeft)
+		{
+			m_NewDir.x = -1;
+			m_NewDir.y = 0;
+
+			return;
+		}
+
+		if (canGoRight)
+		{
+			m_NewDir.x = 1;
+			m_NewDir.y = 0;
+
+			return;
+		}
+
+		if (canGoDown)
+		{
+			m_NewDir.x = 0;
+			m_NewDir.y = 1;
+		}
+
+		if (canGoDown)
+		{
+			m_NewDir.x = 0;
+			m_NewDir.y = -1;
+		}
+
 	}
 
 }
