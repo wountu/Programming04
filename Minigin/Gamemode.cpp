@@ -26,6 +26,9 @@ void dae::Gamemode::HandleEvent(GameObject* parent, Event event)
 		ResetLevel();
 		std::cout << "Reset level\n";
 		break;
+	case dae::Observer::Event::Health_Died:
+		GameDone();
+		std::cout << "died\n";
 	}
 }
 
@@ -143,7 +146,7 @@ void dae::Gamemode::ResetLevel()
 
 void dae::Gamemode::GameDone()
 {
-	/*std::string pathName{ dae::ResourceManager::GetInstance().GetDataPath() + "HighScores.txt" };
+	std::string pathName{ dae::ResourceManager::GetInstance().GetDataPath() + "HighScores.txt" };
 	std::ifstream file(pathName);
 	std::vector<int> highScores{};
 	if (file.is_open())
@@ -155,16 +158,24 @@ void dae::Gamemode::GameDone()
 			highScores.push_back(score);
 		}
 
-		for (const auto& player : m_Players)
+		int playerScore = m_Player->GetComponent<ScoreComponent>()->GetScore();
+		if (highScores.back() < playerScore)
 		{
-			int playerScore = player->GetComponent<ScoreComponent>()->GetScore();
-			if (highScores.back() < playerScore)
-			{
-				highScores.pop_back();
-				highScores.push_back(playerScore);
-				std::sort(highScores.rbegin(), highScores.rend());
-			}
+			highScores.pop_back();
+			highScores.push_back(playerScore);
+			std::sort(highScores.rbegin(), highScores.rend());
 		}
+
+		//for (const auto& player : m_Players)
+		//{
+		//	int playerScore = player->GetComponent<ScoreComponent>()->GetScore();
+		//	if (highScores.back() < playerScore)
+		//	{
+		//		highScores.pop_back();
+		//		highScores.push_back(playerScore);
+		//		std::sort(highScores.rbegin(), highScores.rend());
+		//	}
+		//}
 	}
 
 	std::ofstream writeFile(pathName);
@@ -196,7 +207,7 @@ void dae::Gamemode::GameDone()
 	}
 
 
-	SceneManager::GetInstance().SetActiveScene(scene);*/
+	SceneManager::GetInstance().SetActiveScene(scene);
 }
 
 void dae::Gamemode::LoadPLayersAndEnemies(std::string levelName)
@@ -214,11 +225,33 @@ void dae::Gamemode::LoadPLayersAndEnemies(std::string levelName)
 	scene->Add(m_Player);
 	m_Player->GetComponent<CollisionBoxComponent>()->SetActive(true);
 	
+	Tile firstPlayersTile{};
 	for (const auto& tile : grid[levelName])
 	{
 		if (tile.isSpawnPointPlayer)
 		{
 			m_Player->GetComponent<dae::TransformComponent>()->ChangeLocalPosition(tile.LeftTop);
+			firstPlayersTile = tile;
+		}
+	}
+
+	if (m_GameMode == dae::Menu::COOP)
+	{
+		if (m_Player2 == nullptr)
+		{
+			CreatePlayer2();
+			AddObserver(m_Player2->GetComponent<PlayerComponent>().get());
+		}
+
+		scene->Add(m_Player2);
+		m_Player2->GetComponent<CollisionBoxComponent>()->SetActive(true);
+
+		for (const auto& tile : grid[levelName])
+		{
+			if (tile.isSpawnPointPlayer && tile.LeftTop != firstPlayersTile.LeftTop)
+			{
+				m_Player2->GetComponent<dae::TransformComponent>()->ChangeLocalPosition(tile.LeftTop);
+			}
 		}
 	}
 
@@ -253,10 +286,31 @@ void dae::Gamemode::CreatePlayer()
 
 	//std::shared_ptr<dae::HealthObserver> healthObserver = 
 	m_Player->GetComponent<HealthComponent>()->AddObserver(m_HealthObs.get());
+	m_Player->GetComponent<ScoreComponent>()->AddObserver(m_ScoreObs.get());
 	m_Player->GetComponent<dae::HealthComponent>()->AddObserver(this);
 
 	//Keybinds
 	pacmanPrefab->SetMovementKeys(SDL_SCANCODE_LEFT, SDL_SCANCODE_RIGHT, SDL_SCANCODE_UP, SDL_SCANCODE_DOWN);
+	unsigned int idx = dae::InputManager::GetInstance().AddController();
+	pacmanPrefab->SetMovementButtons(ControllerXbox::ControllerInputs::DPAD_LEFT, ControllerXbox::ControllerInputs::DPAD_RIGHT, ControllerXbox::ControllerInputs::DPAD_UP, ControllerXbox::ControllerInputs::DPAD_DOWN, idx);
+
+}
+
+void dae::Gamemode::CreatePlayer2()
+{
+	//Create the GO
+	auto pacmanPrefab = std::make_unique<MainPlayerPrefab>();
+	pacmanPrefab->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("mspacman.png"));
+	m_Player2 = pacmanPrefab->Create(glm::vec2(0, 0));
+
+
+	//std::shared_ptr<dae::HealthObserver> healthObserver = 
+	m_Player2->GetComponent<HealthComponent>()->AddObserver(m_HealthObs2.get());
+	m_Player2->GetComponent<ScoreComponent>()->AddObserver(m_ScoreObs2.get());
+	m_Player2->GetComponent<dae::HealthComponent>()->AddObserver(this);
+
+	//Keybinds
+	//pacmanPrefab->SetMovementKeys(SDL_SCANCODE_LEFT, SDL_SCANCODE_RIGHT, SDL_SCANCODE_UP, SDL_SCANCODE_DOWN);
 	unsigned int idx = dae::InputManager::GetInstance().AddController();
 	pacmanPrefab->SetMovementButtons(ControllerXbox::ControllerInputs::DPAD_LEFT, ControllerXbox::ControllerInputs::DPAD_RIGHT, ControllerXbox::ControllerInputs::DPAD_UP, ControllerXbox::ControllerInputs::DPAD_DOWN, idx);
 

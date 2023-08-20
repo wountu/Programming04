@@ -4,10 +4,10 @@
 
 dae::ScoreComponent::~ScoreComponent()
 {
-    for (auto& observer : m_pObservers)
-        delete observer;
+    //for (auto& observer : m_pObservers)
+    //    delete observer;
 
-    m_pObservers.clear();
+    //m_pObservers.clear();
 }
 
 void dae::ScoreComponent::Initialize(std::shared_ptr<GameObject> parent, int startScore)

@@ -4,7 +4,7 @@
 #include "Observer.h"
 #include "MainmenuComponent.h"
 #include "HealthObserver.h"
-
+#include "ScoreObserver.h"
 
 #include <vector>
 #include <memory>
@@ -62,6 +62,13 @@ namespace dae
 
 		void CreatePlayer();
 		std::shared_ptr<dae::GameObject> m_Player{ nullptr };
+		std::shared_ptr<dae::HealthObserver> m_HealthObs{ std::make_shared<dae::HealthObserver>(glm::vec2(475, 40), 3) };
+		std::shared_ptr<dae::ScoreObserver> m_ScoreObs{ std::make_shared<dae::ScoreObserver>(glm::vec2(475, 20), 0) };
+
+		void CreatePlayer2();
+		std::shared_ptr<dae::GameObject> m_Player2{ nullptr };
+		std::shared_ptr<dae::HealthObserver> m_HealthObs2{ std::make_shared<dae::HealthObserver>(glm::vec2(475, 80), 3) };
+		std::shared_ptr<dae::ScoreObserver> m_ScoreObs2{ std::make_shared<dae::ScoreObserver>(glm::vec2(475, 60), 0) };
 
 		std::vector<std::shared_ptr<dae::GameObject>> m_Enemies{};
 		void CreateEnemies();
@@ -73,7 +80,6 @@ namespace dae
 		std::vector<Observer*> m_pObservers;
 		void Notify(Observer::Event event);
 
-		std::shared_ptr<dae::HealthObserver> m_HealthObs{ std::make_shared<dae::HealthObserver>(glm::vec2(475, 40), 3) };
 	};
 
 }

@@ -91,6 +91,7 @@ namespace dae
                                     case 6:
                                         tile.tileType = TileType::PATH;
                                         tile.isSpawnPointEnemy = true;
+                                        break;
 
                                     case 7:
                                         tile.tileType = TileType::PATH;

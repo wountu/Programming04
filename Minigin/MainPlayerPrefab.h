@@ -41,10 +41,6 @@ public:
 		auto score = m_PlayerGO->AddComponent<dae::ScoreComponent>();
 		score->Initialize(m_PlayerGO);
 
-		//Observers
-		auto scoreObserver = new dae::ScoreObserver(glm::vec2(475, 20), 0);
-		score->AddObserver(scoreObserver);
-
 		return m_PlayerGO;
 	}
 

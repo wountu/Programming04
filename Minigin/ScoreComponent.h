@@ -10,7 +10,7 @@ namespace dae
 	{
 	public:
 		ScoreComponent() = default;
-		virtual ~ScoreComponent();
+		virtual ~ScoreComponent() = default;
 		ScoreComponent(const ScoreComponent& other) = delete;
 		ScoreComponent& operator=(const ScoreComponent& other) = delete;
 		ScoreComponent(ScoreComponent&& other) = delete;
