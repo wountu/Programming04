@@ -207,7 +207,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" /R/Y</Comm
     <ClCompile Include="..\Minigin\ScoreObserver.cpp" />
     <ClCompile Include="..\Minigin\TeleporterComponent.cpp" />
     <ClCompile Include="..\Minigin\VisionComponent.cpp" />
-    <ClCompile Include="Tron.cpp" />
+    <ClCompile Include="Pacman.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Minigin\AIComonent.h" />
