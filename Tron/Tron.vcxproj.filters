@@ -200,5 +200,8 @@
     <ClInclude Include="..\Minigin\VisionComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="..\Minigin\GhostPlayerPrefab.h">
+      <Filter>Prefabs</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

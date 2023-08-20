@@ -222,6 +222,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" /R/Y</Comm
     <ClInclude Include="..\Minigin\DotsPrefab.h" />
     <ClInclude Include="..\Minigin\fpsCounter.h" />
     <ClInclude Include="..\Minigin\Gamemode.h" />
+    <ClInclude Include="..\Minigin\GhostPlayerPrefab.h" />
     <ClInclude Include="..\Minigin\GhostsPrefab.h" />
     <ClInclude Include="..\Minigin\HealthComponent.h" />
     <ClInclude Include="..\Minigin\HealthObserver.h" />

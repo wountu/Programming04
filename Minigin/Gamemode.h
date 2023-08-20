@@ -70,6 +70,12 @@ namespace dae
 		std::shared_ptr<dae::HealthObserver> m_HealthObs2{ std::make_shared<dae::HealthObserver>(glm::vec2(475, 80), 3) };
 		std::shared_ptr<dae::ScoreObserver> m_ScoreObs2{ std::make_shared<dae::ScoreObserver>(glm::vec2(475, 60), 0) };
 
+		void CreateGhostPlayer();
+		std::shared_ptr<dae::GameObject> m_Ghost{ nullptr };
+		std::shared_ptr<dae::HealthObserver> m_HealthObsGhost{ std::make_shared<dae::HealthObserver>(glm::vec2(475, 80), 3) };
+		std::shared_ptr<dae::ScoreObserver> m_ScoreObsGhost{ std::make_shared<dae::ScoreObserver>(glm::vec2(475, 60), 0) };
+
+
 		std::vector<std::shared_ptr<dae::GameObject>> m_Enemies{};
 		void CreateEnemies();
 

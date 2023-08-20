@@ -55,6 +55,8 @@ namespace dae
 		
 		CollisionBoxComponent* m_Collision{ nullptr };
 		HealthComponent* m_Health{ nullptr };
+
+		dae::Tag m_PlayersTag{};
 	};
 }
 

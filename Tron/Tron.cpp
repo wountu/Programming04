@@ -65,6 +65,7 @@ void load()
 	//Sound
 	dae::ServiceLocator::RegisterSoundSystem(std::make_unique<dae::SoundEffectSystem>());
 
+
 	//Main Menu
 	static const auto mainMenu = sceneManager.CreateScene("Main menu");
 
@@ -94,6 +95,7 @@ void load()
 	dae::LevelLoader::GetInstance().LoadLevel("Level/level01.txt", gameMode, "Level01");
 	dae::LevelLoader::GetInstance().LoadLevel("Level/level02.txt", gameMode, "Level02");
 	dae::LevelLoader::GetInstance().LoadLevel("Level/level03.txt", gameMode, "Level03");
+
 
 	//Level02
 	//

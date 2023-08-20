@@ -1,11 +1,15 @@
 #include "HealthComponent.h"
 #include "GameObject.h"
 #include "Gamemode.h"
+#include "ServiceLocator.h"
 
 void dae::HealthComponent::Initialize(int health, std::shared_ptr<GameObject> parent)
 {
 	m_Health = health;
 	m_Parent = parent.get();
+
+	m_SoundId = 1;
+	ServiceLocator::GetSoundSystem().LoadSound(m_SoundId, "pacman_death.wav");
 }
 
 void dae::HealthComponent::Update()
@@ -46,6 +50,8 @@ int dae::HealthComponent::GetHealth() const
 void dae::HealthComponent::LoseHealth()
 {
 	--m_Health;
+
+	ServiceLocator::GetSoundSystem().Play(m_SoundId, 50);
 
 	if (m_Health < 0)
 	{

@@ -1,6 +1,7 @@
 #pragma once
 #include "BaseComponent.h"
 #include "Observer.h"
+#include "SoundEffectSystem.h"
 
 #include <glm/vec2.hpp>
 #include <vector>
@@ -35,6 +36,8 @@ namespace dae
 		std::vector<Observer*> m_pObservers;
 
 		glm::vec2 m_RespawnPos;
+
+		sound_id m_SoundId{};
   	};
 }
 

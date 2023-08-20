@@ -7,7 +7,9 @@
 #include "GameObject.h"
 #include "MainPlayerPrefab.h"
 #include "GhostsPrefab.h"
-
+#include "GhostPlayerPrefab.h"
+#include "ServiceLocator.h"
+#include "SoundEffectSystem.h"
 
 void dae::Gamemode::HandleEvent(GameObject* parent, Event event)
 {
@@ -111,6 +113,9 @@ void dae::Gamemode::StartGame()
 
 		LoadPLayersAndEnemies(SceneManager::GetInstance().GetActiveScene()->GetLevelName());
 
+		auto& soundSystem = dae::ServiceLocator::GetSoundSystem();
+		soundSystem.LoadSound(dae::sound_id{ 0 }, "pacman_beginning.wav");
+		soundSystem.Play(0, 50);
 	}
 	
 }
@@ -256,6 +261,26 @@ void dae::Gamemode::LoadPLayersAndEnemies(std::string levelName)
 		}
 	}
 
+	if (m_GameMode == dae::Menu::VERSUS)
+	{
+		if (m_Ghost == nullptr)
+		{
+			CreateGhostPlayer();
+			AddObserver(m_Ghost->GetComponent<PlayerComponent>().get());
+		}
+
+		scene->Add(m_Ghost);
+		m_Ghost->GetComponent<CollisionBoxComponent>()->SetActive(true);
+
+		for (const auto& tile : grid[levelName])
+		{
+			if (tile.isSpawnPointEnemy)
+			{
+				m_Ghost->GetComponent<dae::TransformComponent>()->ChangeLocalPosition(tile.LeftTop);
+			}
+		}
+	}
+
 	//Enemies
 	if (m_Enemies.empty())
 	{
@@ -314,6 +339,18 @@ void dae::Gamemode::CreatePlayer2()
 	unsigned int idx = dae::InputManager::GetInstance().AddController();
 	pacmanPrefab->SetMovementButtons(ControllerXbox::ControllerInputs::DPAD_LEFT, ControllerXbox::ControllerInputs::DPAD_RIGHT, ControllerXbox::ControllerInputs::DPAD_UP, ControllerXbox::ControllerInputs::DPAD_DOWN, idx);
 
+}
+
+void dae::Gamemode::CreateGhostPlayer()
+{
+	auto ghostPlayer = std::make_unique<GhostPlayerPrefab>();
+	ghostPlayer->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("ghost3.png"));
+	m_Ghost = ghostPlayer->Create(glm::vec2(0, 0));
+
+	m_Ghost->GetComponent<dae::HealthComponent>()->AddObserver(this);
+
+	unsigned int idx = dae::InputManager::GetInstance().AddController();
+	ghostPlayer->SetMovementKeys(ControllerXbox::ControllerInputs::DPAD_LEFT, ControllerXbox::ControllerInputs::DPAD_RIGHT, ControllerXbox::ControllerInputs::DPAD_UP, ControllerXbox::ControllerInputs::DPAD_DOWN, idx);
 }
 
 void dae::Gamemode::CreateEnemies()

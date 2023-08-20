@@ -26,6 +26,8 @@ void dae::PlayerComponent::Initialize(std::shared_ptr<GameObject> parent, const 
 
 	m_Collision = parent->GetComponent<dae::CollisionBoxComponent>().get();
 	m_Health = parent->GetComponent<dae::HealthComponent>().get();
+	
+	m_PlayersTag = parent->GetTag();
 }
 
 void dae::PlayerComponent::Render() const
@@ -49,10 +51,22 @@ void dae::PlayerComponent::Update()
 	}
 
 	auto overlap = m_Collision->GetOverlappingGameObject();
-	if (overlap && overlap->GetTag() == dae::Enemy)
+
+	if (m_PlayersTag == dae::Player1)
 	{
-		std::cout << "Enemyoverlapped\n";
-		m_Health->LoseHealth();
+		if (overlap && overlap->GetTag() == dae::Enemy)
+		{
+			std::cout << "Enemyoverlapped\n";
+			m_Health->LoseHealth();
+		}
+	}
+
+	if (m_PlayersTag == dae::Enemy)
+	{
+		if (overlap && overlap->GetTag() == dae::Player1)
+		{
+			overlap->GetComponent<dae::HealthComponent>()->LoseHealth();
+		}
 	}
 }
 
