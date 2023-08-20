@@ -11,7 +11,6 @@
 #include "HealthObserver.h"
 #include "ScoreObserver.h"
 #include "Texture2D.h"
-#include "BulletManager.h"
 #include "InputManager.h"
 #include "fpsCounter.h"
 #include "AIComonent.h"

@@ -187,7 +187,6 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" /R/Y</Comm
   <ItemGroup>
     <ClCompile Include="..\Minigin\AIComonent.cpp" />
     <ClCompile Include="..\Minigin\BulletComponent.cpp" />
-    <ClCompile Include="..\Minigin\BulletManager.cpp" />
     <ClCompile Include="..\Minigin\Chase.cpp" />
     <ClCompile Include="..\Minigin\CollectableComponent.cpp" />
     <ClCompile Include="..\Minigin\CollectablesObserver.cpp" />
@@ -205,16 +204,13 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" /R/Y</Comm
     <ClCompile Include="..\Minigin\RotateComponent.cpp" />
     <ClCompile Include="..\Minigin\ScoreComponent.cpp" />
     <ClCompile Include="..\Minigin\ScoreObserver.cpp" />
-    <ClCompile Include="..\Minigin\Shoot.cpp" />
     <ClCompile Include="..\Minigin\TeleporterComponent.cpp" />
-    <ClCompile Include="..\Minigin\Turn.cpp" />
     <ClCompile Include="..\Minigin\VisionComponent.cpp" />
     <ClCompile Include="Tron.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Minigin\AIComonent.h" />
     <ClInclude Include="..\Minigin\BulletComponent.h" />
-    <ClInclude Include="..\Minigin\BulletManager.h" />
     <ClInclude Include="..\Minigin\Chase.h" />
     <ClInclude Include="..\Minigin\CollectableComponent.h" />
     <ClInclude Include="..\Minigin\CollectablesObserver.h" />
@@ -237,10 +233,8 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" /R/Y</Comm
     <ClInclude Include="..\Minigin\RotateComponent.h" />
     <ClInclude Include="..\Minigin\ScoreComponent.h" />
     <ClInclude Include="..\Minigin\ScoreObserver.h" />
-    <ClInclude Include="..\Minigin\Shoot.h" />
     <ClInclude Include="..\Minigin\TeleporterComponent.h" />
     <ClInclude Include="..\Minigin\TeleporterPrefab.h" />
-    <ClInclude Include="..\Minigin\Turn.h" />
     <ClInclude Include="..\Minigin\VisionComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

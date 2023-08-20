@@ -4,7 +4,6 @@
 #include "Observer.h"
 #include "HealthComponent.h"
 #include "ScoreComponent.h"
-#include "BulletManager.h"
 #include "Gamemode.h"
 #include "MainmenuComponent.h"
 
@@ -39,25 +38,6 @@ namespace dae
 	void Score::Execute()
 	{
 		m_Parent->GetComponent<ScoreComponent>()->AddScore(100);
-	}
-
-	Shoot::Shoot(GameObject* parent)
-	{
-		m_Parent = parent;
-	}
-
-	void Shoot::Execute()
-	{
-		m_Parent->GetComponent<BulletManager>()->SpawnBullet(m_Direction);
-
-		float angle = static_cast<float>(atan2(m_Direction.y, m_Direction.x));
-		angle = glm::degrees(angle);
-
-		m_Parent->GetComponent<TransformComponent>()->ChangeAngle(angle);
-	}
-	void Shoot::SetDirection(glm::vec2 dir)
-	{
-		m_Direction = dir;
 	}
 
 	NextGamemode::NextGamemode(GameObject* parent)

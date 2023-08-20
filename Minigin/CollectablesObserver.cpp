@@ -46,8 +46,6 @@ void dae::CollectablesObserver::RemoveObserver(std::shared_ptr<dae::Observer> ob
 
 void dae::CollectablesObserver::Notify(Observer::Event event)
 {
-	std::cout << "No collectables left\n";
-
 	for (const auto& observer : m_Observers)
 		observer->HandleEvent(nullptr, event);
 }

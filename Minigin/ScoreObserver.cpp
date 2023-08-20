@@ -40,7 +40,6 @@ void dae::ScoreObserver::HandleEvent(GameObject* actor, Event event)
 			m_Score = score;
 			m_ScoreDisplay = std::string{ "Score: " + std::to_string(score) };
 			m_Text->SetText(m_ScoreDisplay);
-			std::cout << "Gained score\n";
 		}
 		break;
 	}

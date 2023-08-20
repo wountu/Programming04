@@ -5,6 +5,8 @@
 #include "SceneManager.h"
 #include "Scene.h"
 
+#include <glm/glm.hpp>
+
 
 dae::PlayerComponent::~PlayerComponent()
 {
@@ -56,7 +58,6 @@ void dae::PlayerComponent::Update()
 	{
 		if (overlap && overlap->GetTag() == dae::Enemy)
 		{
-			std::cout << "Enemyoverlapped\n";
 			m_Health->LoseHealth();
 		}
 	}

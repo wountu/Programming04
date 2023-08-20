@@ -1,6 +1,7 @@
 #include <iostream>
 #include "TransformComponent.h"
 #include "GameObject.h"
+#include <glm/glm.hpp>
 
 namespace dae
 {

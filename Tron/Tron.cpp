@@ -27,7 +27,6 @@
 #include "HealthComponent.h"
 #include "ScoreComponent.h"
 #include "BulletComponent.h"
-#include "BulletManager.h"
 #include "SoundEffectSystem.h"
 #include "ServiceLocator.h"
 #include "CollisionBoxComponent.h"

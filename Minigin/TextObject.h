@@ -4,9 +4,10 @@
 #include <SDL_ttf.h>
 
 #include "GameObject.h"
-#include "Transform.h"
 #include "BaseComponent.h"
 #include "TransformComponent.h"
+
+#include <glm/glm.hpp>
 
 
 namespace dae

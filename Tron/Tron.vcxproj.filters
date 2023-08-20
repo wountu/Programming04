@@ -25,9 +25,6 @@
     <Filter Include="Scenes">
       <UniqueIdentifier>{3698fc84-cb98-4d13-aeaf-c1de0c6d1362}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Managers">
-      <UniqueIdentifier>{cb5cadc8-b115-4504-8058-8daf21653b6c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="FSM">
       <UniqueIdentifier>{c6dda694-2a42-4353-8b87-20b54ebcf64f}</UniqueIdentifier>
     </Filter>
@@ -63,9 +60,6 @@
     <ClCompile Include="..\Minigin\ScoreObserver.cpp">
       <Filter>Observers</Filter>
     </ClCompile>
-    <ClCompile Include="..\Minigin\BulletManager.cpp">
-      <Filter>Managers</Filter>
-    </ClCompile>
     <ClCompile Include="..\Minigin\AIComonent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
@@ -76,12 +70,6 @@
       <Filter>FSM</Filter>
     </ClCompile>
     <ClCompile Include="..\Minigin\Move.cpp">
-      <Filter>FSM</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Minigin\Shoot.cpp">
-      <Filter>FSM</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Minigin\Turn.cpp">
       <Filter>FSM</Filter>
     </ClCompile>
     <ClCompile Include="..\Minigin\PlayerComponent.cpp">
@@ -140,9 +128,6 @@
     <ClInclude Include="..\Minigin\LoadScenes.h">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="..\Minigin\BulletManager.h">
-      <Filter>Managers</Filter>
-    </ClInclude>
     <ClInclude Include="..\Minigin\AIComonent.h">
       <Filter>Components</Filter>
     </ClInclude>
@@ -153,12 +138,6 @@
       <Filter>FSM</Filter>
     </ClInclude>
     <ClInclude Include="..\Minigin\Move.h">
-      <Filter>FSM</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Minigin\Shoot.h">
-      <Filter>FSM</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Minigin\Turn.h">
       <Filter>FSM</Filter>
     </ClInclude>
     <ClInclude Include="..\Minigin\MainPlayerPrefab.h">

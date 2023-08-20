@@ -6,7 +6,6 @@
 #include <glm/vec2.hpp>
 
 #include "TransformComponent.h"
-#include "Transform.h"
 #include "BaseComponent.h"
 #include "Observer.h"
 

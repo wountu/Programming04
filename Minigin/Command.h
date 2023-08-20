@@ -34,19 +34,6 @@ namespace dae
 		GameObject* m_Parent{ nullptr };
 	};
 
-	class Shoot final : public Command
-	{
-	public:
-		Shoot(GameObject* parent);
-		virtual ~Shoot() = default;
-
-		void Execute() override;
-		void SetDirection(glm::vec2 dir);
-	private:
-		GameObject* m_Parent{ nullptr };
-		glm::vec2 m_Direction{};
-	};
-
 	class Damage final : public Command
 	{
 	public:

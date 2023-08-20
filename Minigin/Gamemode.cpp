@@ -141,6 +141,12 @@ void dae::Gamemode::ResetLevel()
 {
 	auto scene = SceneManager::GetInstance().GetActiveScene();
 	scene->Remove(m_Player);
+
+	if (m_Player2)
+		scene->Remove(m_Player2);
+
+	if (m_Ghost)
+		scene->Remove(m_Ghost);
 	
 	for (auto& enemy : m_Enemies)
 	{
@@ -287,7 +293,7 @@ void dae::Gamemode::LoadPLayersAndEnemies(std::string levelName)
 		CreateEnemies();
 	}
 
- 	for (int idx{}; idx < m_Enemies.size(); ++idx)
+ 	for (size_t idx{}; idx < m_Enemies.size(); ++idx)
 	{
 		int nmbrOfSpawns{};
 		scene->Add(m_Enemies[idx]);
@@ -297,7 +303,7 @@ void dae::Gamemode::LoadPLayersAndEnemies(std::string levelName)
 			if (tile.isSpawnPointEnemy)
 			{
 				++nmbrOfSpawns;
-				if(nmbrOfSpawns-1 == idx)
+				if(nmbrOfSpawns-1 == static_cast<int>(idx))
 				{
 					m_Enemies[idx]->GetComponent<dae::TransformComponent>()->ChangeLocalPosition(tile.LeftTop);
 					break;
@@ -382,6 +388,8 @@ void dae::Gamemode::CreateEnemies()
 	ghostPrefab->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("ghost2.png"));
 	m_Enemies.push_back(ghostPrefab->Create(glm::vec2()));
 
+	if (m_GameMode == dae::Menu::VERSUS)
+		return;
 	ghostPrefab->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("ghost3.png"));
 	m_Enemies.push_back(ghostPrefab->Create(glm::vec2()));
 }

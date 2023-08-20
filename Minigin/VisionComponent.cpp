@@ -4,7 +4,7 @@
 #include "Renderer.h"
 #include "RenderComponent.h"
 
-
+#include <glm/glm.hpp>
 #include <SDL.h>
 
 namespace dae

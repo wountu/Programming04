@@ -9,7 +9,6 @@ void dae::Chase::Initialize(AIComponent* ai)
 
 void dae::Chase::OnEnter()
 {
-    std::cout << "Chase\n";
 }
 
 dae::State* dae::Chase::Update()

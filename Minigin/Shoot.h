@@ -1,7 +1,6 @@
 #pragma once
 #include "State.h"
 #include "AIComonent.h"
-#include "BulletManager.h"
 
 #include <glm/vec2.hpp>
 #include <memory>

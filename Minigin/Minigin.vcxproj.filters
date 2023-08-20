@@ -20,9 +20,6 @@
     <Filter Include="Framework\Audio">
       <UniqueIdentifier>{d4f34889-a752-4a5a-8ed5-110624f3c9e1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Framework\Level">
-      <UniqueIdentifier>{05f4236e-1d28-4c8e-b0f9-c0d4c86e7714}</UniqueIdentifier>
-    </Filter>
     <Filter Include="FSM">
       <UniqueIdentifier>{bd63438f-c25d-47a1-ad72-c3a01f3c0cdc}</UniqueIdentifier>
     </Filter>
@@ -52,9 +49,6 @@
       <Filter>Framework\Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Texture2D.h">
-      <Filter>Framework\Engine\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Transform.h">
       <Filter>Framework\Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
@@ -126,9 +120,6 @@
       <Filter>Framework\Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Texture2D.cpp">
-      <Filter>Framework\Engine\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Transform.cpp">
       <Filter>Framework\Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">

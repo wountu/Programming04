@@ -27,7 +27,7 @@ void dae::CollectableComponent::Update()
 		if (overlap != nullptr)
 		{
 			auto player = overlap->GetComponent<PlayerComponent>();
-			if(player != nullptr)
+			if(player != nullptr && overlap->GetTag() != dae::Enemy)
 			{
 				PickUp(overlap);
 			}

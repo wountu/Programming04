@@ -10,6 +10,8 @@
 #include "RenderComponent.h"
 #include "Chase.h"
 
+#include <glm/glm.hpp>
+
 namespace dae
 {
 
@@ -102,8 +104,8 @@ namespace dae
 
 	bool Move::CanGoRight(int idx)
 	{
-		int rightIdx{ (idx + 1) };
-		if (rightIdx % m_GridHeight <= m_GridWidth && idx + 1 > 0 && m_LastTileIdx != rightIdx && rightIdx < m_Grid.size())
+		size_t rightIdx{ static_cast<size_t>(idx + 1) };
+		if (static_cast<int>(rightIdx) % m_GridHeight <= m_GridWidth && idx + 1 > 0 && m_LastTileIdx != static_cast<int>(rightIdx) && rightIdx < m_Grid.size())
 		{
 			if (m_Grid[rightIdx].walkable)
 				return true;
@@ -127,8 +129,8 @@ namespace dae
 
 	bool Move::CanGoDown(int idx)
 	{
-		int downIdx{ idx + m_GridWidth };
-		if (downIdx <= m_GridWidth * m_GridHeight && idx + m_GridWidth > 0 && m_LastTileIdx != downIdx && downIdx < m_Grid.size())
+		size_t downIdx{ static_cast<size_t>(idx + m_GridWidth) };
+		if (static_cast<int>(downIdx) <= m_GridWidth * m_GridHeight && idx + m_GridWidth > 0 && m_LastTileIdx != static_cast<int>(downIdx) && downIdx < m_Grid.size())
 		{
 			if (m_Grid[downIdx].walkable)
 				return true;
@@ -226,7 +228,6 @@ namespace dae
 
 		if (dist < turnRadius)
 		{
-			std::cout << "Turn\n";
 			return true;
 		}
 
