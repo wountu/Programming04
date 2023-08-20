@@ -80,7 +80,8 @@ void Scene::Update()
 	//Update
 	for(auto& object : m_objects)
 	{
-		object->Update();
+		if(object)
+			object->Update();
 	}
 
 	//Remove objects from container

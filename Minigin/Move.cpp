@@ -105,7 +105,7 @@ namespace dae
 	bool Move::CanGoRight(int idx)
 	{
 		int rightIdx{ (idx + 1) };
-		if (rightIdx % m_GridHeight <= m_GridWidth && idx + 1 > 0 && m_LastTileIdx != rightIdx)
+		if (rightIdx % m_GridHeight <= m_GridWidth && idx + 1 > 0 && m_LastTileIdx != rightIdx && rightIdx < m_Grid.size())
 		{
 			if (m_Grid[rightIdx].walkable)
 				return true;
@@ -130,7 +130,7 @@ namespace dae
 	bool Move::CanGoDown(int idx)
 	{
 		int downIdx{ idx + m_GridWidth };
-		if (downIdx <= m_GridWidth * m_GridHeight && idx + m_GridWidth > 0 && m_LastTileIdx != downIdx)
+		if (downIdx <= m_GridWidth * m_GridHeight && idx + m_GridWidth > 0 && m_LastTileIdx != downIdx && downIdx < m_Grid.size())
 		{
 			if (m_Grid[downIdx].walkable)
 				return true;

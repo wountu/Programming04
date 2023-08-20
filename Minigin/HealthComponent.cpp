@@ -57,9 +57,6 @@ void dae::HealthComponent::LoseHealth()
 	{
 		m_Parent->SetActive(false);
 		Notify(dae::Observer::Health_Died);
-		//if (m_Parent->GetTag() != dae::AI)
-		//	Gamemode::GetInstance().PlayerDied(m_Parent->shared_from_this());
-		//else Gamemode::GetInstance().EnemyDied(m_Parent->shared_from_this());
 	}
 	else 
 	{
