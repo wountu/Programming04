@@ -24,6 +24,7 @@
     <ProjectGuid>{a1dc7b63-2006-4228-807f-7e54b8e7f1c7}</ProjectGuid>
     <RootNamespace>Tron</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Pacman</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
