@@ -2,14 +2,6 @@
 #include "GameObject.h"
 #include "Gamemode.h"
 
-dae::HealthComponent::~HealthComponent()
-{
-	//for (auto& observer : m_pObservers)
-	//	delete observer;
-
-	//m_pObservers.clear();
-}
-
 void dae::HealthComponent::Initialize(int health, std::shared_ptr<GameObject> parent)
 {
 	m_Health = health;

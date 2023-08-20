@@ -40,6 +40,8 @@ namespace dae
 		std::string GetMenuText() const;
 		Menu GetMenu() const;
 
+		unsigned int GetController();
+
 	private:
 		void DisableCommands();
 
@@ -50,6 +52,12 @@ namespace dae
 		NextGamemode* m_NextGameModeCommand{};
 		PreviousGamemode* m_PreviousGameModeCommand{};
 		Start* m_StartGameCommand{};
+
+		NextGamemode* m_NextGameModeCommandXBOX{};
+		PreviousGamemode* m_PreviousGameModeCommandXBOX{};
+		Start* m_StartGameCommandXBOX{};
+
+		unsigned int m_ControllerIdx{};
 	};
 }
 

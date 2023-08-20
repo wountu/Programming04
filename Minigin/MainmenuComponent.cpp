@@ -12,6 +12,11 @@ void dae::MainmenuComponent::Initialize(std::shared_ptr<GameObject> parent, Menu
 	m_NextGameModeCommand = input.AddCommand<dae::NextGamemode>(parent.get(), SDL_SCANCODE_RIGHT, dae::InputManager::KeyPress::SINGLEPRESS);
 	m_PreviousGameModeCommand = input.AddCommand<dae::PreviousGamemode>(parent.get(), SDL_SCANCODE_LEFT, dae::InputManager::KeyPress::SINGLEPRESS);
 	m_StartGameCommand = input.AddCommand <dae::Start>(parent.get(), SDL_SCANCODE_RETURN, dae::InputManager::KeyPress::SINGLEPRESS);
+	
+	m_ControllerIdx = input.AddController();
+	m_NextGameModeCommandXBOX = input.AddCommand<dae::NextGamemode>(m_ControllerIdx, parent.get(), ControllerXbox::ControllerInputs::DPAD_RIGHT, dae::InputManager::KeyPress::SINGLEPRESS);
+	m_PreviousGameModeCommandXBOX = input.AddCommand<dae::PreviousGamemode>(m_ControllerIdx, parent.get(), ControllerXbox::ControllerInputs::DPAD_LEFT, dae::InputManager::KeyPress::SINGLEPRESS);
+	m_StartGameCommandXBOX = input.AddCommand<dae::Start>(m_ControllerIdx, parent.get(), ControllerXbox::ControllerInputs::A, dae::InputManager::KeyPress::SINGLEPRESS);
 }
 
 void dae::MainmenuComponent::Render() const
@@ -32,6 +37,10 @@ void dae::MainmenuComponent::DisableCommands()
 	input.RemoveCommand(m_NextGameModeCommand);
 	input.RemoveCommand(m_PreviousGameModeCommand);
 	input.RemoveCommand(m_StartGameCommand);
+
+	input.RemoveCommand(m_NextGameModeCommandXBOX);
+	input.RemoveCommand(m_PreviousGameModeCommandXBOX);
+	input.RemoveCommand(m_StartGameCommandXBOX);
 }
 
 void dae::MainmenuComponent::GoNext()
@@ -96,5 +105,10 @@ std::string dae::MainmenuComponent::GetMenuText() const
 dae::Menu dae::MainmenuComponent::GetMenu() const
 {
 	return m_CurrentMenu;
+}
+
+unsigned int dae::MainmenuComponent::GetController()
+{
+	return m_ControllerIdx;
 }
 

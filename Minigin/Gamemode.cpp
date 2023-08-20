@@ -16,6 +16,7 @@ void dae::Gamemode::HandleEvent(GameObject* parent, Event event)
 	case dae::Observer::Event::Mainmenu_Picked:
 		m_GameMode = parent->GetComponent<MainmenuComponent>()->GetMenu();
 		SceneManager::GetInstance().RemoveScene(SceneManager::GetInstance().GetActiveScene()->GetLevelName());
+		m_FirstController = parent->GetComponent<MainmenuComponent>()->GetController();
 		StartGame();
 		break;
 	case dae::Observer::Event::Collectables_Pickedup:
@@ -291,8 +292,7 @@ void dae::Gamemode::CreatePlayer()
 
 	//Keybinds
 	pacmanPrefab->SetMovementKeys(SDL_SCANCODE_LEFT, SDL_SCANCODE_RIGHT, SDL_SCANCODE_UP, SDL_SCANCODE_DOWN);
-	unsigned int idx = dae::InputManager::GetInstance().AddController();
-	pacmanPrefab->SetMovementButtons(ControllerXbox::ControllerInputs::DPAD_LEFT, ControllerXbox::ControllerInputs::DPAD_RIGHT, ControllerXbox::ControllerInputs::DPAD_UP, ControllerXbox::ControllerInputs::DPAD_DOWN, idx);
+	pacmanPrefab->SetMovementButtons(ControllerXbox::ControllerInputs::DPAD_LEFT, ControllerXbox::ControllerInputs::DPAD_RIGHT, ControllerXbox::ControllerInputs::DPAD_UP, ControllerXbox::ControllerInputs::DPAD_DOWN, m_FirstController);
 
 }
 

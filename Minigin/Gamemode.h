@@ -80,6 +80,8 @@ namespace dae
 		std::vector<Observer*> m_pObservers;
 		void Notify(Observer::Event event);
 
+		unsigned int m_FirstController{};
+
 	};
 
 }
