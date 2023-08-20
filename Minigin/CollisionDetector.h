@@ -26,7 +26,7 @@ namespace dae
 		std::vector<CollisionBoxComponent*> BoxesCollidingWithRay(glm::vec2 startRay, glm::vec2 endRay, glm::vec2 dir);
 
 	private:
-		std::vector<CollisionBoxComponent*> m_pTankCollisions;
+		std::vector<CollisionBoxComponent*> m_pPlayerCollisions;
 		std::vector<CollisionBoxComponent*> m_pWallBoxes;
 	};
 }

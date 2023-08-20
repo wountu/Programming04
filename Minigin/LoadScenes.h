@@ -2,7 +2,7 @@
 #include "Gamemode.h"
 #include "ResourceManager.h"
 #include "SceneManager.h"
-#include "LevelGenerator.h"
+#include "GridGenerator.h"
 #include "RenderComponent.h"
 #include "Scene.h"
 #include "Command.h"
@@ -17,7 +17,6 @@
 #include "AIComonent.h"
 #include "VisionComponent.h"
 #include "Singleton.h"
-#include "LevelGenerator.h"
 #include "SceneManager.h"
 #include "Gamemode.h"
 #include "Scene.h"
@@ -69,7 +68,7 @@ namespace dae
 					scene->Add(dotPrefab->Create(tile.LeftTop));
 				}
 
-				if (tile.hasBigDot)
+				else if (tile.hasBigDot)
 				{
 					auto dotPrefab = std::make_unique<DotsPrefab>();
 					dotPrefab->SetTexture(resourceMan.LoadTexture("boost.png"));
@@ -78,7 +77,7 @@ namespace dae
 					scene->Add(dotPrefab->Create(tile.LeftTop));
 				}
 
-				if (tile.isTeleporter)
+				else if (tile.isTeleporter)
 				{
 					auto teleportPrefab = std::make_unique<TeleporterPrefab>();
 					auto teleport = teleportPrefab->Create(tile.LeftTop);

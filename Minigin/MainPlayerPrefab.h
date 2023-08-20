@@ -8,8 +8,9 @@
 #include "PlayerComponent.h"
 #include "Command.h"
 #include "InputManager.h"
-#include "LevelGenerator.h"
+#include "GridGenerator.h"
 #include "ScoreObserver.h"
+#include "HealthObserver.h"
 
 class MainPlayerPrefab final : public BasePrefab
 {
@@ -27,15 +28,22 @@ public:
 		auto render = m_PlayerGO->AddComponent<dae::RenderComponent>();
 		render->Initialize(m_Texture, m_PlayerGO);
 
+		auto collision = m_PlayerGO->AddComponent<dae::CollisionBoxComponent>();
+		collision->Initialize(m_PlayerGO, dae::CollisionBox::CollisionBox(pos, static_cast<float>(m_Texture->GetSize().x), static_cast<float>(m_Texture->GetSize().y)), 2);
+		collision->SetActive(true);
+
+		auto health = m_PlayerGO->AddComponent<dae::HealthComponent>();
+		health->Initialize(m_Lives, m_PlayerGO);
+
 		auto pacmanComp = m_PlayerGO->AddComponent<dae::PlayerComponent>();
 		pacmanComp->Initialize(m_PlayerGO, 50.f);
 
-		auto collision = m_PlayerGO->AddComponent<dae::CollisionBoxComponent>();
- 		collision->Initialize(m_PlayerGO, dae::CollisionBox::CollisionBox(pos, static_cast<float>(m_Texture->GetSize().x), static_cast<float>(m_Texture->GetSize().y)), 0);
-		collision->SetActive(true);
-
 		auto score = m_PlayerGO->AddComponent<dae::ScoreComponent>();
 		score->Initialize(m_PlayerGO);
+
+		//Observers
+		auto scoreObserver = new dae::ScoreObserver(glm::vec2(475, 20), 0);
+		score->AddObserver(scoreObserver);
 
 		return m_PlayerGO;
 	}
@@ -84,7 +92,13 @@ public:
 		command->SetDir(glm::vec2(0, 1));
 	}
 
+	void SetLives(int lives)
+	{
+		m_Lives = lives;
+	}
 private:
 	std::shared_ptr<dae::Texture2D> m_Texture{};
 	std::shared_ptr<dae::GameObject> m_PlayerGO{};
+
+	int m_Lives{ 3 };
 };

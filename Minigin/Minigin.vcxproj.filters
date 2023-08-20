@@ -11,17 +11,6 @@
     <Filter Include="Framework\Components">
       <UniqueIdentifier>{b7d7b82d-36f1-402b-9eef-4d3413697711}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Framework\Engine">
-      <UniqueIdentifier>{e6f52837-6c20-4d9b-95ae-f88cd214f0e9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Engine\Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Framework\Engine\Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Framework\Input">
       <UniqueIdentifier>{8cbcfa6d-c7e2-4ff5-8e68-79ddf0fcb4c2}</UniqueIdentifier>
     </Filter>
@@ -34,14 +23,22 @@
     <Filter Include="Framework\Level">
       <UniqueIdentifier>{05f4236e-1d28-4c8e-b0f9-c0d4c86e7714}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Framework\Components\AI">
-      <UniqueIdentifier>{c01776a1-3497-43a7-9a1f-6264b270b320}</UniqueIdentifier>
-    </Filter>
     <Filter Include="FSM">
       <UniqueIdentifier>{bd63438f-c25d-47a1-ad72-c3a01f3c0cdc}</UniqueIdentifier>
     </Filter>
     <Filter Include="Framework\Prefab">
       <UniqueIdentifier>{34c4cd05-faa5-40ac-b1dc-179fae15f355}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Engine">
+      <UniqueIdentifier>{e6f52837-6c20-4d9b-95ae-f88cd214f0e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Engine\Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Framework\Engine\Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -101,9 +98,6 @@
     </ClInclude>
     <ClInclude Include="CollisionDetector.h">
       <Filter>Framework\Engine\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="VisionComponent.h">
-      <Filter>Framework\Components\AI</Filter>
     </ClInclude>
     <ClInclude Include="State.h">
       <Filter>FSM</Filter>
@@ -175,9 +169,6 @@
     </ClCompile>
     <ClCompile Include="CollisionDetector.cpp">
       <Filter>Framework\Engine\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="VisionComponent.cpp">
-      <Filter>Framework\Components\AI</Filter>
     </ClCompile>
     <ClCompile Include="CollisionBoxComponent.cpp">
       <Filter>Framework\Components</Filter>

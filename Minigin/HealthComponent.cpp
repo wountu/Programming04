@@ -4,17 +4,16 @@
 
 dae::HealthComponent::~HealthComponent()
 {
-	for (auto& observer : m_pObservers)
-		delete observer;
+	//for (auto& observer : m_pObservers)
+	//	delete observer;
 
-	m_pObservers.clear();
+	//m_pObservers.clear();
 }
 
-void dae::HealthComponent::Initialize(int health, glm::vec2 respawnPos, std::shared_ptr<GameObject> parent)
+void dae::HealthComponent::Initialize(int health, std::shared_ptr<GameObject> parent)
 {
 	m_Health = health;
 	m_Parent = parent.get();
-	m_RespawnPos = respawnPos;
 }
 
 void dae::HealthComponent::Update()
@@ -34,9 +33,9 @@ void dae::HealthComponent::AddObserver(Observer* observer)
 	m_pObservers.emplace_back(observer);
 }
 
-void dae::HealthComponent::RemoveObserver(std::unique_ptr<Observer> observer)
+void dae::HealthComponent::RemoveObserver(Observer* observer)
 {
-	m_pObservers.erase(std::remove(m_pObservers.begin(), m_pObservers.end(), observer.get()), m_pObservers.end());
+	m_pObservers.erase(std::remove(m_pObservers.begin(), m_pObservers.end(), observer), m_pObservers.end());
 }
 
 void dae::HealthComponent::Notify(Observer::Event event)
@@ -66,7 +65,6 @@ void dae::HealthComponent::LoseHealth()
 	else 
 	{
 		Notify(dae::Observer::Health_Lost);
-		m_Parent->GetComponent<TransformComponent>()->ChangeLocalPosition(m_RespawnPos);
 	}
 	 
 

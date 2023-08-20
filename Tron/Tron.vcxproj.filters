@@ -69,7 +69,7 @@
     <ClCompile Include="..\Minigin\AIComonent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="..\Minigin\LevelGenerator.cpp">
+    <ClCompile Include="..\Minigin\GridGenerator.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\Minigin\Idle.cpp">
@@ -103,6 +103,12 @@
       <Filter>Observers</Filter>
     </ClCompile>
     <ClCompile Include="..\Minigin\TeleporterComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Minigin\Chase.cpp">
+      <Filter>FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Minigin\VisionComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>
@@ -140,7 +146,7 @@
     <ClInclude Include="..\Minigin\AIComonent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\Minigin\LevelGenerator.h">
+    <ClInclude Include="..\Minigin\GridGenerator.h">
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="..\Minigin\Idle.h">
@@ -186,6 +192,12 @@
       <Filter>Prefabs</Filter>
     </ClInclude>
     <ClInclude Include="..\Minigin\TeleporterComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Minigin\Chase.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Minigin\VisionComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>

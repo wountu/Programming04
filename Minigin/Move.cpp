@@ -8,6 +8,7 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include "RenderComponent.h"
+#include "Chase.h"
 
 namespace dae
 {
@@ -21,6 +22,7 @@ namespace dae
 		m_GridWidth = GridGenerator::GetInstance().GetGridWidth();
 		m_GridHeight = GridGenerator::GetInstance().GetGridHeight();
 
+		m_Vision = m_AI->GetVision();
 	}
 
 	void Move::OnEnter()
@@ -65,6 +67,20 @@ namespace dae
 				m_LastTiles.pop_front();
 			}
 		}
+
+
+
+		//auto objects = m_Vision->ClosestSeenObjects();
+		//for (const auto& object : objects)
+		//{
+		//	if (object->GetTag() == dae::Player1 || object->GetTag() == dae::Player2)
+		//	{
+		//		std::cout << "Chase\n";
+		//		//auto chase = new Chase{};
+		//		//chase->Initialize(m_AI);
+		//		//return chase;
+		//	}
+		//}
 
 		return nullptr;
 	}

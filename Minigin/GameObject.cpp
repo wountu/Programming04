@@ -116,6 +116,12 @@ bool dae::GameObject::GetActive() const
 
 void dae::GameObject::Destroy()
 {
+	auto coll = GetComponent<CollisionBoxComponent>();
+	if (coll)
+	{
+		coll->SetActive(false);
+	}
+
 	m_destroy = true;
 }
 

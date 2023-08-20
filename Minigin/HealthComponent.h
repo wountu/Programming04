@@ -17,12 +17,12 @@ namespace dae
 		HealthComponent(HealthComponent&& other) = delete;
 		HealthComponent& operator=(HealthComponent&& other) = delete;
 
-		virtual void Initialize(int health, glm::vec2 respawnPos, std::shared_ptr<GameObject> parent);
+		virtual void Initialize(int health, std::shared_ptr<GameObject> parent);
 		virtual void Update() override;
 		virtual void Render() const override;        
 
 		void AddObserver(Observer* observer);
-		void RemoveObserver(std::unique_ptr<Observer> observer);
+		void RemoveObserver(Observer* observer);
 
 		int GetHealth() const;
 		void LoseHealth();

@@ -32,7 +32,7 @@
 #include "ServiceLocator.h"
 #include "CollisionBoxComponent.h"
 #include "AimComponent.h"
-#include "LevelGenerator.h"
+#include "GridGenerator.h"
 #include "HealthObserver.h"
 #include "VisionComponent.h"
 #include "AIComonent.h"

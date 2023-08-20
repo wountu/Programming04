@@ -46,6 +46,7 @@ namespace dae
 		rect.w = static_cast<int>(m_CollisionBox._width);
 		rect.h = static_cast<int>(m_CollisionBox._height);
 
+		SDL_SetRenderDrawColor(Renderer::GetInstance().GetSDLRenderer(), 255, 0, 0, 255);
 		SDL_RenderDrawRect(Renderer::GetInstance().GetSDLRenderer(), &rect);
 	}
 

@@ -1,7 +1,7 @@
 #pragma once
 #include "State.h"
 #include "AIComonent.h"
-#include "LevelGenerator.h"
+#include "GridGenerator.h"
 
 #include <glm/vec2.hpp>
 #include <memory>
@@ -29,7 +29,7 @@ namespace dae
 		virtual void OnExit() override;
 	private:
 		std::shared_ptr<TransformComponent> m_Transform{};
-		std::shared_ptr<VisionComponent> m_Vision{};
+		VisionComponent* m_Vision{};
 		AIComponent* m_AI{};
 
 		glm::vec2 m_Dir{};

@@ -23,6 +23,9 @@ void dae::PlayerComponent::Initialize(std::shared_ptr<GameObject> parent, const 
 
 	m_GridHeight = GridGenerator::GetInstance().GetGridHeight();
 	m_GridWidth = GridGenerator::GetInstance().GetGridWidth();
+
+	m_Collision = parent->GetComponent<dae::CollisionBoxComponent>().get();
+	m_Health = parent->GetComponent<dae::HealthComponent>().get();
 }
 
 void dae::PlayerComponent::Render() const
@@ -43,6 +46,13 @@ void dae::PlayerComponent::Update()
 	{
 		m_Direction.x = 0;
 		m_Direction.y = 0;
+	}
+
+	auto overlap = m_Collision->GetOverlappingGameObject();
+	if (overlap && overlap->GetTag() == dae::Enemy)
+	{
+		std::cout << "Enemyoverlapped\n";
+		m_Health->LoseHealth();
 	}
 }
 

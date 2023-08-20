@@ -3,13 +3,15 @@
 #include "GameObject.h"
 #include "Observer.h"
 #include "MainmenuComponent.h"
+#include "HealthObserver.h"
+
 
 #include <vector>
 #include <memory>
 
 namespace dae
 {
-	class Gamemode final : public Observer
+	class Gamemode final : public Observer, public std::enable_shared_from_this<Gamemode>
 	{
 	public:
 		enum GameModeEnum
@@ -49,6 +51,7 @@ namespace dae
 
 		void StartGame();
 		void GoNextLevel();
+		void ResetLevel();
 
 		void GameDone();
 	private:
@@ -75,6 +78,8 @@ namespace dae
 
 		std::vector<Observer*> m_pObservers;
 		void Notify(Observer::Event event);
+
+		std::shared_ptr<dae::HealthObserver> m_HealthObs{ std::make_shared<dae::HealthObserver>(glm::vec2(475, 40), 3) };
 	};
 
 }

@@ -3,8 +3,10 @@
 
 #include "BaseComponent.h"
 #include "TransformComponent.h"
-#include "LevelGenerator.h"
+#include "GridGenerator.h"
 #include "Observer.h"
+#include "CollisionBoxComponent.h"
+#include "HealthComponent.h"
 
 namespace dae
 {
@@ -50,6 +52,9 @@ namespace dae
 		std::vector<Tile> m_Grid{};
 
 		float m_MovementSpeed{};
+		
+		CollisionBoxComponent* m_Collision{ nullptr };
+		HealthComponent* m_Health{ nullptr };
 	};
 }
 

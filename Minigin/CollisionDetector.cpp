@@ -8,7 +8,7 @@ void dae::CollisionDetector::AddCollisionBox(CollisionBoxComponent* box, Tag tag
 		m_pWallBoxes.emplace_back(box);
 		break;
 	default:
-		m_pTankCollisions.emplace_back(box);
+		m_pPlayerCollisions.emplace_back(box);
 		break;
 	}
 }
@@ -18,7 +18,7 @@ void dae::CollisionDetector::RemoveCollisionBox(CollisionBoxComponent* box)
 	if (box->GetParent()->GetTag() == dae::Static)
 		m_pWallBoxes.erase(std::remove(m_pWallBoxes.begin(), m_pWallBoxes.end(), box), m_pWallBoxes.end());
 
-	else m_pTankCollisions.erase(std::remove(m_pTankCollisions.begin(), m_pTankCollisions.end(), box), m_pTankCollisions.end());
+	else m_pPlayerCollisions.erase(std::remove(m_pPlayerCollisions.begin(), m_pPlayerCollisions.end(), box), m_pPlayerCollisions.end());
 }
 
 std::vector<dae::CollisionBoxComponent*> dae::CollisionDetector::GetCollisionBoxes() const
@@ -48,7 +48,7 @@ dae::CollisionBoxComponent* dae::CollisionDetector::BoxColliding(CollisionBoxCom
 		}
 	}
 
-	for (const auto& boxComp : m_pTankCollisions)
+	for (const auto& boxComp : m_pPlayerCollisions)
 	{
 		if (boxComp == boxToCheck || !boxComp->IsActive())
 			continue;
@@ -111,6 +111,41 @@ std::vector<dae::CollisionBoxComponent*> dae::CollisionDetector::BoxesCollidingW
 		{
 			if (startRay.x > box._leftTop.x && startRay.x < box._leftTop.x + box._width)
 				seenBoxes.push_back(boxComp);
+		}
+	}
+
+	for (const auto& playerColl : m_pPlayerCollisions)
+	{
+		if (!playerColl->IsActive())
+			continue;
+		const auto box = playerColl->GetBox();
+
+		//Left
+		if (dir.x == -1 && endRay.x < box._leftTop.x && startRay.x > box._leftTop.x)
+		{
+			if (startRay.y > box._leftTop.y && startRay.y < box._leftTop.y + box._height)
+				seenBoxes.push_back(playerColl);
+		}
+
+		//Top
+		if (dir.y == -1 && endRay.y < box._leftTop.y && startRay.y > box._leftTop.y)
+		{
+			if (startRay.x > box._leftTop.x && startRay.x < box._leftTop.x + box._width)
+				seenBoxes.push_back(playerColl);
+		}
+
+		//Right
+		if (dir.x == 1 && endRay.x > box._leftTop.x && startRay.x < box._leftTop.x)
+		{
+			if (startRay.y > box._leftTop.y && startRay.y < box._leftTop.y + box._height)
+				seenBoxes.push_back(playerColl);
+		}
+
+		//Bot
+		if (dir.y == 1 && endRay.y > box._leftTop.y && startRay.y < box._leftTop.y)
+		{
+			if (startRay.x > box._leftTop.x && startRay.x < box._leftTop.x + box._width)
+				seenBoxes.push_back(playerColl);
 		}
 	}
 

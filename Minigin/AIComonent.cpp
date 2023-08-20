@@ -16,6 +16,7 @@ dae::AIComponent::~AIComponent()
 void dae::AIComponent::Initialize(std::shared_ptr<GameObject> parent)
 {
 	m_Parent = parent.get();
+	m_Vision = m_Parent->GetComponent<dae::VisionComponent>().get();
 
 	auto idle = new Idle();
 	idle->Initialize(1.f, this);	
@@ -42,4 +43,9 @@ void dae::AIComponent::Render() const
 dae::GameObject* dae::AIComponent::GetParent() const
 {
 	return m_Parent;
+}
+
+dae::VisionComponent* dae::AIComponent::GetVision() const
+{
+	return m_Vision;
 }
